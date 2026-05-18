@@ -1,0 +1,161 @@
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+
+const BLOG_DIR = path.join(process.cwd(), 'content', 'blog');
+
+interface BlogPost {
+  slug: string;
+  title: string;
+  date: string;
+  summary: string;
+}
+
+function getBlogPosts(): BlogPost[] {
+  if (!fs.existsSync(BLOG_DIR)) return [];
+  const files = fs.readdirSync(BLOG_DIR).filter(f => f.endsWith('.md'));
+  files.sort().reverse();
+  return files.map(file => {
+    const raw = fs.readFileSync(path.join(BLOG_DIR, file), 'utf-8');
+    const { data } = matter(raw);
+    return {
+      slug: file.replace('.md', ''),
+      title: data.title || '',
+      date: data.date ? new Date(data.date).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }) : '',
+      summary: data.summary || '',
+    };
+  });
+}
+
+function CaseStudy({ title, subtitle, paragraphs, keyPoint }: {
+  title: string;
+  subtitle: string;
+  paragraphs: string[];
+  keyPoint: string;
+}) {
+  return (
+    <div className="py-16 border-t border-[var(--border-default)] first:border-t-0">
+      <h2 className="text-[1.25rem] font-heading font-semibold text-[var(--text-heading)] mb-1">{title}</h2>
+      <p className="text-sm text-[var(--text-secondary)] mb-6">{subtitle}</p>
+      <div className="space-y-3 text-sm text-[var(--text-body)] leading-relaxed max-w-2xl">
+        {paragraphs.map((p, i) => (
+          <p key={i}>{p}</p>
+        ))}
+      </div>
+      <p className="text-xs text-[var(--color-accent)] mt-4 font-medium">{keyPoint}</p>
+    </div>
+  );
+}
+
+export default function InsightsPage() {
+  const posts = getBlogPosts();
+
+  return (
+    <div className="min-h-screen bg-[var(--color-background)]">
+      <div className="max-w-[1080px] mx-auto">
+        {/* Header */}
+        <section className="py-32 md:py-40">
+          <div className="px-8">
+            <div className="section-label">行业观察</div>
+            <h1 className="text-[2rem] md:text-[2.5rem] font-heading font-bold tracking-tight text-[var(--text-heading)] mb-4">
+              真实一人公司案例拆解
+            </h1>
+            <p className="text-base md:text-lg text-[var(--text-secondary)] max-w-xl">
+              不追热点，不写方法论。每个项目拆到骨头里——怎么想的、怎么做的、哪里对了、哪里错了。
+            </p>
+          </div>
+        </section>
+
+        {/* Case Studies */}
+        <section className="border-t border-[var(--border-default)]">
+          <div className="container-content">
+            {/* Case 1 */}
+            <CaseStudy
+              title="案例一：独立数据分析师"
+              subtitle="从月入三万到一万，再回来。"
+              paragraphs={[
+                '"我想自己干，但我不知道从哪开始。"',
+                '他做了九年数据分析，想独立。我们做了评估，建议暂缓。他说等不了。',
+                '第一个月，靠老客户吃三万。他觉得成了。第三个月，流尽，剩一万。他回头了，这次听了诊断。',
+                '花了三个月搭系统——自动化数据采集、标准化交付模板、客户续费机制。第十一个月，回到三万。这次，三万是他的系统在转。',
+              ]}
+              keyPoint="关键转折：从卖时间到卖系统。"
+            />
+
+            {/* Case 2 */}
+            <CaseStudy
+              title="案例二：内容创作者"
+              subtitle="两万粉丝，月入两千。"
+              paragraphs={[
+                '她有内容能力，有稳定粉丝，但没有收入结构。问题不在内容质量，在变现路径太单一。',
+                '我们用经营审计拆了她的时间账：70% 时间在创作，15% 在运营，10% 在商务，5% 在复盘。收入全部来自单次广告，没有复购，没有订阅，没有产品。',
+                '调整方案用了三个月：每周分流 15% 时间做产品化内容；从广告收入切到 70% 订阅 + 20% 增值 + 10% 广告；自动化工具链覆盖内容分发和客户跟进。',
+                '第四个月，粉丝没涨，收入翻倍。',
+              ]}
+              keyPoint="关键转折：流量不重要，收入结构才重要。"
+            />
+
+            {/* Case 3 */}
+            <CaseStudy
+              title="案例三：电商独立卖家"
+              subtitle="首发亏三万，第三个月止亏。"
+              paragraphs={[
+                '他说，这是他的第三次创业。前两次做了三年，难走，弃了。这次选品对了——宠物智能用品，他也算有供应链底子。问题是：成本没控住、流量靠买、复购率接近零。',
+                '入局姿势就有问题：首发砸了三万在货和投流上。第一周出了一百单，看着热闹，一算账：每单亏十五。',
+                '我们花了三天做经营审计。数据拆解：单品毛利 35%，但物流和退货吃掉了 12%；流量 80% 依赖平台竞价，自然流不到 20%；首单客户回访率为零——卖了就没有然后了。',
+                '三个月调整方案：产品线压到 3 个 SKU，集中供应链议价；自然流运营：客户好评引导+内容投流，竞价预算砍半；建立复购机制：随单插入返现卡 + 三个月续费提醒自动触发。',
+                '第五个月，月利润覆盖了首发的全部亏损。从亏到盈不是因为做对了哪一件事，是五个地方都调了半格。',
+              ]}
+              keyPoint="转折链：选品→成本结构→流量渠道→复购机制。"
+            />
+          </div>
+        </section>
+
+        {/* Blog list */}
+        <section className="py-32 border-t border-[var(--border-default)]">
+          <div className="container-content">
+            <div className="section-label">札记</div>
+            <div className="divide-y divide-[var(--border-default)] mt-12">
+              {posts.length > 0 ? (
+                posts.map((post) => (
+                  <div key={post.slug} className="py-8 first:pt-0">
+                    <h3 className="text-[1.125rem] font-heading font-semibold text-[var(--text-heading)] mb-2">{post.title}</h3>
+                    <p className="text-sm text-[var(--text-body)] leading-relaxed mb-3">{post.summary}</p>
+                    <div className="flex items-center gap-4 text-xs text-[var(--text-tertiary)]">
+                      <span>{post.date}</span>
+                      <a href="#" className="text-[var(--color-accent)] hover:underline">[阅读 →]</a>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <p className="text-sm text-[var(--text-tertiary)]">暂无文章，持续更新中。</p>
+              )}
+            </div>
+          </div>
+        </section>
+
+        {/* Page bottom */}
+        <section className="py-16 border-t border-[var(--border-default)]">
+          <div className="container-content">
+            <p className="text-xs text-[var(--text-tertiary)] leading-relaxed">
+              持续更新，不追热点。只关注一件事：让下一个人少踩一个坑。
+            </p>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="py-16 border-t border-[var(--border-default)]">
+          <div className="container-content">
+            <div className="text-sm font-heading font-semibold text-[var(--text-heading)] mb-2">一人公司孵化器 · OPC</div>
+            <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-[var(--text-secondary)]">
+              <a href="/" className="hover:text-[var(--text-heading)] transition-colors">首页</a>
+              <a href="/team" className="hover:text-[var(--text-heading)] transition-colors">团队</a>
+              <a href="#collab" className="hover:text-[var(--text-heading)] transition-colors">协作</a>
+              <a href="mailto:hello@fhopc.top" className="hover:text-[var(--text-heading)] transition-colors">hello@fhopc.top</a>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </div>
+  );
+}

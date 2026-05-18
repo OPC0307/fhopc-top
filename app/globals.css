@@ -1,0 +1,180 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   fhopc.top — 一人公司孵化器
+   Dark theme, helio.im visual language
+   ============================================ */
+
+:root {
+  --color-background: #0A0A0A;
+  --color-foreground: #EFECE6;
+  --color-accent: #f87500;
+  --text-heading: #EFECE6;
+  --text-body: #CCCCCC;
+  --text-secondary: #999999;
+  --text-tertiary: #666666;
+  --border-default: rgba(255,255,255,0.08);
+  --border-subtle: rgba(255,255,255,0.05);
+  --btn-hover: rgba(255,255,255,0.06);
+  --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --radius-sm: 3px;
+  --radius-md: 5px;
+  --radius-lg: 8px;
+  --radius-full: 9999px;
+  --font-heading: var(--font-inter), var(--font-noto-sans-sc), sans-serif;
+  --font-body: var(--font-inter), var(--font-noto-sans-sc), sans-serif;
+}
+
+/* ============================================
+   Keyframe animations
+   ============================================ */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   Base styles
+   ============================================ */
+
+@layer base {
+  html {
+    @apply antialiased;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--color-background);
+    color: var(--text-body);
+    font-family: var(--font-body);
+    @apply min-h-screen;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    color: var(--text-heading);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  h1 { @apply text-[2.5rem] md:text-[3rem] lg:text-[3.5rem] leading-[1.15]; }
+  h2 { @apply text-[1.75rem] md:text-[2rem] leading-[1.2]; }
+  h3 { @apply text-[1.25rem] md:text-[1.375rem]; }
+
+  p {
+    @apply leading-relaxed;
+  }
+
+  a {
+    @apply transition-colors duration-200;
+  }
+}
+
+/* ============================================
+   Utility classes — helio.im style
+   ============================================ */
+
+@layer utilities {
+  .ease-helio {
+    transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out both;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  .delay-60ms { animation-delay: 60ms; }
+  .delay-80ms { animation-delay: 80ms; }
+  .delay-100ms { animation-delay: 100ms; }
+  .delay-120ms { animation-delay: 120ms; }
+  .delay-160ms { animation-delay: 160ms; }
+  .delay-200ms { animation-delay: 200ms; }
+  .delay-240ms { animation-delay: 240ms; }
+  .delay-280ms { animation-delay: 280ms; }
+  .delay-320ms { animation-delay: 320ms; }
+  .delay-360ms { animation-delay: 360ms; }
+  .delay-400ms { animation-delay: 400ms; }
+  .delay-500ms { animation-delay: 500ms; }
+  .delay-600ms { animation-delay: 600ms; }
+  .delay-800ms { animation-delay: 800ms; }
+
+  .reveal-on-scroll {
+    opacity: 0;
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  .backdrop-blur-nav {
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* ============================================
+   Component styles
+   ============================================ */
+
+@layer components {
+  .container-content {
+    @apply mx-auto px-8 max-w-[1080px];
+  }
+
+  .section-label {
+    @apply text-xs font-semibold uppercase tracking-[0.12em] text-[var(--text-tertiary)] mb-4;
+  }
+
+  .section-title {
+    @apply text-[1.75rem] md:text-[2rem] font-heading font-semibold tracking-tight text-[var(--text-heading)] mb-4;
+  }
+
+  .section-desc {
+    @apply text-base md:text-lg text-[var(--text-secondary)] max-w-xl;
+  }
+}
+
+/* Font override — ensure heading font matches body font */
+.font-heading {
+  font-family: var(--font-heading);
+}
