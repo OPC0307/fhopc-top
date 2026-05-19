@@ -379,7 +379,7 @@ export default function AdmissionPage() {
                   </div>
 
                   <a
-                    href="/collab"
+                    href={result.recommendation?.plan === '深度协作' ? '/contact?plan=deep' : '/contact?plan=diagnosis'}
                     className="block w-full text-center bg-[var(--color-accent)] text-white font-medium text-sm px-6 py-3.5 rounded-lg hover:brightness-110 transition-all duration-200 mb-3"
                   >
                     选择方案 →

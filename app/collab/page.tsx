@@ -55,6 +55,14 @@ export default function CollabPage() {
               <span>预期节奏：最快 30 天出第一单</span>
               <span className="text-[var(--text-tertiary)] w-full mt-1">卡点对应：有想法不知道怎么变成第一单 → 从0到出单的30天路径，每一步写清楚。</span>
             </div>
+            <div className="mt-8">
+              <a
+                href="/contact?plan=framework"
+                className="inline-flex items-center gap-2 border border-[var(--color-accent)] text-[var(--color-accent)] px-6 py-3 rounded-md font-medium text-sm hover:bg-[var(--color-accent)] hover:text-white transition-all duration-200"
+              >
+                选择作业框架 →
+              </a>
+            </div>
           </div>
         </section>
 
@@ -89,6 +97,14 @@ export default function CollabPage() {
               <span>预期节奏：月度循环</span>
               <span className="text-[var(--text-tertiary)] w-full mt-1">卡点对应：在做但不知道对不对 → 数据告诉你哪里在漏、哪里在赚。</span>
             </div>
+            <div className="mt-8">
+              <a
+                href="/contact?plan=diagnosis"
+                className="inline-flex items-center gap-2 border border-[var(--color-accent)] text-[var(--color-accent)] px-6 py-3 rounded-md font-medium text-sm hover:bg-[var(--color-accent)] hover:text-white transition-all duration-200"
+              >
+                选择经营诊断 →
+              </a>
+            </div>
           </div>
         </section>
 
@@ -121,6 +137,14 @@ export default function CollabPage() {
               <span>交付方式：全流程跟进，你冲执行系统盯方向和质量</span>
               <span>预期节奏：按周跟进，按月结算</span>
               <span className="text-[var(--text-tertiary)] w-full mt-1">卡点对应：一个人扛不住了 → 你冲执行，系统替你盯方向和质量。</span>
+            </div>
+            <div className="mt-8">
+              <a
+                href="/contact?plan=deep"
+                className="inline-flex items-center gap-2 border border-[var(--color-accent)] text-[var(--color-accent)] px-6 py-3 rounded-md font-medium text-sm hover:bg-[var(--color-accent)] hover:text-white transition-all duration-200"
+              >
+                选择深度协作 →
+              </a>
             </div>
           </div>
         </section>

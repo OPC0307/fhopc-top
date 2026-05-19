@@ -16,11 +16,19 @@ function getBlogPosts(): BlogPost[] {
   if (!fs.existsSync(BLOG_DIR)) return [];
   const files = fs.readdirSync(BLOG_DIR).filter(f => f.endsWith('.md'));
   files.sort().reverse();
+
+  const FILE_SLUG_MAP: Record<string, string> = {
+    '2026-05-18-time-trap': 'shi-jian-hei-dong',
+    '2026-05-18-ai-opc-million-myth': 'po-mie-pao-mo',
+    '2026-05-17-swimming': 'zhen-shi-zha-ji',
+  };
+
   return files.slice(0, 6).map(file => {
+    const fileSlug = file.replace('.md', '');
     const raw = fs.readFileSync(path.join(BLOG_DIR, file), 'utf-8');
     const { data } = matter(raw);
     return {
-      slug: file.replace('.md', ''),
+      slug: FILE_SLUG_MAP[fileSlug] || fileSlug,
       title: data.title || '',
       date: data.date ? new Date(data.date).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }) : '',
       summary: data.summary || '',
@@ -81,7 +89,7 @@ export default function InsightsPage() {
                       <span>{post.date}</span>
                       <span>·</span>
                       <span>约 {post.readTime}</span>
-                      <a href="#" className="text-[var(--color-accent)] hover:underline">[阅读 →]</a>
+                      <a href={`/content/blog/${post.slug}`} className="text-[var(--color-accent)] hover:underline">[阅读 →]</a>
                     </div>
                   </div>
                 ))}
@@ -128,6 +136,15 @@ export default function InsightsPage() {
               ]}
               keyPoint="转折链：选品→成本结构→流量渠道→复购机制。"
             />
+          </div>
+        </section>
+
+        {/* CTA */}
+        <section className="py-20 border-t border-[var(--border-default)] bg-[var(--color-foreground)]">
+          <div className="container-content text-center">
+            <h2 className="text-[1.25rem] font-heading font-semibold text-[var(--color-background)] mb-2">不确定自己适合哪个方向？</h2>
+            <p className="text-sm text-[var(--color-background)]/70 mb-6">回答 5 个问题，15 秒知道答案</p>
+            <a href="/admission" className="inline-flex items-center gap-2 bg-[var(--color-accent)] text-white px-6 py-3 rounded-md font-medium text-sm hover:brightness-110 transition-all">免费评估 →</a>
           </div>
         </section>
 
