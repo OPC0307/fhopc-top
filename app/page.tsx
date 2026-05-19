@@ -124,7 +124,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-[var(--color-background)]">
-      <div className="max-w-[1080px] mx-auto">
+      <div className="max-w-[1080px] mx-auto md:border-x md:border-[var(--border-default)]">
 
         {/* ======== Block 1: Hero ======== */}
         <section className="py-32 md:py-40">
@@ -195,15 +195,17 @@ export default function Home() {
           <div className="container-content">
             <SectionLabel>协作</SectionLabel>
             <SectionTitle>三种深度，按需选择</SectionTitle>
-            <div className="grid md:grid-cols-3 gap-12 md:gap-16 mt-16">
-              {collabModes.map((mode, i) => (
-                <div key={mode.id} className="animate-fade-in-up" style={{ animationDelay: `${i * 150}ms` }}>
-                  <div className="text-xs font-semibold text-[var(--text-tertiary)] tabular-nums mb-3">{mode.id}</div>
-                  <h3 className="text-[1.125rem] font-heading font-semibold text-[var(--text-heading)] mb-3">{mode.title}</h3>
-                  <p className="text-sm text-[var(--text-body)] leading-relaxed mb-3">{mode.desc}</p>
-                  <p className="text-xs text-[var(--text-tertiary)] leading-relaxed">{mode.painPoint}</p>
-                </div>
-              ))}
+            <div className="border border-[var(--border-default)] mt-16">
+              <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--border-default)]">
+                {collabModes.map((mode, i) => (
+                  <div key={mode.id} className="group p-8 hover:bg-[var(--btn-hover)] transition-colors animate-fade-in-up" style={{ animationDelay: `${i * 150}ms` }}>
+                    <div className="text-xs font-semibold text-[var(--text-tertiary)] tabular-nums mb-3">{mode.id}</div>
+                    <h3 className="text-[1.125rem] font-heading font-semibold text-[var(--text-heading)] mb-3 group-hover:text-[var(--text-secondary)] transition-colors">{mode.title}</h3>
+                    <p className="text-sm text-[var(--text-body)] leading-relaxed mb-3">{mode.desc}</p>
+                    <p className="text-xs text-[var(--text-tertiary)] leading-relaxed">{mode.painPoint}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
@@ -219,10 +221,14 @@ export default function Home() {
               <p>第一个月，靠老客户吃三万。他觉得成了。第三个月，流尽，剩一万。他回头了，这次听了诊断。</p>
               <p>花了三个月搭系统——自动化数据采集、标准化交付模板、客户续费机制。第十一个月，回到三万。这次，三万是他的系统在转。</p>
             </div>
-            <div className="grid md:grid-cols-3 gap-8 mt-16 pt-12 border-t border-[var(--border-default)]">
-              {testimonials.map((t, i) => (
-                <p key={i} className="text-xs text-[var(--text-tertiary)] leading-relaxed">{t}</p>
-              ))}
+            <div className="border border-[var(--border-default)] mt-16">
+              <div className="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--border-default)]">
+                {testimonials.map((t, i) => (
+                  <div key={i} className="p-8 hover:bg-[var(--btn-hover)] transition-colors">
+                    <p className="text-xs text-[var(--text-tertiary)] leading-relaxed">{t}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
