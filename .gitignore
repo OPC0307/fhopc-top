@@ -10,6 +10,9 @@ coverage/
 .next/
 out/
 
+# working instructions
+NODE1-*.md
+
 # production
 build/
 
