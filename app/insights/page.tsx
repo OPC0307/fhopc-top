@@ -52,7 +52,7 @@ export default function InsightsPage() {
 
   return (
     <div className="min-h-screen bg-[var(--color-background)]">
-      <div className="max-w-[1080px] mx-auto">
+      <div className="max-w-[1080px] mx-auto md:border-x md:border-[var(--border-default)]">
         {/* Header */}
         <section className="py-32 md:py-40">
           <div className="px-8">
