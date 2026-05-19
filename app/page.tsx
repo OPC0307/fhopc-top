@@ -71,17 +71,6 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
   return <h2 className="section-title">{children}</h2>;
 }
 
-function PainPoint({ title, desc, index }: { title: string; desc: string; index: number }) {
-  const [visible, setVisible] = useState(false);
-  useEffect(() => { const t = setTimeout(() => setVisible(true), 200 + index * 150); return () => clearTimeout(t); }, [index]);
-  return (
-    <div className={`transition-all duration-700 ease-helio ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
-      <h3 className="text-[1.125rem] font-heading font-semibold text-[var(--text-heading)] mb-2">{title}</h3>
-      <p className="text-sm text-[var(--text-body)] leading-relaxed">{desc}</p>
-    </div>
-  );
-}
-
 function RoleCard({ id, name, desc, index }: { id: string; name: string; desc: string; index: number }) {
   const [visible, setVisible] = useState(false);
   useEffect(() => { const t = setTimeout(() => setVisible(true), 200 + index * 100); return () => clearTimeout(t); }, [index]);
@@ -151,25 +140,28 @@ export default function Home() {
 
         {/* ======== Block 2: Why ======== */}
         <section className="py-32 border-t border-[var(--border-default)]">
-          <div className="container-content">
-            <SectionLabel>为什么需要翻译层</SectionLabel>
-            <SectionTitle>为什么一人公司的技术语言，不是人人都要学</SectionTitle>
-            <div className="grid md:grid-cols-3 gap-12 md:gap-16 mt-16">
-              <PainPoint
-                index={0}
-                title="翻译盲区"
-                desc="他说的赛道筛选框架你看不懂，不是你的问题——是没人把技术语言翻成你能做的选择。问题不在你不够聪明，在内容天生就不是写给你的。"
-              />
-              <PainPoint
-                index={1}
-                title="工具黑洞"
-                desc='你周围的人都让你学这个工具那个平台，但你连它们解决什么问题都不知道。不是你不该学，是在你该学什么之前，得先有人判断"你该不该做"。'
-              />
-              <PainPoint
-                index={2}
-                title="决策真空"
-                desc="一个人做决定——选方向、定价格、选客户——没人告诉你这个选择三个月后意味着什么。不是你不会想，是没有系统帮你推演。"
-              />
+          {/* Heading */}
+          <div className="px-8 pb-16">
+            <div className="max-w-2xl">
+              <SectionLabel>为什么需要翻译层</SectionLabel>
+              <SectionTitle>为什么一人公司的技术语言，不是人人都要学</SectionTitle>
+            </div>
+          </div>
+          {/* Cards grid — stretches to border-x */}
+          <div className="border-t border-[var(--border-default)]">
+            <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--border-default)]">
+              <div className="group p-8 hover:bg-[var(--btn-hover)] transition-colors animate-fade-in-up">
+                <h3 className="text-[1.125rem] font-heading font-semibold text-[var(--text-heading)] mb-2 group-hover:text-[var(--text-secondary)] transition-colors">翻译盲区</h3>
+                <p className="text-sm text-[var(--text-body)] leading-relaxed">他说的赛道筛选框架你看不懂，不是你的问题——是没人把技术语言翻成你能做的选择。问题不在你不够聪明，在内容天生就不是写给你的。</p>
+              </div>
+              <div className="group p-8 hover:bg-[var(--btn-hover)] transition-colors animate-fade-in-up" style={{ animationDelay: '150ms' }}>
+                <h3 className="text-[1.125rem] font-heading font-semibold text-[var(--text-heading)] mb-2 group-hover:text-[var(--text-secondary)] transition-colors">工具黑洞</h3>
+                <p className="text-sm text-[var(--text-body)] leading-relaxed">你周围的人都让你学这个工具那个平台，但你连它们解决什么问题都不知道。不是你不该学，是在你该学什么之前，得先有人判断"你该不该做"。</p>
+              </div>
+              <div className="group p-8 hover:bg-[var(--btn-hover)] transition-colors animate-fade-in-up" style={{ animationDelay: '300ms' }}>
+                <h3 className="text-[1.125rem] font-heading font-semibold text-[var(--text-heading)] mb-2 group-hover:text-[var(--text-secondary)] transition-colors">决策真空</h3>
+                <p className="text-sm text-[var(--text-body)] leading-relaxed">一个人做决定——选方向、定价格、选客户——没人告诉你这个选择三个月后意味着什么。不是你不会想，是没有系统帮你推演。</p>
+              </div>
             </div>
           </div>
         </section>
@@ -192,43 +184,51 @@ export default function Home() {
 
         {/* ======== Block 4: Collaboration ======== */}
         <section id="collab" className="py-32 border-t border-[var(--border-default)]">
-          <div className="container-content">
-            <SectionLabel>协作</SectionLabel>
-            <SectionTitle>三种深度，按需选择</SectionTitle>
-            <div className="border border-[var(--border-default)] mt-16">
-              <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--border-default)]">
-                {collabModes.map((mode, i) => (
-                  <div key={mode.id} className="group p-8 hover:bg-[var(--btn-hover)] transition-colors animate-fade-in-up" style={{ animationDelay: `${i * 150}ms` }}>
-                    <div className="text-xs font-semibold text-[var(--text-tertiary)] tabular-nums mb-3">{mode.id}</div>
-                    <h3 className="text-[1.125rem] font-heading font-semibold text-[var(--text-heading)] mb-3 group-hover:text-[var(--text-secondary)] transition-colors">{mode.title}</h3>
-                    <p className="text-sm text-[var(--text-body)] leading-relaxed mb-3">{mode.desc}</p>
-                    <p className="text-xs text-[var(--text-tertiary)] leading-relaxed">{mode.painPoint}</p>
-                  </div>
-                ))}
-              </div>
+          {/* Heading */}
+          <div className="px-8 pb-16">
+            <div className="max-w-2xl">
+              <SectionLabel>协作</SectionLabel>
+              <SectionTitle>三种深度，按需选择</SectionTitle>
+            </div>
+          </div>
+          {/* Cards grid — stretches to border-x */}
+          <div className="border-t border-[var(--border-default)]">
+            <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--border-default)]">
+              {collabModes.map((mode, i) => (
+                <div key={mode.id} className="group p-8 hover:bg-[var(--btn-hover)] transition-colors animate-fade-in-up" style={{ animationDelay: `${i * 150}ms` }}>
+                  <div className="text-xs font-semibold text-[var(--text-tertiary)] tabular-nums mb-3">{mode.id}</div>
+                  <h3 className="text-[1.125rem] font-heading font-semibold text-[var(--text-heading)] mb-3 group-hover:text-[var(--text-secondary)] transition-colors">{mode.title}</h3>
+                  <p className="text-sm text-[var(--text-body)] leading-relaxed mb-3">{mode.desc}</p>
+                  <p className="text-xs text-[var(--text-tertiary)] leading-relaxed">{mode.painPoint}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
 
         {/* ======== Block 5: Case ======== */}
         <section className="py-32 border-t border-[var(--border-default)]">
-          <div className="container-content">
-            <SectionLabel>真实案例</SectionLabel>
-            <SectionTitle>一个数据分析师从月入三万到一万，然后回来。</SectionTitle>
+          {/* Heading + narrative */}
+          <div className="px-8 pb-16">
+            <div className="max-w-2xl">
+              <SectionLabel>真实案例</SectionLabel>
+              <SectionTitle>一个数据分析师从月入三万到一万，然后回来。</SectionTitle>
+            </div>
             <div className="max-w-xl mt-12 space-y-5 text-sm text-[var(--text-body)] leading-relaxed">
-              <p className="text-[var(--text-heading)] font-medium">"我想自己干，但我不知道从哪开始。"</p>
+              <p className="text-[var(--text-heading)] font-medium">&ldquo;我想自己干，但我不知道从哪开始。&rdquo;</p>
               <p>他做了九年数据分析，想独立。我们做了评估，建议暂缓。他说等不了。</p>
               <p>第一个月，靠老客户吃三万。他觉得成了。第三个月，流尽，剩一万。他回头了，这次听了诊断。</p>
               <p>花了三个月搭系统——自动化数据采集、标准化交付模板、客户续费机制。第十一个月，回到三万。这次，三万是他的系统在转。</p>
             </div>
-            <div className="border border-[var(--border-default)] mt-16">
-              <div className="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--border-default)]">
-                {testimonials.map((t, i) => (
-                  <div key={i} className="p-8 hover:bg-[var(--btn-hover)] transition-colors">
-                    <p className="text-xs text-[var(--text-tertiary)] leading-relaxed">{t}</p>
-                  </div>
-                ))}
-              </div>
+          </div>
+          {/* Testimonials grid — stretches to border-x */}
+          <div className="border-t border-[var(--border-default)]">
+            <div className="grid md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--border-default)]">
+              {testimonials.map((t, i) => (
+                <div key={i} className="group p-8 hover:bg-[var(--btn-hover)] transition-colors animate-fade-in-up" style={{ animationDelay: `${i * 100}ms` }}>
+                  <p className="text-xs text-[var(--text-tertiary)] leading-relaxed">{t}</p>
+                </div>
+              ))}
             </div>
           </div>
         </section>
