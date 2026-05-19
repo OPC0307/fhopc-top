@@ -9,13 +9,14 @@ interface BlogPost {
   title: string;
   date: string;
   summary: string;
+  readTime?: string;
 }
 
 function getBlogPosts(): BlogPost[] {
   if (!fs.existsSync(BLOG_DIR)) return [];
   const files = fs.readdirSync(BLOG_DIR).filter(f => f.endsWith('.md'));
   files.sort().reverse();
-  return files.map(file => {
+  return files.slice(0, 6).map(file => {
     const raw = fs.readFileSync(path.join(BLOG_DIR, file), 'utf-8');
     const { data } = matter(raw);
     return {
@@ -23,6 +24,7 @@ function getBlogPosts(): BlogPost[] {
       title: data.title || '',
       date: data.date ? new Date(data.date).toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric' }) : '',
       summary: data.summary || '',
+      readTime: data.readTime || '5 分钟',
     };
   });
 }
@@ -35,12 +37,10 @@ function CaseStudy({ title, subtitle, paragraphs, keyPoint }: {
 }) {
   return (
     <div className="py-16 border-t border-[var(--border-default)] first:border-t-0">
-      <h2 className="text-[1.25rem] font-heading font-semibold text-[var(--text-heading)] mb-1">{title}</h2>
+      <h2 className="text-[1.125rem] font-heading font-semibold text-[var(--text-heading)] mb-1">{title}</h2>
       <p className="text-sm text-[var(--text-secondary)] mb-6">{subtitle}</p>
       <div className="space-y-3 text-sm text-[var(--text-body)] leading-relaxed max-w-2xl">
-        {paragraphs.map((p, i) => (
-          <p key={i}>{p}</p>
-        ))}
+        {paragraphs.map((p, i) => <p key={i}>{p}</p>)}
       </div>
       <p className="text-xs text-[var(--color-accent)] mt-4 font-medium">{keyPoint}</p>
     </div>
@@ -56,20 +56,44 @@ export default function InsightsPage() {
         {/* Header */}
         <section className="py-32 md:py-40">
           <div className="px-8">
-            <div className="section-label">行业观察</div>
+            <div className="section-label">痛点词典</div>
             <h1 className="text-[2rem] md:text-[2.5rem] font-heading font-bold tracking-tight text-[var(--text-heading)] mb-4">
-              真实一人公司案例拆解
+              OPC 痛点词典
             </h1>
-            <p className="text-base md:text-lg text-[var(--text-secondary)] max-w-xl">
-              不追热点，不写方法论。每个项目拆到骨头里——怎么想的、怎么做的、哪里对了、哪里错了。
+            <p className="text-base md:text-lg text-[var(--text-secondary)] max-w-xl mb-2">
+              非技术出身的人做一人公司，卡住的不是能力，是差一层翻译。
             </p>
+            <p className="text-sm text-[var(--text-tertiary)]">每个痛点，一篇 1000 字。</p>
           </div>
         </section>
 
-        {/* Case Studies */}
+        {/* Blog articles */}
+        {posts.length > 0 && (
+          <section className="border-t border-[var(--border-default)]">
+            <div className="container-content py-20">
+              <h2 className="text-[1.125rem] font-heading font-semibold text-[var(--text-heading)] mb-8">最新文章</h2>
+              <div className="divide-y divide-[var(--border-default)]">
+                {posts.map((post) => (
+                  <div key={post.slug} className="py-8 first:pt-0">
+                    <h3 className="text-[1rem] font-heading font-semibold text-[var(--text-heading)] mb-2">{post.title}</h3>
+                    <p className="text-sm text-[var(--text-body)] leading-relaxed mb-3">{post.summary}</p>
+                    <div className="flex items-center gap-4 text-xs text-[var(--text-tertiary)]">
+                      <span>{post.date}</span>
+                      <span>·</span>
+                      <span>约 {post.readTime}</span>
+                      <a href="#" className="text-[var(--color-accent)] hover:underline">[阅读 →]</a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Case studies */}
         <section className="border-t border-[var(--border-default)]">
-          <div className="container-content">
-            {/* Case 1 */}
+          <div className="container-content py-20">
+            <h2 className="text-[1.125rem] font-heading font-semibold text-[var(--text-heading)] mb-8">真实案例</h2>
             <CaseStudy
               title="案例一：独立数据分析师"
               subtitle="从月入三万到一万，再回来。"
@@ -81,8 +105,6 @@ export default function InsightsPage() {
               ]}
               keyPoint="关键转折：从卖时间到卖系统。"
             />
-
-            {/* Case 2 */}
             <CaseStudy
               title="案例二：内容创作者"
               subtitle="两万粉丝，月入两千。"
@@ -94,8 +116,6 @@ export default function InsightsPage() {
               ]}
               keyPoint="关键转折：流量不重要，收入结构才重要。"
             />
-
-            {/* Case 3 */}
             <CaseStudy
               title="案例三：电商独立卖家"
               subtitle="首发亏三万，第三个月止亏。"
@@ -111,34 +131,11 @@ export default function InsightsPage() {
           </div>
         </section>
 
-        {/* Blog list */}
-        <section className="py-32 border-t border-[var(--border-default)]">
-          <div className="container-content">
-            <div className="section-label">札记</div>
-            <div className="divide-y divide-[var(--border-default)] mt-12">
-              {posts.length > 0 ? (
-                posts.map((post) => (
-                  <div key={post.slug} className="py-8 first:pt-0">
-                    <h3 className="text-[1.125rem] font-heading font-semibold text-[var(--text-heading)] mb-2">{post.title}</h3>
-                    <p className="text-sm text-[var(--text-body)] leading-relaxed mb-3">{post.summary}</p>
-                    <div className="flex items-center gap-4 text-xs text-[var(--text-tertiary)]">
-                      <span>{post.date}</span>
-                      <a href="#" className="text-[var(--color-accent)] hover:underline">[阅读 →]</a>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <p className="text-sm text-[var(--text-tertiary)]">暂无文章，持续更新中。</p>
-              )}
-            </div>
-          </div>
-        </section>
-
-        {/* Page bottom */}
+        {/* Bottom note */}
         <section className="py-16 border-t border-[var(--border-default)]">
           <div className="container-content">
             <p className="text-xs text-[var(--text-tertiary)] leading-relaxed">
-              持续更新，不追热点。只关注一件事：让下一个人少踩一个坑。
+              持续更新，不追热点。每篇一个真实卡点，写下一个人少踩一个坑。
             </p>
           </div>
         </section>
@@ -146,11 +143,12 @@ export default function InsightsPage() {
         {/* Footer */}
         <footer className="py-16 border-t border-[var(--border-default)]">
           <div className="container-content">
-            <div className="text-sm font-heading font-semibold text-[var(--text-heading)] mb-2">一人公司孵化器 · OPC</div>
+            <div className="text-sm font-heading font-semibold text-[var(--text-heading)] mb-2">OPC 翻译层 · 一人公司孵化器</div>
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-[var(--text-secondary)]">
               <a href="/" className="hover:text-[var(--text-heading)] transition-colors">首页</a>
               <a href="/team" className="hover:text-[var(--text-heading)] transition-colors">团队</a>
-              <a href="#collab" className="hover:text-[var(--text-heading)] transition-colors">协作</a>
+              <a href="/collab" className="hover:text-[var(--text-heading)] transition-colors">协作</a>
+              <a href="/admission" className="hover:text-[var(--text-heading)] transition-colors">准入</a>
               <a href="mailto:hello@fhopc.top" className="hover:text-[var(--text-heading)] transition-colors">hello@fhopc.top</a>
             </div>
           </div>

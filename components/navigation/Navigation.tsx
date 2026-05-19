@@ -1,12 +1,13 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { ThemeToggle } from './ThemeToggle';
 
 const navItems = [
   { label: '团队', href: '/team' },
-  { label: '协作', href: '#collab' },
-  { label: '观察', href: '/insights' },
-  { label: '准入', href: '#cta' },
+  { label: '协作', href: '/collab' },
+  { label: '痛点', href: '/insights' },
+  { label: '准入', href: '/admission' },
 ];
 
 export function Navigation() {
@@ -43,6 +44,7 @@ export function Navigation() {
               {item.label}
             </a>
           ))}
+          <ThemeToggle />
         </div>
       </div>
     </nav>
