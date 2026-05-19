@@ -117,7 +117,7 @@ export default function TeamPage() {
         {/* Footer */}
         <footer className="py-16 border-t border-[var(--border-default)]">
           <div className="container-content">
-            <div className="text-sm font-heading font-semibold text-[var(--text-heading)] mb-2">一人公司孵化器 · OPC</div>
+            <div className="text-sm font-heading font-semibold text-[var(--text-heading)] mb-2">fhopc · 一人公司孵化器</div>
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-[var(--text-secondary)]">
               <a href="/" className="hover:text-[var(--text-heading)] transition-colors">首页</a>
               <a href="#collab" className="hover:text-[var(--text-heading)] transition-colors">协作</a>

@@ -120,13 +120,13 @@ export default function Home() {
           <div className="px-8">
             <div className="max-w-3xl">
               <h1 className={`text-[2.5rem] md:text-[3rem] lg:text-[3.5rem] font-heading font-bold tracking-tight leading-[1.15] text-[var(--text-heading)] mb-4 transition-all duration-800 ease-helio ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                OPC 翻译层
+                一人公司孵化器
               </h1>
               <p className={`text-lg md:text-xl text-[var(--text-heading)] mb-2 transition-all duration-800 ease-helio delay-100ms ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                非技术出身的人，只差一层翻译。
+                有行业经验，想自己干。剩下的，交给系统。
               </p>
               <p className={`text-sm text-[var(--text-secondary)] max-w-xl mb-8 transition-all duration-800 ease-helio delay-200ms ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                不是教你一人公司的技术，是在你不懂技术的那些环节，有人帮你翻译成你能做的判断。
+                不是教你一人公司怎么开，是你不懂的环节，有人替你把关——方向、技术、交付，每一步有人审。
               </p>
               <a
                 href="/admission"
@@ -143,24 +143,24 @@ export default function Home() {
           {/* Heading */}
           <div className="px-8 pb-16">
             <div className="max-w-2xl">
-              <SectionLabel>为什么需要翻译层</SectionLabel>
-              <SectionTitle>为什么一人公司的技术语言，不是人人都要学</SectionTitle>
+              <SectionLabel>你现在的困惑</SectionLabel>
+              <SectionTitle>一个人做决定，最难的不是做什么，而是不知道对不对</SectionTitle>
             </div>
           </div>
           {/* Cards grid — stretches to border-x */}
           <div className="border-t border-[var(--border-default)]">
             <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--border-default)]">
               <div className="group p-8 hover:bg-[var(--btn-hover)] transition-colors animate-fade-in-up">
-                <h3 className="text-[1.125rem] font-heading font-semibold text-[var(--text-heading)] mb-2 group-hover:text-[var(--text-secondary)] transition-colors">翻译盲区</h3>
-                <p className="text-sm text-[var(--text-body)] leading-relaxed">他说的赛道筛选框架你看不懂，不是你的问题——是没人把技术语言翻成你能做的选择。问题不在你不够聪明，在内容天生就不是写给你的。</p>
+                <h3 className="text-[1.125rem] font-heading font-semibold text-[var(--text-heading)] mb-2 group-hover:text-[var(--text-secondary)] transition-colors">方向看不清</h3>
+                <p className="text-sm text-[var(--text-body)] leading-relaxed">市面上赛道分析很多，但你不知道哪个适合你。不是信息不够，是没人帮你判断该走哪条。</p>
               </div>
               <div className="group p-8 hover:bg-[var(--btn-hover)] transition-colors animate-fade-in-up" style={{ animationDelay: '150ms' }}>
-                <h3 className="text-[1.125rem] font-heading font-semibold text-[var(--text-heading)] mb-2 group-hover:text-[var(--text-secondary)] transition-colors">工具黑洞</h3>
-                <p className="text-sm text-[var(--text-body)] leading-relaxed">你周围的人都让你学这个工具那个平台，但你连它们解决什么问题都不知道。不是你不该学，是在你该学什么之前，得先有人判断"你该不该做"。</p>
+                <h3 className="text-[1.125rem] font-heading font-semibold text-[var(--text-heading)] mb-2 group-hover:text-[var(--text-secondary)] transition-colors">技术听不懂</h3>
+                <p className="text-sm text-[var(--text-body)] leading-relaxed">AI、工具、自动化——这些东西听起来对，但你不知道它们跟你有什么关系。不是技术难，是没人翻译成你的业务语言。</p>
               </div>
               <div className="group p-8 hover:bg-[var(--btn-hover)] transition-colors animate-fade-in-up" style={{ animationDelay: '300ms' }}>
-                <h3 className="text-[1.125rem] font-heading font-semibold text-[var(--text-heading)] mb-2 group-hover:text-[var(--text-secondary)] transition-colors">决策真空</h3>
-                <p className="text-sm text-[var(--text-body)] leading-relaxed">一个人做决定——选方向、定价格、选客户——没人告诉你这个选择三个月后意味着什么。不是你不会想，是没有系统帮你推演。</p>
+                <h3 className="text-[1.125rem] font-heading font-semibold text-[var(--text-heading)] mb-2 group-hover:text-[var(--text-secondary)] transition-colors">结果不确定</h3>
+                <p className="text-sm text-[var(--text-body)] leading-relaxed">做了一段时间，有效果吗？不知道。哪里在亏哪里在赚？也不知道。不是你不努力，是没有审计系统。</p>
               </div>
             </div>
           </div>
@@ -267,8 +267,8 @@ export default function Home() {
         {/* ======== Footer ======== */}
         <footer className="py-16 border-t border-[var(--border-default)]">
           <div className="container-content">
-            <div className="text-sm font-heading font-semibold text-[var(--text-heading)] mb-2">OPC 翻译层 · 一人公司孵化器</div>
-            <p className="text-xs text-[var(--text-tertiary)] mb-6">非技术出身的人，只差一层翻译。</p>
+            <div className="text-sm font-heading font-semibold text-[var(--text-heading)] mb-2">fhopc · 一人公司孵化器</div>
+            <p className="text-xs text-[var(--text-tertiary)] mb-6">有行业经验，想自己干。剩下的，交给系统。</p>
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-[var(--text-secondary)]">
               <a href="/team" className="hover:text-[var(--text-heading)] transition-colors">团队</a>
               <a href="/collab" className="hover:text-[var(--text-heading)] transition-colors">协作</a>

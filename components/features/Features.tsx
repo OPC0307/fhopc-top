@@ -31,7 +31,7 @@ const features = [
   {
     number: '06',
     title: '创业者社群',
-    description: '加入 2000+ OPC 创业者社群，分享经验、获取资源、互相支持。',
+    description: '加入 2000+ 创业者社群，分享经验、获取资源、互相支持。',
   },
 ];
 

@@ -18,10 +18,10 @@ const notoSansSC = Noto_Sans_SC({
 
 export const metadata = {
   title: {
-    default: 'OPC 翻译层 — 一人公司孵化器',
-    template: '%s | OPC 翻译层',
+    default: 'fhopc · 一人公司孵化器',
+    template: '%s | fhopc',
   },
-  description: '把一人公司的技术语言翻译成你能听懂的话。非技术出身也能找到自己的创业路径。',
+  description: '有行业经验，想自己干。剩下的，交给系统。',
   authors: [{ name: '一人公司孵化器' }],
   metadataBase: new URL('https://fhopc.top'),
 };

@@ -160,7 +160,7 @@ export default function CollabPage() {
         {/* Footer */}
         <footer className="py-16 border-t border-[var(--border-default)]">
           <div className="container-content">
-            <div className="text-sm font-heading font-semibold text-[var(--text-heading)] mb-2">OPC 翻译层 · 一人公司孵化器</div>
+            <div className="text-sm font-heading font-semibold text-[var(--text-heading)] mb-2">fhopc · 一人公司孵化器</div>
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-[var(--text-secondary)]">
               <a href="/" className="hover:text-[var(--text-heading)] transition-colors">首页</a>
               <a href="/team" className="hover:text-[var(--text-heading)] transition-colors">团队</a>
