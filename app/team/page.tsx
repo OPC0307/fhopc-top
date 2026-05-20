@@ -6,44 +6,105 @@ const roles = [
   {
     id: '01', status: '生效中',
     title: '准入审核官',
-    do: '判断一个项目该不该孵。不是教你创业，是你的方向值不值得投时间。创始人本身的行业经验、资源门槛、执行意愿——过一遍才决定要不要继续聊。',
-    dont: '不招"试试看"的人。不为了孵化数量降门槛。不提供商业计划书辅导。评估通过才能进入系统。',
+    do: [
+      '用赛道自评打分表量化评估方向成熟度（需求刚性×技术成熟度×变现清晰度）',
+      '对照转化 5 阶段判断你的所处位置（首次接触→需求诊断→方案报价→标准交付→复购推荐）',
+      '根据百日盈利蓝图的三阶段规划推荐匹配的孵化模式',
+      '输出方向评估报告：分数、薄弱点、推荐方案',
+    ],
+    dont: [
+      '不降低评估标准凑孵化数量',
+      '不替你做创业决定',
+    ],
   },
   {
     id: '02', status: '生效中',
     title: '赛道研判师',
-    do: '基于行业数据和真实案例，判断赛道空间、竞争格局、入局窗口期。给创始人一个清醒的判断——这个方向值不值得投入半年以上的时间。',
-    dont: '不看宏观趋势报告，不讲大故事。不替代你做决定，只告诉你数据和逻辑。',
+    do: [
+      '用赛道三维度模型量化评估方向（需求刚性 × 技术成熟度 × 变现清晰度）',
+      '对照 2026 年 TOP10 高潜力赛道数据和竞争格局做市场对标',
+      '识别 5 类高危禁区——从真实踩坑案例中提取的决策红线',
+      '输出赛道评分报告，含 23 城市 OPC 政策红利对比',
+      '基于四象限商业模式和三明治定价法设计收入结构方案',
+    ],
+    dont: [
+      '不看宏观趋势报告，不讲大故事',
+      '不替你做决定，只给数据和逻辑',
+    ],
   },
   {
     id: '03', status: '生效中',
-    title: '产品架构师',
-    do: '把你的想法变成可执行的产品方案。功能优先级、技术选型建议、MVP 范围、迭代节奏。不做大而全，只做最小的可交付单元。',
-    dont: '不堆功能，不画产品全景图。不替你做选择，只给你选项和每个选项的后果。',
+    title: '合规架构师',
+    do: [
+      '主体选择决策（个体户 vs 有限公司，按收入规模分级推荐）',
+      '城市选择矩阵（7 维度 × 7 城市打分，推荐最优注册地）',
+      '财税合规体系搭建——对公账户、凭证留存、按时申报 3 条铁律',
+      'AI 合规自查（大模型备案、数据合规、版权归属、算法备案适用场景）',
+      'AI 服务合同模板设计（金额、交付、验收、退款、版权条款）',
+    ],
+    dont: [
+      '不替代律师/会计师提供具体法律意见',
+      '不承诺节税结果',
+    ],
   },
   {
     id: '04', status: '生效中',
-    title: '商业验证师',
-    do: '产品做出来之前，先验证有没有人愿意付钱。设计验证试验、跑最小交易闭环、收集真实反馈。数据说了算。',
-    dont: '不搞调研问卷，不分析"意向"。只看真实交易行为。',
+    title: 'MVP 验证师',
+    do: [
+      '7 天 MVP 验证法：Day1-2 痛点访谈 → Day3-5 原型搭建 → Day6-7 种子测试 → Day8-14 收第一笔付费',
+      '提供 MVP 检查清单：可演示服务 + ≥3 个付费意向标准',
+      '种子用户获取 6 大渠道策略（社群、内容、冷启动联盟等）',
+      '输出付费验证记录与 Go/No-Go 决策报告',
+    ],
+    dont: [
+      '不搞调研问卷，不分析"意向"',
+      '不替代你执行核心产出',
+    ],
   },
   {
     id: '05', status: '生效中',
     title: '自动化工程师',
-    do: '把重复劳动交给系统。营销自动化、客户跟进、数据采集、内容分发。你只管核心产出，剩下的事交给工具链。',
-    dont: '不做大平台集成。不搭你不需要的流水线。',
+    do: [
+      '三层工具栈按预算配置（验证期 0-500 / 稳定期 500-2000 / 增长期 2000+）',
+      '6 大 Agent 框架选型指南（LangChain / Dify / Coze / n8n / CrewAI / OpenClaw）',
+      'AI 成本优化六技：成本追踪表 + 预算上限 + 降级策略',
+      '无代码 / 低代码 / 自建三种自动化工作流方案',
+      '按职能匹配工具矩阵（内容、客服、数据、项目自动化）',
+    ],
+    dont: [
+      '不做大平台集成',
+      '不搭你当前不需要的流水线',
+    ],
   },
   {
     id: '06', status: '生效中',
     title: '经营审计师',
-    do: '定期复盘你的经营数据。收入结构、成本分布、时间分配。哪些在创造价值，哪些在消耗你。给你一份残酷但有用的体检报告。',
-    dont: '不做财务记账。不做安慰式复盘。',
+    do: [
+      '核心经营指标体系诊断（收入结构、成本分布、时间分配）',
+      '五大平台获客策略复盘与优化（小红书、公众号、即刻、推特、视频号）',
+      '标准化交付 SOP 5 阶段审计（启动→执行→内审→修订→交付）',
+      '复购与裂变机制设计（订阅制转化、会员体系、自动续费、转介绍激励）',
+      '百日复盘：Go/No-Go 决策 + 下阶段计划',
+    ],
+    dont: [
+      '不做财务记账',
+      '不做安慰式复盘',
+    ],
   },
   {
     id: '07', status: '生效中',
     title: '交付监理',
-    do: '保证每一条产出物到达标准。文案有没有到位、产品有没有问题、客户有没有收到。对结果负责，不从过程上糊弄。',
-    dont: '不替你写代码写文案（那是你的产出）。只确保该有的东西有了、该到的到了。',
+    do: [
+      '标准化交付 5 阶段管理（需求确认→方案设计→执行→验收→交付）',
+      '每阶段验收标准与进度可视化',
+      'NPS 满意度管理与复购闭环设计',
+      '客户案例沉淀——把交付物变成获客素材',
+      '合同与收款路径设计（交付物定义、验收标准、退款条款）',
+    ],
+    dont: [
+      '不替你写代码写文案（那是你的产出）',
+      '不外包你的核心工作',
+    ],
   },
 ];
 
@@ -60,12 +121,26 @@ function RoleCard({ role, index }: { role: typeof roles[0]; index: number }) {
       </div>
       <div className="space-y-3">
         <div>
-          <div className="text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-wider mb-1">做什么</div>
-          <p className="text-sm text-[var(--text-body)] leading-relaxed">{role.do}</p>
+          <div className="text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-wider mb-2">做什么</div>
+          <ul className="space-y-1.5">
+            {role.do.map((item, i) => (
+              <li key={i} className="text-sm text-[var(--text-body)] leading-relaxed flex items-start gap-2">
+                <span className="w-1 h-1 rounded-full bg-[var(--color-accent)] mt-2 shrink-0" />
+                {item}
+              </li>
+            ))}
+          </ul>
         </div>
         <div>
-          <div className="text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider mb-1">不做什么</div>
-          <p className="text-sm text-[var(--text-tertiary)] leading-relaxed">{role.dont}</p>
+          <div className="text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider mb-2">不做什么</div>
+          <ul className="space-y-1.5">
+            {role.dont.map((item, i) => (
+              <li key={i} className="text-sm text-[var(--text-tertiary)] leading-relaxed flex items-start gap-2">
+                <span className="w-1 h-1 rounded-full bg-[var(--text-tertiary)] mt-2 shrink-0" />
+                {item}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>
@@ -78,7 +153,7 @@ export default function TeamPage() {
 
   return (
     <div className="min-h-screen bg-[var(--color-background)]">
-      <div className="max-w-[1080px] mx-auto">
+      <div className="max-w-[1080px] mx-auto md:border-x md:border-[var(--border-default)]">
         {/* Header */}
         <section className="py-32 md:py-40">
           <div className="px-8">
@@ -88,7 +163,7 @@ export default function TeamPage() {
                 七个角色，一个系统
               </h1>
               <p className="text-base md:text-lg text-[var(--text-secondary)] max-w-xl">
-                一人公司孵化器的执行架构。
+                从赛道评估到合规落地，从验证到自动化，每个节点由对应角色把关。
               </p>
             </div>
           </div>
@@ -114,14 +189,30 @@ export default function TeamPage() {
           </div>
         </section>
 
+        {/* CTA */}
+        <section className="py-20 border-t border-[var(--border-default)]">
+          <div className="container-content text-center">
+            <p className="text-sm text-[var(--text-heading)] font-medium mb-6">
+              评估你的方向 →
+            </p>
+            <a
+              href="/admission"
+              className="inline-flex items-center gap-2 bg-[var(--color-foreground)] text-[var(--color-background)] px-6 py-3 rounded-md font-medium text-sm hover:bg-[var(--color-accent)] transition-colors"
+            >
+              免费评估 →
+            </a>
+          </div>
+        </section>
+
         {/* Footer */}
         <footer className="py-16 border-t border-[var(--border-default)]">
           <div className="container-content">
             <div className="text-sm font-heading font-semibold text-[var(--text-heading)] mb-2">fhopc · 一人公司孵化器</div>
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-[var(--text-secondary)]">
               <a href="/" className="hover:text-[var(--text-heading)] transition-colors">首页</a>
-              <a href="#collab" className="hover:text-[var(--text-heading)] transition-colors">协作</a>
-              <a href="/insights" className="hover:text-[var(--text-heading)] transition-colors">观察</a>
+              <a href="/collab" className="hover:text-[var(--text-heading)] transition-colors">协作</a>
+              <a href="/insights" className="hover:text-[var(--text-heading)] transition-colors">痛点</a>
+              <a href="/admission" className="hover:text-[var(--text-heading)] transition-colors">准入</a>
               <a href="mailto:hello@fhopc.top" className="hover:text-[var(--text-heading)] transition-colors">hello@fhopc.top</a>
             </div>
           </div>
