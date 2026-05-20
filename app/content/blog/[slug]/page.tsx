@@ -12,6 +12,11 @@ const SLUG_MAP: Record<string, string> = {
   'shi-jian-hei-dong': '2026-05-18-time-trap',
   'po-mie-pao-mo': '2026-05-18-ai-opc-million-myth',
   'zhen-shi-zha-ji': '2026-05-17-swimming',
+  'sai-dao-san-wei-du': '2026-05-20-track-assessment',
+  'qi-tian-mvp': '2026-05-20-seven-day-mvp',
+  'san-ceng-gong-ju-zhan': '2026-05-20-three-tier-tools',
+  'wu-da-ping-tai-huo-ke': '2026-05-20-platform-strategies',
+  'biao-zhun-hua-jiao-fu': '2026-05-20-delivery-sop',
 };
 
 function getBlogPost(slug: string) {

@@ -22,6 +22,11 @@ function getBlogPosts(): BlogPost[] {
     '2026-05-18-time-trap': 'shi-jian-hei-dong',
     '2026-05-18-ai-opc-million-myth': 'po-mie-pao-mo',
     '2026-05-17-swimming': 'zhen-shi-zha-ji',
+    '2026-05-20-track-assessment': 'sai-dao-san-wei-du',
+    '2026-05-20-seven-day-mvp': 'qi-tian-mvp',
+    '2026-05-20-three-tier-tools': 'san-ceng-gong-ju-zhan',
+    '2026-05-20-platform-strategies': 'wu-da-ping-tai-huo-ke',
+    '2026-05-20-delivery-sop': 'biao-zhun-hua-jiao-fu',
   };
 
   return files.slice(0, 6).map(file => {
@@ -38,11 +43,14 @@ function getBlogPosts(): BlogPost[] {
   });
 }
 
-function CaseStudy({ title, subtitle, paragraphs, keyPoint }: {
+function CaseStudy({ title, subtitle, paragraphs, keyPoint, dataSource, deliverables, referral }: {
   title: string;
   subtitle: string;
   paragraphs: string[];
   keyPoint: string;
+  dataSource?: string;
+  deliverables?: string[];
+  referral?: string;
 }) {
   return (
     <div className="py-16 border-t border-[var(--border-default)] first:border-t-0">
@@ -52,6 +60,22 @@ function CaseStudy({ title, subtitle, paragraphs, keyPoint }: {
         {paragraphs.map((p, i) => <p key={i}>{p}</p>)}
       </div>
       <p className="text-xs text-[var(--color-accent)] mt-4 font-medium">{keyPoint}</p>
+      {dataSource && (
+        <p className="text-[11px] text-[var(--text-tertiary)] mt-3">数据来源：{dataSource}</p>
+      )}
+      {deliverables && deliverables.length > 0 && (
+        <div className="mt-4 pt-3 border-t border-[var(--border-default)]/50">
+          <p className="text-[11px] font-medium text-[var(--text-secondary)] mb-1">交付物</p>
+          <div className="flex flex-wrap gap-1.5">
+            {deliverables.map((d, i) => (
+              <span key={i} className="text-[11px] text-[var(--text-tertiary)] bg-[var(--btn-hover)] px-2 py-0.5 rounded">{d}</span>
+            ))}
+          </div>
+        </div>
+      )}
+      {referral && (
+        <p className="text-[11px] text-[var(--text-tertiary)] mt-2">复购/转介绍：{referral}</p>
+      )}
     </div>
   );
 }
@@ -113,6 +137,9 @@ export default function InsightsPage() {
                 '花了三个月搭系统——自动化数据采集、标准化交付模板、客户续费机制。第十一个月，回到三万。这次，三万是他的系统在转。',
               ]}
               keyPoint="关键转折：从卖时间到卖系统。"
+              dataSource="创始人自述 + 经营审计跟踪（2025.6-2026.4）"
+              deliverables={['赛道评估报告', '自动化数据采集系统', '标准化交付模板', '客户续费机制']}
+              referral="交付完成后推荐了 2 位同行客户"
             />
             <CaseStudy
               title="案例二：内容创作者"
@@ -124,6 +151,9 @@ export default function InsightsPage() {
                 '第四个月，粉丝没涨，收入翻倍。',
               ]}
               keyPoint="关键转折：流量不重要，收入结构才重要。"
+              dataSource="创始人经营审计报告 + 收入结构拆解（2026.1-2026.4）"
+              deliverables={['收入结构诊断报告', '产品化内容模板', '订阅+增值+广告三层变现模型', '自动化分发与跟单系统']}
+              referral="第四个月续费率 35%，启动了付费社群内测"
             />
             <CaseStudy
               title="案例三：电商独立卖家"
@@ -136,6 +166,9 @@ export default function InsightsPage() {
                 '第五个月，月利润覆盖了首发的全部亏损。从亏到盈不是因为做对了哪一件事，是五个地方都调了半格。',
               ]}
               keyPoint="转折链：选品→成本结构→流量渠道→复购机制。"
+              dataSource="经营审计跟踪 + 财务数据（2026.1-2026.5）"
+              deliverables={['经营审计报告', 'SKU 精简与供应链议价方案', '自然流运营 SOP', '复购自动触发系统']}
+              referral="第五个月转介绍率 12%，启动了分销机制"
             />
           </div>
         </section>
