@@ -2,6 +2,8 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { notFound } from 'next/navigation';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const BLOG_DIR = path.join(process.cwd(), 'content', 'blog');
 
@@ -62,10 +64,72 @@ export default async function BlogPostPage({
               <span>·</span>
               <span>约 {post.readTime}</span>
             </div>
-            <div className="text-sm text-[var(--text-body)] leading-relaxed space-y-4">
-              {post.content.split('\n').map((paragraph, i) => (
-                <p key={i}>{paragraph}</p>
-              ))}
+            <div className="text-sm text-[var(--text-body)] leading-relaxed">
+              <ReactMarkdown
+                remarkPlugins={[remarkGfm]}
+                components={{
+                  h2: ({ children }) => (
+                    <h2 className="text-[1.125rem] font-heading font-semibold text-[var(--text-heading)] mt-10 mb-4">
+                      {children}
+                    </h2>
+                  ),
+                  h3: ({ children }) => (
+                    <h3 className="text-[1rem] font-heading font-semibold text-[var(--text-heading)] mt-8 mb-3">
+                      {children}
+                    </h3>
+                  ),
+                  p: ({ children }) => (
+                    <p className="mb-4 last:mb-0">{children}</p>
+                  ),
+                  hr: () => (
+                    <hr className="my-8 border-[var(--border-default)]" />
+                  ),
+                  ul: ({ children }) => (
+                    <ul className="space-y-1 mb-4">{children}</ul>
+                  ),
+                  ol: ({ children }) => (
+                    <ol className="space-y-1 mb-4">{children}</ol>
+                  ),
+                  li: ({ children }) => (
+                    <li className="flex items-start gap-2">
+                      <span className="w-1 h-1 rounded-full bg-[var(--color-accent)] mt-2 shrink-0" />
+                      <span>{children}</span>
+                    </li>
+                  ),
+                  strong: ({ children }) => (
+                    <strong className="font-semibold text-[var(--text-heading)]">
+                      {children}
+                    </strong>
+                  ),
+                  table: ({ children }) => (
+                    <div className="overflow-x-auto my-6">
+                      <table className="w-full text-sm border-collapse">
+                        {children}
+                      </table>
+                    </div>
+                  ),
+                  th: ({ children }) => (
+                    <th className="text-left py-2 px-3 border-b border-[var(--border-default)] text-[var(--text-secondary)] font-medium">
+                      {children}
+                    </th>
+                  ),
+                  td: ({ children }) => (
+                    <td className="py-2 px-3 border-b border-[var(--border-default)] text-[var(--text-body)]">
+                      {children}
+                    </td>
+                  ),
+                  a: ({ href, children }) => (
+                    <a
+                      href={href}
+                      className="text-[var(--color-accent)] hover:underline"
+                    >
+                      {children}
+                    </a>
+                  ),
+                }}
+              >
+                {post.content}
+              </ReactMarkdown>
             </div>
           </div>
         </article>
