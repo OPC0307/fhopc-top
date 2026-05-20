@@ -123,10 +123,10 @@ export default function Home() {
                 一人公司孵化器
               </h1>
               <p className={`text-lg md:text-xl text-[var(--text-heading)] mb-2 transition-all duration-800 ease-helio delay-100ms ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                有行业经验，想自己干。剩下的，交给系统。
+                从想法到第一笔订单，7 个节点陪你走完全程。
               </p>
               <p className={`text-sm text-[var(--text-secondary)] max-w-xl mb-8 transition-all duration-800 ease-helio delay-200ms ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                不是教你一人公司怎么开，是你不懂的环节，有人替你把关——方向、技术、交付，每一步有人审。
+                基于赛道三维度 × 7 天 MVP × 三层工具栈的验证体系。
               </p>
               <a
                 href="/admission"
@@ -268,7 +268,7 @@ export default function Home() {
         <footer className="py-16 border-t border-[var(--border-default)]">
           <div className="container-content">
             <div className="text-sm font-heading font-semibold text-[var(--text-heading)] mb-2">fhopc · 一人公司孵化器</div>
-            <p className="text-xs text-[var(--text-tertiary)] mb-6">有行业经验，想自己干。剩下的，交给系统。</p>
+            <p className="text-xs text-[var(--text-tertiary)] mb-6">从想法到第一笔订单，7 个节点陪你走完全程。</p>
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-[var(--text-secondary)]">
               <a href="/team" className="hover:text-[var(--text-heading)] transition-colors">团队</a>
               <a href="/collab" className="hover:text-[var(--text-heading)] transition-colors">协作</a>
