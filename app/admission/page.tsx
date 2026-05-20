@@ -8,6 +8,11 @@ type FormData = {
   commitment: string;
   budget: string;
   blocker: string;
+  demand: string;
+  tech: string;
+  monetization: string;
+  competition: string;
+  fit: string;
 };
 
 type ResultData = {
@@ -25,22 +30,21 @@ type ResultData = {
   adjustments?: string[];
 };
 
-const QUESTIONS = [
+const BASE_QUESTIONS = [
   {
     id: 'direction',
     num: '01',
     title: '方向',
     question: '你有一个明确想做的方向吗？它是什么？',
     example:
-      '例："我想做AI+宠物养护咨询"、"我打算做中小企业内容代运营"\n不需要写商业计划书，但要能一句话说清你想做什么。',
+      '例："我想做AI+宠物养护咨询"、"我打算做中小企业内容代运营"\n需要一句话说清你想做什么、为谁做。',
   },
   {
     id: 'experience',
     num: '02',
     title: '经验',
     question: '你在这个方向上有行业经验吗？多久？',
-    example:
-      '例："我在宠物行业做了3年运营"、"完全没有，但我想学"\n我们看重的是你是否了解这个行业怎么运转。',
+    example: '例："我在宠物行业做了3年运营"、"完全没有，但我想学"',
     options: [
       { value: 'none', label: '无经验' },
       { value: 'less-than-1', label: '不到1年' },
@@ -53,8 +57,7 @@ const QUESTIONS = [
     num: '03',
     title: '投入',
     question: '你每周能投入多少时间？愿意持续多久？',
-    example:
-      '例："每周20小时，先试3个月"、"有空才做"\n"有空才做"说明你还没准备好——这个答案我们直接告诉你。',
+    example: '例："每周20小时，先试3个月"\n"有空才做"说明你还没准备好。',
     options: [
       { value: 'less-than-5', label: '每周不到5h' },
       { value: '5-15', label: '5-15h' },
@@ -67,8 +70,7 @@ const QUESTIONS = [
     num: '04',
     title: '资金',
     question: '你准备投入多少启动资金？',
-    example:
-      '例："2000/月"、"不想花钱"、"可以先接单再投入"\n不需要大资本，但需要你诚实。零启动在某些方向可行，不代表所有方向都可行。',
+    example: '例："2000/月"\n零启动在某些方向可行，不代表所有方向都可行。',
     options: [
       { value: 'none', label: '不想花钱' },
       { value: 'under-1000', label: '1000以下/月' },
@@ -88,6 +90,74 @@ const QUESTIONS = [
       { value: 'unstable-income', label: '有收入但不稳定' },
       { value: 'stable-income', label: '有稳定收入想突破' },
       { value: 'other', label: '以上都不是' },
+    ],
+  },
+];
+
+const TRACK_QUESTIONS = [
+  {
+    id: 'demand',
+    num: '06',
+    title: '需求刚性',
+    question: '你的目标客户对这个解决方案有多迫切？',
+    example: '最真实的验证是：客户已经在为这个问题花钱。',
+    options: [
+      { value: 'none', label: '没有明确需求' },
+      { value: 'weak', label: '有需求但不迫切' },
+      { value: 'moderate', label: '有明确痛点，正在找方案' },
+      { value: 'strong', label: '非常迫切，愿意立即付费' },
+    ],
+  },
+  {
+    id: 'tech',
+    num: '07',
+    title: '技术成熟度',
+    question: '实现这个方案所需的技术成熟度如何？',
+    example: '一人公司不需要自研，优先选择有成熟工具和API的方案。',
+    options: [
+      { value: 'none', label: '需要自研核心技术' },
+      { value: 'low', label: '有开源方案但需大量定制' },
+      { value: 'moderate', label: '有成熟工具/API可用' },
+      { value: 'high', label: '现有AI工具可直接实现' },
+    ],
+  },
+  {
+    id: 'monetization',
+    num: '08',
+    title: '变现清晰度',
+    question: '你的变现路径有多清晰？',
+    example: '能说清"谁付多少钱买什么"比写BP更有用。',
+    options: [
+      { value: 'none', label: '还不知道怎么收费' },
+      { value: 'vague', label: '有想法但未验证' },
+      { value: 'clear', label: '有明确收费模式' },
+      { value: 'proven', label: '已有付费客户' },
+    ],
+  },
+  {
+    id: 'competition',
+    num: '09',
+    title: '市场竞争',
+    question: '目标市场的竞争格局如何？',
+    example: '有竞争说明有需求，但要找到差异化切入点。',
+    options: [
+      { value: 'red', label: '红海市场，巨头主导' },
+      { value: 'competitive', label: '竞争激烈但有机会' },
+      { value: 'moderate', label: '有一定竞争' },
+      { value: 'blue', label: '蓝海市场，竞品少' },
+    ],
+  },
+  {
+    id: 'fit',
+    num: '10',
+    title: '个人匹配度',
+    question: '你的经验/资源与这个方向的匹配程度如何？',
+    example: '最可靠的起点是你已经做过的事的延伸，不是从零跨界。',
+    options: [
+      { value: 'none', label: '跨行，从零开始' },
+      { value: 'related', label: '有相关经验但非直接' },
+      { value: 'direct', label: '有直接行业经验' },
+      { value: 'expert', label: '有行业经验+资源积累' },
     ],
   },
 ];
@@ -155,6 +225,11 @@ export default function AdmissionPage() {
     commitment: '',
     budget: '',
     blocker: '',
+    demand: '',
+    tech: '',
+    monetization: '',
+    competition: '',
+    fit: '',
   });
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<ResultData | null>(null);
@@ -171,12 +246,10 @@ export default function AdmissionPage() {
     [],
   );
 
+  const allRadioQuestions = [...BASE_QUESTIONS, ...TRACK_QUESTIONS].filter(q => q.id !== 'direction');
   const canSubmit =
     form.direction.trim() &&
-    form.experience &&
-    form.commitment &&
-    form.budget &&
-    form.blocker;
+    allRadioQuestions.every(q => form[q.id as keyof FormData]);
 
   const handleSubmit = useCallback(async () => {
     if (!canSubmit || submitting) return;
@@ -209,6 +282,11 @@ export default function AdmissionPage() {
       commitment: '',
       budget: '',
       blocker: '',
+      demand: '',
+      tech: '',
+      monetization: '',
+      competition: '',
+      fit: '',
     });
     setResult(null);
     setError('');
@@ -231,7 +309,7 @@ export default function AdmissionPage() {
                 评估你的方向
               </h1>
               <p className="text-base md:text-lg text-[var(--text-secondary)] max-w-xl">
-                不是所有人都适合一个人创业，我们会直接告诉你。
+                10 个问题，判断你的创业成熟度 + 赛道可行性。
               </p>
             </div>
           </div>
@@ -240,9 +318,15 @@ export default function AdmissionPage() {
         {/* Intro */}
         <section className="border-t border-[var(--border-default)]">
           <div className="container-content py-16">
-            <p className="text-sm text-[var(--text-body)] leading-relaxed max-w-2xl">
-              回答以下5个问题，我们就知道你的创业方向值不值得继续。这不是问卷，是我们判断你当前状态的依据。答完这些，适合的直接告诉你推荐哪个协作模式，不适合的直接说原因。
+            <p className="text-sm text-[var(--text-body)] leading-relaxed max-w-2xl mb-6">
+              回答以下 10 个问题，我们就知道你的方向值不值得继续。
+              5 个基础诊断 + 5 个赛道评估，覆盖个人条件和方向可行性。
+              适合的直接告诉你推荐哪个协作模式，不适合的直接说原因。
             </p>
+            <div className="flex flex-wrap gap-2">
+              <span className="text-xs text-[var(--color-accent)] bg-[var(--color-accent)]/10 px-3 py-1 rounded-full">Q1-Q5 基础诊断</span>
+              <span className="text-xs text-[var(--text-tertiary)] bg-[var(--btn-hover)] px-3 py-1 rounded-full">Q6-Q10 赛道评估</span>
+            </div>
           </div>
         </section>
 
@@ -250,8 +334,13 @@ export default function AdmissionPage() {
           /* Form Section */
           <section className="border-t border-[var(--border-default)]">
             <div className="container-content divide-y divide-[var(--border-default)]">
-              {QUESTIONS.map((q) => (
-                <div key={q.id} className="py-12 first:pt-0">
+              {/* Section label: 基础诊断 */}
+              <div className="py-8 first:pt-0">
+                <span className="text-xs font-semibold text-[var(--color-accent)] uppercase tracking-wider">第一部分：基础诊断</span>
+              </div>
+
+              {BASE_QUESTIONS.map((q) => (
+                <div key={q.id} className="py-12">
                   <div className="flex items-baseline gap-3 mb-3">
                     <span className="text-xs font-semibold text-[var(--color-accent)] tabular-nums">
                       {q.num}
@@ -277,11 +366,43 @@ export default function AdmissionPage() {
                       name={q.id}
                       options={q.options!}
                       value={form[q.id as keyof FormData] as string}
-                      onChange={(v) =>
-                        updateField(q.id as keyof FormData, v)
-                      }
+                      onChange={(v) => updateField(q.id as keyof FormData, v)}
                     />
                   )}
+
+                  {q.example && (
+                    <div className="mt-3 text-xs text-[var(--text-tertiary)] bg-[var(--btn-hover)] rounded-md p-4 leading-relaxed whitespace-pre-line">
+                      {q.example}
+                    </div>
+                  )}
+                </div>
+              ))}
+
+              {/* Section label: 赛道评估 */}
+              <div className="py-8">
+                <span className="text-xs font-semibold text-[var(--color-accent)] uppercase tracking-wider">第二部分：赛道评估</span>
+              </div>
+
+              {TRACK_QUESTIONS.map((q) => (
+                <div key={q.id} className="py-12">
+                  <div className="flex items-baseline gap-3 mb-3">
+                    <span className="text-xs font-semibold text-[var(--color-accent)] tabular-nums">
+                      {q.num}
+                    </span>
+                    <h2 className="text-[1.125rem] font-heading font-semibold text-[var(--text-heading)]">
+                      {q.title}
+                    </h2>
+                  </div>
+                  <p className="text-sm font-medium text-[var(--text-body)] mb-3">
+                    {q.question}
+                  </p>
+
+                  <RadioGroup
+                    name={q.id}
+                    options={q.options!}
+                    value={form[q.id as keyof FormData] as string}
+                    onChange={(v) => updateField(q.id as keyof FormData, v)}
+                  />
 
                   {q.example && (
                     <div className="mt-3 text-xs text-[var(--text-tertiary)] bg-[var(--btn-hover)] rounded-md p-4 leading-relaxed whitespace-pre-line">
@@ -341,70 +462,85 @@ export default function AdmissionPage() {
                 </p>
               </div>
 
-              {result.recommendation ? (
-                /* Recommended */
-                <>
-                  {result.weakPoints.length > 0 && (
-                    <div className="mb-6">
-                      <p className="text-xs font-semibold text-[var(--text-heading)] mb-2">
-                        需要注意
-                      </p>
-                      <ul className="space-y-1">
-                        {result.weakPoints.map((wp) => (
-                          <li
-                            key={wp}
-                            className="text-xs text-[var(--text-secondary)] flex items-center gap-2"
-                          >
-                            <span className="w-1 h-1 rounded-full bg-[var(--color-accent)]" />{' '}
-                            {wp}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
+              {result.weakPoints.length > 0 && (
+                <div className="mb-6">
+                  <p className="text-xs font-semibold text-[var(--text-heading)] mb-2">
+                    需要注意
+                  </p>
+                  <ul className="space-y-1">
+                    {result.weakPoints.map((wp) => (
+                      <li
+                        key={wp}
+                        className="text-xs text-[var(--text-secondary)] flex items-center gap-2"
+                      >
+                        <span className="w-1 h-1 rounded-full bg-[var(--color-accent)]" /> {wp}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
 
-                  <div className="border border-[var(--border-default)] rounded-lg p-6 mb-6">
-                    <p className="text-xs text-[var(--text-tertiary)] mb-1">
-                      推荐方案
-                    </p>
-                    <p className="text-lg font-semibold text-[var(--text-heading)] mb-1">
-                      {result.recommendation.plan}
-                    </p>
+              {result.recommendation && (
+                <div className="border border-[var(--border-default)] rounded-lg p-6 mb-6">
+                  <p className="text-xs text-[var(--text-tertiary)] mb-1">
+                    推荐方案
+                  </p>
+                  <p className="text-lg font-semibold text-[var(--text-heading)] mb-1">
+                    {result.recommendation.plan}
+                  </p>
+                  {result.recommendation.planPrice !== '待定' && (
                     <p className="text-sm text-[var(--color-accent)] font-medium mb-3">
                       {result.recommendation.planPrice}
                     </p>
-                    <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
-                      {result.recommendation.summary}
-                    </p>
-                  </div>
+                  )}
+                  <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+                    {result.recommendation.summary}
+                  </p>
+                </div>
+              )}
 
-                  <a
-                    href={result.recommendation?.plan === '深度协作' ? '/contact?plan=deep' : '/contact?plan=diagnosis'}
-                    className="block w-full text-center bg-[var(--color-accent)] text-white font-medium text-sm px-6 py-3.5 rounded-lg hover:brightness-110 transition-all duration-200 mb-3"
-                  >
-                    选择方案 →
-                  </a>
-                </>
-              ) : (
-                /* Not ready */
-                <>
-                  <div className="border border-[var(--border-default)] rounded-lg p-6 mb-6">
-                    <p className="text-xs font-semibold text-[var(--text-heading)] mb-3">
-                      调整建议
-                    </p>
-                    <ul className="space-y-3">
-                      {result.adjustments?.map((adj) => (
-                        <li
-                          key={adj}
-                          className="text-xs text-[var(--text-secondary)] leading-relaxed flex items-start gap-2"
-                        >
-                          <span className="w-1 h-1 rounded-full bg-[var(--color-accent)] mt-1 shrink-0" />
-                          {adj}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </>
+              {result.level === 'deep' && (
+                <a
+                  href="/contact?plan=deep"
+                  className="block w-full text-center bg-[var(--color-accent)] text-white font-medium text-sm px-6 py-3.5 rounded-lg hover:brightness-110 transition-all duration-200 mb-3"
+                >
+                  选择深度协作 →
+                </a>
+              )}
+              {result.level === 'diagnosis' && (
+                <a
+                  href="/contact?plan=diagnosis"
+                  className="block w-full text-center bg-[var(--color-accent)] text-white font-medium text-sm px-6 py-3.5 rounded-lg hover:brightness-110 transition-all duration-200 mb-3"
+                >
+                  选择经营诊断 →
+                </a>
+              )}
+              {result.level === 'framework' && (
+                <a
+                  href="/contact?plan=framework"
+                  className="block w-full text-center bg-[var(--color-accent)] text-white font-medium text-sm px-6 py-3.5 rounded-lg hover:brightness-110 transition-all duration-200 mb-3"
+                >
+                  选择作业框架 →
+                </a>
+              )}
+
+              {result.adjustments && result.adjustments.length > 0 && (
+                <div className="border border-[var(--border-default)] rounded-lg p-6 mb-6">
+                  <p className="text-xs font-semibold text-[var(--text-heading)] mb-3">
+                    调整建议
+                  </p>
+                  <ul className="space-y-3">
+                    {result.adjustments.map((adj) => (
+                      <li
+                        key={adj}
+                        className="text-xs text-[var(--text-secondary)] leading-relaxed flex items-start gap-2"
+                      >
+                        <span className="w-1 h-1 rounded-full bg-[var(--color-accent)] mt-1 shrink-0" />
+                        {adj}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               )}
 
               <button
@@ -421,7 +557,7 @@ export default function AdmissionPage() {
         <section className="py-20 border-t border-[var(--border-default)]">
           <div className="container-content text-center">
             <p className="text-sm text-[var(--text-heading)] font-medium mb-6">
-              5个问题，知道你的方向值不值得继续。
+              10 个问题，知道你的方向值不值得继续。
             </p>
             <a
               href="/admission"
@@ -439,36 +575,11 @@ export default function AdmissionPage() {
               fhopc · 一人公司孵化器
             </div>
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-[var(--text-secondary)]">
-              <a
-                href="/"
-                className="hover:text-[var(--text-heading)] transition-colors"
-              >
-                首页
-              </a>
-              <a
-                href="/team"
-                className="hover:text-[var(--text-heading)] transition-colors"
-              >
-                团队
-              </a>
-              <a
-                href="/collab"
-                className="hover:text-[var(--text-heading)] transition-colors"
-              >
-                协作
-              </a>
-              <a
-                href="/insights"
-                className="hover:text-[var(--text-heading)] transition-colors"
-              >
-                痛点
-              </a>
-              <a
-                href="mailto:hello@fhopc.top"
-                className="hover:text-[var(--text-heading)] transition-colors"
-              >
-                hello@fhopc.top
-              </a>
+              <a href="/" className="hover:text-[var(--text-heading)] transition-colors">首页</a>
+              <a href="/team" className="hover:text-[var(--text-heading)] transition-colors">团队</a>
+              <a href="/collab" className="hover:text-[var(--text-heading)] transition-colors">协作</a>
+              <a href="/insights" className="hover:text-[var(--text-heading)] transition-colors">痛点</a>
+              <a href="mailto:hello@fhopc.top" className="hover:text-[var(--text-heading)] transition-colors">hello@fhopc.top</a>
             </div>
           </div>
         </footer>
