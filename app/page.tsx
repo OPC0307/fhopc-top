@@ -71,7 +71,7 @@ const faqItems = [
   },
   {
     q: '经营诊断和深度协作的区别是什么？',
-    a: '经营诊断是月度数据审计 + 策略复盘，适合已经有方向、需要优化经营效率的人。深度协作是全流程陪跑、每周同步，适合一个人扛不住、需要系统兜底的人。',
+    a: '经营诊断是月度数据审计 + 策略复盘，适合已经有方向、需要优化经营效率的人。深度协作是全流程验证方案、每周同步，适合一个人扛不住、需要系统兜底的人。',
   },
   {
     q: '如何判断一个赛道是否值得进入？',
@@ -144,7 +144,7 @@ export default function Home() {
           <div className="px-8">
             <div className="max-w-3xl">
               <h1 className={`text-[2.5rem] md:text-[3rem] lg:text-[3.5rem] font-heading font-bold tracking-tight leading-[1.15] text-[var(--text-heading)] mb-4 transition-all duration-800 ease-helio ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                一人公司孵化器
+                一人公司系统化交付
               </h1>
               <p className={`text-lg md:text-xl text-[var(--text-heading)] mb-2 transition-all duration-800 ease-helio delay-100ms ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
                 从想法到第一笔订单，7 个节点陪你走完全程。
@@ -193,7 +193,7 @@ export default function Home() {
         {/* ======== Block 3: System (7 roles) ======== */}
         <section id="system" className="py-32 border-t border-[var(--border-default)]">
           <div className="container-content">
-            <SectionLabel>孵化系统</SectionLabel>
+            <SectionLabel>验证系统</SectionLabel>
             <SectionTitle>七个角色，一个系统</SectionTitle>
             <p className="text-sm text-[var(--text-secondary)] max-w-2xl mt-4">
               7个角色——诊断问题、判断方向、验证选择、把关交付。不是帮你做，是你做的每一步有人替你审。
@@ -291,7 +291,7 @@ export default function Home() {
         {/* ======== Footer ======== */}
         <footer className="py-16 border-t border-[var(--border-default)]">
           <div className="container-content">
-            <div className="text-sm font-heading font-semibold text-[var(--text-heading)] mb-2">fhopc · 一人公司孵化器</div>
+            <div className="text-sm font-heading font-semibold text-[var(--text-heading)] mb-2">fhopc · 一人公司系统化交付</div>
             <p className="text-xs text-[var(--text-tertiary)] mb-6">从想法到第一笔订单，7 个节点陪你走完全程。</p>
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-[var(--text-secondary)]">
               <a href="/team" className="hover:text-[var(--text-heading)] transition-colors">团队</a>

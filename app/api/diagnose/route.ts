@@ -153,7 +153,7 @@ export async function POST(request: NextRequest) {
       recommendation: {
         plan: '深度协作',
         planPrice: '¥999',
-        summary: '你的方向和条件经过验证，成熟度较高。推荐深度协作——全周期陪跑，7 个角色按需介入，你冲执行，系统盯方向和质量。',
+        summary: '你的方向和条件经过验证，成熟度较高。推荐深度协作——全周期验证，7 个角色按需介入，你冲执行，系统盯方向和质量。',
       },
       weakPoints,
       feedback: '综合评分优秀。你的方向清晰，个人条件充分，赛道评估显示可行。建议直接进入深度协作阶段。',

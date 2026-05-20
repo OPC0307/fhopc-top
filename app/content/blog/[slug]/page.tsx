@@ -17,6 +17,9 @@ const SLUG_MAP: Record<string, string> = {
   'san-ceng-gong-ju-zhan': '2026-05-20-three-tier-tools',
   'wu-da-ping-tai-huo-ke': '2026-05-20-platform-strategies',
   'biao-zhun-hua-jiao-fu': '2026-05-20-delivery-sop',
+  'fu-ye-dao-zhu-ye': '2026-05-20-side-hustle-to-main',
+  'ding-jia-xian-jing': '2026-05-20-pricing-trap',
+  'jue-ce-dai-jia': '2026-05-20-decision-burden',
 };
 
 function getBlogPost(slug: string) {
@@ -158,7 +161,7 @@ export default async function BlogPostPage({
         <footer className="py-16 border-t border-[var(--border-default)]">
           <div className="container-content">
             <div className="text-sm font-heading font-semibold text-[var(--text-heading)] mb-2">
-              fhopc · 一人公司孵化器
+              fhopc · 一人公司系统化交付
             </div>
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-[var(--text-secondary)]">
               <a

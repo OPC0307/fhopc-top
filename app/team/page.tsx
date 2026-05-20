@@ -9,11 +9,11 @@ const roles = [
     do: [
       '用赛道自评打分表量化评估方向成熟度（需求刚性×技术成熟度×变现清晰度）',
       '对照转化 5 阶段判断你的所处位置（首次接触→需求诊断→方案报价→标准交付→复购推荐）',
-      '根据百日盈利蓝图的三阶段规划推荐匹配的孵化模式',
+      '根据百日盈利蓝图的三阶段规划推荐匹配的验证方案',
       '输出方向评估报告：分数、薄弱点、推荐方案',
     ],
     dont: [
-      '不降低评估标准凑孵化数量',
+      '不降低评估标准凑验证数量',
       '不替你做创业决定',
     ],
   },
@@ -158,7 +158,7 @@ export default function TeamPage() {
         <section className="py-32 md:py-40">
           <div className="px-8">
             <div className={`transition-all duration-800 ease-helio ${pageVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              <div className="section-label">一人公司孵化器</div>
+              <div className="section-label">一人公司系统化交付</div>
               <h1 className="text-[2rem] md:text-[2.5rem] font-heading font-bold tracking-tight text-[var(--text-heading)] mb-4">
                 七个角色，一个系统
               </h1>
@@ -207,7 +207,7 @@ export default function TeamPage() {
         {/* Footer */}
         <footer className="py-16 border-t border-[var(--border-default)]">
           <div className="container-content">
-            <div className="text-sm font-heading font-semibold text-[var(--text-heading)] mb-2">fhopc · 一人公司孵化器</div>
+            <div className="text-sm font-heading font-semibold text-[var(--text-heading)] mb-2">fhopc · 一人公司系统化交付</div>
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-[var(--text-secondary)]">
               <a href="/" className="hover:text-[var(--text-heading)] transition-colors">首页</a>
               <a href="/collab" className="hover:text-[var(--text-heading)] transition-colors">协作</a>

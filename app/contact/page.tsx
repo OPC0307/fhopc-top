@@ -103,7 +103,7 @@ function ContactForm() {
           <footer className="py-16 border-t border-[var(--border-default)]">
             <div className="container-content">
               <div className="text-sm font-heading font-semibold text-[var(--text-heading)] mb-2">
-                fhopc · 一人公司孵化器
+                fhopc · 一人公司系统化交付
               </div>
               <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-[var(--text-secondary)]">
                 <a
@@ -245,7 +245,7 @@ function ContactForm() {
             </button>
 
             <p className="text-xs text-[var(--text-tertiary)] mt-4 text-center leading-relaxed">
-              提交即表示你同意我们处理你的联系信息，仅用于孵化器业务沟通。
+              提交即表示你同意我们处理你的联系信息，仅用于系统化交付业务沟通。
             </p>
           </div>
         </section>
@@ -254,7 +254,7 @@ function ContactForm() {
         <footer className="py-16 border-t border-[var(--border-default)]">
           <div className="container-content">
             <div className="text-sm font-heading font-semibold text-[var(--text-heading)] mb-2">
-              fhopc · 一人公司孵化器
+              fhopc · 一人公司系统化交付
             </div>
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-[var(--text-secondary)]">
               <a

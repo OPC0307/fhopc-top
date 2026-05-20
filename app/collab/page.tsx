@@ -18,7 +18,7 @@ export default function CollabPage() {
                 三种深度，按需选择
               </h1>
               <p className="text-base md:text-lg text-[var(--text-secondary)] max-w-xl">
-                一人公司孵化器不卖套餐。你的阶段决定了你需要什么深度。
+                一人公司系统化交付不卖套餐。你的阶段决定了你需要什么深度。
               </p>
             </div>
           </div>
@@ -29,7 +29,7 @@ export default function CollabPage() {
           <div className="container-content py-20">
             <h2 className="text-[1.25rem] font-heading font-semibold text-[var(--text-heading)] mb-2">01 作业框架</h2>
             <p className="text-sm text-[var(--color-accent)] mb-4">适用阶段：有想法不知道怎么变成第一单</p>
-            <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-6">30 天从想法到第一笔订单的陪跑 SOP。含 7 天 MVP 验证法、赛道三维度评估、三层工具栈配置指南。</p>
+            <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-6">30 天从想法到第一笔订单的验证方案 SOP。含 7 天 MVP 验证法、赛道三维度评估、三层工具栈配置指南。</p>
 
             <div className="grid md:grid-cols-3 gap-8 mb-8">
               <div>
@@ -133,7 +133,7 @@ export default function CollabPage() {
           <div className="container-content py-20">
             <h2 className="text-[1.25rem] font-heading font-semibold text-[var(--text-heading)] mb-2">03 深度协作</h2>
             <p className="text-sm text-[var(--color-accent)] mb-4">适用阶段：一个人扛不住了，需要系统兜底</p>
-            <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-6">全周期陪跑，每周同步。含标准化交付 5 阶段管理、客户案例沉淀、复购裂变设计、合同与收款路径设计。</p>
+            <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-6">全周期验证方案，每周同步。含标准化交付 5 阶段管理、客户案例沉淀、复购裂变设计、合同与收款路径设计。</p>
 
             <div className="grid md:grid-cols-3 gap-8 mb-8">
               <div>
@@ -215,7 +215,7 @@ export default function CollabPage() {
         {/* Footer */}
         <footer className="py-16 border-t border-[var(--border-default)]">
           <div className="container-content">
-            <div className="text-sm font-heading font-semibold text-[var(--text-heading)] mb-2">fhopc · 一人公司孵化器</div>
+            <div className="text-sm font-heading font-semibold text-[var(--text-heading)] mb-2">fhopc · 一人公司系统化交付</div>
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-[var(--text-secondary)]">
               <a href="/" className="hover:text-[var(--text-heading)] transition-colors">首页</a>
               <a href="/team" className="hover:text-[var(--text-heading)] transition-colors">团队</a>

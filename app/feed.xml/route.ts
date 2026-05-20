@@ -28,7 +28,7 @@ export async function GET() {
   const rss = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
   <channel>
-    <title>一人公司孵化器</title>
+    <title>一人公司系统化交付</title>
     <link>${SITE_URL}</link>
     <description>想清楚的人，我陪你走一段。</description>
     ${items.map(item => `

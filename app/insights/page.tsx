@@ -27,9 +27,12 @@ function getBlogPosts(): BlogPost[] {
     '2026-05-20-three-tier-tools': 'san-ceng-gong-ju-zhan',
     '2026-05-20-platform-strategies': 'wu-da-ping-tai-huo-ke',
     '2026-05-20-delivery-sop': 'biao-zhun-hua-jiao-fu',
+    '2026-05-20-side-hustle-to-main': 'fu-ye-dao-zhu-ye',
+    '2026-05-20-pricing-trap': 'ding-jia-xian-jing',
+    '2026-05-20-decision-burden': 'jue-ce-dai-jia',
   };
 
-  return files.slice(0, 6).map(file => {
+  return files.slice(0, 9).map(file => {
     const fileSlug = file.replace('.md', '');
     const raw = fs.readFileSync(path.join(BLOG_DIR, file), 'utf-8');
     const { data } = matter(raw);
@@ -194,7 +197,7 @@ export default function InsightsPage() {
         {/* Footer */}
         <footer className="py-16 border-t border-[var(--border-default)]">
           <div className="container-content">
-            <div className="text-sm font-heading font-semibold text-[var(--text-heading)] mb-2">fhopc · 一人公司孵化器</div>
+            <div className="text-sm font-heading font-semibold text-[var(--text-heading)] mb-2">fhopc · 一人公司系统化交付</div>
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-[var(--text-secondary)]">
               <a href="/" className="hover:text-[var(--text-heading)] transition-colors">首页</a>
               <a href="/team" className="hover:text-[var(--text-heading)] transition-colors">团队</a>
