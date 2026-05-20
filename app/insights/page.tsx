@@ -18,7 +18,7 @@ function getBlogPosts(): BlogPost[] {
   files.sort().reverse();
 
   const FILE_SLUG_MAP: Record<string, string> = {
-    '2026-05-20-before-after': 'qi-dong-qian-hou',
+    '2026-05-20-ai-agent-first-employee': 'di-yi-ge-yuan-gong',
     '2026-05-18-time-trap': 'shi-jian-hei-dong',
     '2026-05-18-ai-opc-million-myth': 'po-mie-pao-mo',
     '2026-05-17-swimming': 'zhen-shi-zha-ji',

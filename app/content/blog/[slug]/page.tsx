@@ -6,7 +6,7 @@ import { notFound } from 'next/navigation';
 const BLOG_DIR = path.join(process.cwd(), 'content', 'blog');
 
 const SLUG_MAP: Record<string, string> = {
-  'qi-dong-qian-hou': '2026-05-20-before-after',
+  'di-yi-ge-yuan-gong': '2026-05-20-ai-agent-first-employee',
   'shi-jian-hei-dong': '2026-05-18-time-trap',
   'po-mie-pao-mo': '2026-05-18-ai-opc-million-myth',
   'zhen-shi-zha-ji': '2026-05-17-swimming',
