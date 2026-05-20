@@ -28,9 +28,10 @@ export default function CollabPage() {
         <section className="border-t border-[var(--border-default)]">
           <div className="container-content py-20">
             <h2 className="text-[1.25rem] font-heading font-semibold text-[var(--text-heading)] mb-2">01 作业框架</h2>
-            <p className="text-sm text-[var(--color-accent)] mb-6">适用阶段：有想法不知道怎么变成第一单</p>
+            <p className="text-sm text-[var(--color-accent)] mb-4">适用阶段：有想法不知道怎么变成第一单</p>
+            <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-6">30 天从想法到第一笔订单的陪跑 SOP。含 7 天 MVP 验证法、赛道三维度评估、三层工具栈配置指南。</p>
 
-            <div className="grid md:grid-cols-2 gap-12">
+            <div className="grid md:grid-cols-3 gap-8 mb-8">
               <div>
                 <h3 className="text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-wider mb-3">包含内容</h3>
                 <ul className="space-y-2 text-sm text-[var(--text-body)]">
@@ -38,6 +39,14 @@ export default function CollabPage() {
                   <li>• 工具包：合同模板、报价模板、交付清单、客户跟进 SOP</li>
                   <li>• 每周自查清单 —— 不等人催，自己就知道下一步该做什么</li>
                   <li>• 30 天社群答疑（群内随时提问）</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-xs font-semibold text-[var(--color-accent)] uppercase tracking-wider mb-3">产出清单</h3>
+                <ul className="space-y-2 text-sm text-[var(--text-body)]">
+                  <li>• 赛道评分报告（需求刚性 × 技术成熟度 × 变现清晰度）</li>
+                  <li>• MVP 原型 + 付费验证记录</li>
+                  <li>• 百日计划表（Day 1-30 定位与验证）</li>
                 </ul>
               </div>
               <div>
@@ -50,7 +59,7 @@ export default function CollabPage() {
               </div>
             </div>
 
-            <div className="mt-8 pt-6 border-t border-[var(--border-default)] flex flex-wrap gap-x-8 gap-y-2 text-xs text-[var(--text-secondary)]">
+            <div className="pt-6 border-t border-[var(--border-default)] flex flex-wrap gap-x-8 gap-y-2 text-xs text-[var(--text-secondary)]">
               <span>交付方式：Notion 文档 + 模板包，自主推进</span>
               <span>预期节奏：最快 30 天出第一单</span>
               <span className="text-[var(--text-tertiary)] w-full mt-1">卡点对应：有想法不知道怎么变成第一单 → 从0到出单的30天路径，每一步写清楚。</span>
@@ -70,16 +79,27 @@ export default function CollabPage() {
         <section className="border-t border-[var(--border-default)]">
           <div className="container-content py-20">
             <h2 className="text-[1.25rem] font-heading font-semibold text-[var(--text-heading)] mb-2">02 经营诊断</h2>
-            <p className="text-sm text-[var(--color-accent)] mb-6">适用阶段：已经在做，但不知道对不对</p>
+            <p className="text-sm text-[var(--color-accent)] mb-4">适用阶段：已经在做，但不知道对不对</p>
+            <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-6">月度经营数据审计 + 策略复盘。含核心指标体系诊断、成本控制优化、NPS 满意度管理、复购裂变设计。</p>
 
-            <div className="grid md:grid-cols-2 gap-12">
+            <div className="grid md:grid-cols-3 gap-8 mb-8">
               <div>
                 <h3 className="text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-wider mb-3">包含内容</h3>
                 <ul className="space-y-2 text-sm text-[var(--text-body)]">
                   <li>• 每月一次完整数据审计：收入结构、成本分布、时间分配</li>
-                  <li>• 数据驱动的诊断报告 —— 哪在漏、哪在赚、哪在拖</li>
+                  <li>• 核心经营指标体系诊断 —— 哪在漏、哪在赚、哪在拖</li>
                   <li>• 30 分钟复盘会，我出诊断你执行</li>
                   <li>• 经营指标看板（数据可视化）</li>
+                  <li>• NPS 满意度管理与复购裂变机制设计</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-xs font-semibold text-[var(--color-accent)] uppercase tracking-wider mb-3">产出清单</h3>
+                <ul className="space-y-2 text-sm text-[var(--text-body)]">
+                  <li>• 月度诊断报告（含核心指标变化趋势）</li>
+                  <li>• 成本优化建议书</li>
+                  <li>• 复购方案（订阅制/会员体系/自动续费/转介绍激励）</li>
+                  <li>• 下月行动计划</li>
                 </ul>
               </div>
               <div>
@@ -92,7 +112,7 @@ export default function CollabPage() {
               </div>
             </div>
 
-            <div className="mt-8 pt-6 border-t border-[var(--border-default)] flex flex-wrap gap-x-8 gap-y-2 text-xs text-[var(--text-secondary)]">
+            <div className="pt-6 border-t border-[var(--border-default)] flex flex-wrap gap-x-8 gap-y-2 text-xs text-[var(--text-secondary)]">
               <span>交付方式：月度数据报告 + 复盘会议</span>
               <span>预期节奏：月度循环</span>
               <span className="text-[var(--text-tertiary)] w-full mt-1">卡点对应：在做但不知道对不对 → 数据告诉你哪里在漏、哪里在赚。</span>
@@ -112,16 +132,27 @@ export default function CollabPage() {
         <section className="border-t border-[var(--border-default)]">
           <div className="container-content py-20">
             <h2 className="text-[1.25rem] font-heading font-semibold text-[var(--text-heading)] mb-2">03 深度协作</h2>
-            <p className="text-sm text-[var(--color-accent)] mb-6">适用阶段：一个人扛不住了，需要系统兜底</p>
+            <p className="text-sm text-[var(--color-accent)] mb-4">适用阶段：一个人扛不住了，需要系统兜底</p>
+            <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-6">全周期陪跑，每周同步。含标准化交付 5 阶段管理、客户案例沉淀、复购裂变设计、合同与收款路径设计。</p>
 
-            <div className="grid md:grid-cols-2 gap-12">
+            <div className="grid md:grid-cols-3 gap-8 mb-8">
               <div>
                 <h3 className="text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-wider mb-3">包含内容</h3>
                 <ul className="space-y-2 text-sm text-[var(--text-body)]">
                   <li>• 全流程盯控：方向、执行、交付，每个环节有人把关</li>
-                  <li>• 准入 → 赛道 → 产品 → 验证 → 自动化 → 审计 → 交付，7个角色介入</li>
+                  <li>• 准入 → 赛道 → 合规 → 验证 → 自动化 → 审计 → 交付，7 个角色介入</li>
+                  <li>• 标准化交付 5 阶段管理（需求确认→方案设计→执行→验收→交付）</li>
                   <li>• 每周同步 + 随时应急通道</li>
                   <li>• 随时可退，按月结算，无违约金</li>
+                </ul>
+              </div>
+              <div>
+                <h3 className="text-xs font-semibold text-[var(--color-accent)] uppercase tracking-wider mb-3">产出清单</h3>
+                <ul className="space-y-2 text-sm text-[var(--text-body)]">
+                  <li>• 周同步纪要 + 交付 SOP</li>
+                  <li>• 客户案例库（交付物沉淀为获客素材）</li>
+                  <li>• 合同模板（交付物定义/验收标准/退款条款）</li>
+                  <li>• 收款方案设计</li>
                 </ul>
               </div>
               <div>
@@ -133,7 +164,7 @@ export default function CollabPage() {
               </div>
             </div>
 
-            <div className="mt-8 pt-6 border-t border-[var(--border-default)] flex flex-wrap gap-x-8 gap-y-2 text-xs text-[var(--text-secondary)]">
+            <div className="pt-6 border-t border-[var(--border-default)] flex flex-wrap gap-x-8 gap-y-2 text-xs text-[var(--text-secondary)]">
               <span>交付方式：全流程跟进，你冲执行系统盯方向和质量</span>
               <span>预期节奏：按周跟进，按月结算</span>
               <span className="text-[var(--text-tertiary)] w-full mt-1">卡点对应：一个人扛不住了 → 你冲执行，系统替你盯方向和质量。</span>
