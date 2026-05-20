@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
     try {
       await resend.emails.send({
         from: 'fhopc <noreply@fhopc.top>',
-        to: ['hello@fhopc.top'],
+        to: ['40257516@qq.com'],
         subject: `新意向: ${name} - ${plan ? plan : '无方案'}`,
         html: [
           '<table style="font-family:sans-serif;border-collapse:collapse;width:100%;max-width:480px">',
