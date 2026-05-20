@@ -42,11 +42,8 @@ export async function POST(request: NextRequest) {
   try {
     saveContact(entry);
   } catch (e) {
-    console.error('Failed to save contact:', e);
-    return NextResponse.json(
-      { error: '提交失败，请重试' },
-      { status: 500 },
-    );
+    // File save is best-effort (Vercel read-only filesystem)
+    console.error('Failed to save contact locally:', e);
   }
 
   if (resend) {
