@@ -46,40 +46,68 @@ function scoreDirection(text: string): number {
   return 10;
 }
 
+const WECHAT_CONTACT = process.env.WECHAT_CONTACT || '';
+
+function getPlanName(level: string): string {
+  if (level === 'deep') return '深度协作';
+  if (level === 'diagnosis') return '经营诊断';
+  return '作业框架';
+}
+
 async function sendAutoReply(name: string, email: string, score: number, level: string, feedback: string, weakPoints: string[], levelLabel: string) {
   if (!resend || !email) return;
+  const direction = feedback.slice(0, 20); // fallback, not critical
+  const planName = getPlanName(level);
+  const weakPointsText = weakPoints.length > 0 ? weakPoints.join('、') : '无';
+
+  let levelBody = '';
+  let nextSteps = '';
+
+  if (level === 'deep') {
+    levelBody = '你的方向清晰、个人条件到位、赛道评估显示可行。三项指标全部达标。评估结论是：你的方向具备启动条件，可以往前推了。但方向对了不等于每一步都对。接下来最容易踩坑的 3 个点、第一周具体做什么，报告写不全——需要聊。';
+    nextSteps = `回复这封邮件，或添加微信：<strong>${WECHAT_CONTACT}</strong> | 备注：评估-${name}<br><br><strong>30 分钟方向推演，不做推销：</strong><br>1. 拆解你得分的真实含义<br>2. 指出最容易翻车的 3 个节点<br>3. 给一份「第一周行动清单」`;
+  } else if (level === 'diagnosis') {
+    levelBody = '你的方向有基础，但还有 1-2 个维度没到位。这不代表方向不行——大部分可行方向都不是评估满分起步的，而是在跑的过程中补上的。评估告诉你缺什么，我们聊怎么补。';
+    nextSteps = `回复这封邮件，或添加微信：<strong>${WECHAT_CONTACT}</strong> | 备注：诊断-${name}<br><br><strong>30 分钟经营诊断，不做推销：</strong><br>1. 告诉你缺的那个维度怎么补<br>2. 补多久<br>3. 补完用什么标准判断「到位了」`;
+  } else {
+    levelBody = '当前评估结果偏低。但不一定代表你的方向不行——有可能是评估题目没准确覆盖你的情况，也有可能是选题比较新，评估模型没有完全捕捉到。如果你想知道为什么是这个分数、或者觉得评估结果和你的真实情况有偏差，我们可以聊聊。';
+    nextSteps = `回复这封邮件，或添加微信：<strong>${WECHAT_CONTACT}</strong> | 备注：辅导-${name}<br><br>我们陪你把方向重新梳理一遍。不推销，不催单。聊完你觉得有价值再决定下一步。`;
+  }
+
   try {
     await resend.emails.send({
-      from: 'fhopc <noreply@fhopc.top>',
+      from: 'fhopc 评估中心 <noreply@fhopc.top>',
       to: [email],
-      subject: `你的 fhopc 方向评估结果：${score}分 - ${levelLabel}`,
+      subject: `${score}/100 · 你的方向评估报告 | fhopc`,
       html: [
         `<p style="font-family:sans-serif;color:#1A1A1A">${name}，你好</p>`,
-        '<p style="font-family:sans-serif;color:#1A1A1A">感谢你完成 fhopc 方向评估。以下是你的评估结果：</p>',
-        '<div style="font-family:sans-serif;margin:24px 0">',
-        `<div style="text-align:center;margin-bottom:24px">`,
-        `<span style="display:inline-block;font-size:36px;font-weight:bold;color:#f87500">${score}</span>`,
-        `<span style="color:#8b8b8b;font-size:14px">/100</span>`,
-        `<br><span style="display:inline-block;margin-top:8px;font-size:12px;color:#f87500;border:1px solid #f87500;border-radius:4px;padding:2px 10px">${levelLabel}</span>`,
+        `<div style="font-family:sans-serif;margin:24px 0;text-align:center">`,
+        `<span style="display:inline-block;font-size:48px;font-weight:bold;color:#f87500">${score}</span>`,
+        `<span style="color:#8b8b8b;font-size:16px">/100</span>`,
+        `<br><span style="display:inline-block;margin-top:8px;font-size:13px;color:#f87500;border:1px solid #f87500;border-radius:4px;padding:3px 12px">${levelLabel}</span>`,
         `</div>`,
-        `<p style="font-family:sans-serif;color:#1A1A1A;line-height:1.6">${feedback}</p>`,
-        weakPoints.length > 0 ? `<div style="margin:16px 0"><p style="font-family:sans-serif;font-weight:600;color:#1A1A1A;font-size:13px">需要注意：</p><ul style="font-family:sans-serif;font-size:13px;color:#666;padding-left:20px">${weakPoints.map(w => `<li style="margin-bottom:4px">${w}</li>`).join('')}</ul></div>` : '',
-        '</div>',
-        '<hr style="border:none;border-top:1px solid #eee;margin:24px 0">',
-        '<p style="font-family:sans-serif;font-size:12px;color:#8b8b8b">fhopc · 一人公司系统化交付 · <a href="https://fhopc.top" style="color:#f87500">fhopc.top</a></p>',
+        `<p style="font-family:sans-serif;color:#1A1A1A;line-height:1.7;font-size:14px">${levelBody}</p>`,
+        '<hr style="border:none;border-top:1px solid #eee;margin:32px 0">',
+        '<table style="font-family:sans-serif;border-collapse:collapse;width:100%;max-width:400px;margin:0 auto">',
+        '<tr><td style="padding:10px 12px;border:1px solid #eee;font-size:13px;color:#666">综合得分</td>',
+        `<td style="padding:10px 12px;border:1px solid #eee;font-size:13px;color:#1A1A1A;font-weight:600">${score}/100</td></tr>`,
+        '<tr><td style="padding:10px 12px;border:1px solid #eee;font-size:13px;color:#666">推荐方案</td>',
+        `<td style="padding:10px 12px;border:1px solid #eee;font-size:13px;color:#1A1A1A;font-weight:600">${planName}</td></tr>`,
+        '<tr><td style="padding:10px 12px;border:1px solid #eee;font-size:13px;color:#666">薄弱环节</td>',
+        `<td style="padding:10px 12px;border:1px solid #eee;font-size:13px;color:#1A1A1A">${weakPointsText}</td></tr>`,
+        '</table>',
+        '<hr style="border:none;border-top:1px solid #eee;margin:32px 0">',
+        '<h3 style="font-family:sans-serif;font-size:15px;color:#1A1A1A;margin-bottom:12px">接下来</h3>',
+        `<p style="font-family:sans-serif;font-size:13px;color:#1A1A1A;line-height:1.7">${nextSteps}</p>`,
+        '<hr style="border:none;border-top:2px solid #f87500;margin:32px 0">',
+        '<p style="font-family:sans-serif;font-size:12px;color:#8b8b8b;text-align:center">fhopc · 一人公司系统化交付<br>7 个角色，一个系统。</p>',
+        '<p style="font-family:sans-serif;font-size:11px;color:#aaa;text-align:center;margin-top:16px">本邮件由系统根据你在 fhopc.top 提交的评估问卷自动生成。</p>',
       ].join(''),
     });
   } catch (e) {
     console.error('Failed to send auto-reply:', e);
   }
 }
-
-const EXPERIENCE_SCORE: Record<string, number> = {
-  none: 0,
-  'less-than-1': 2,
-  '1-3': 6,
-  '3-plus': 10,
-};
 
 const COMMITMENT_SCORE: Record<string, number> = {
   'less-than-5': 0,
