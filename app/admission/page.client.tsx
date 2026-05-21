@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from 'react';
 type FormData = {
   name: string;
   contact: string;
+  email: string;
   direction: string;
   experience: string;
   commitment: string;
@@ -219,11 +220,43 @@ function RadioGroup({
   );
 }
 
+function ShareButton({ score, level }: { score: number; level: string }) {
+  const [copied, setCopied] = useState(false);
+
+  const handleShare = useCallback(async () => {
+    const text = `我在 fhopc.top 做了方向评估，得分 ${score}/100（${level}），你也来试试 👉 https://fhopc.top/admission`;
+
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: 'fhopc 方向评估', text, url: 'https://fhopc.top/admission' });
+        return;
+      } catch { /* user cancelled */ }
+    }
+
+    // Fallback: copy to clipboard
+    try {
+      await navigator.clipboard.writeText(text);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch { /* clipboard unavailable */ }
+  }, [score, level]);
+
+  return (
+    <button
+      onClick={handleShare}
+      className="block w-full text-center border border-[var(--border-default)] text-[var(--text-secondary)] font-medium text-sm px-6 py-3 rounded-lg hover:bg-[var(--btn-hover)] hover:text-[var(--text-heading)] transition-all duration-200 mb-6"
+    >
+      {copied ? '已复制 ✓' : '分享测试报告'}
+    </button>
+  );
+}
+
 export default function AdmissionPage() {
   const [pageVisible, setPageVisible] = useState(false);
   const [form, setForm] = useState<FormData>({
     name: '',
     contact: '',
+    email: '',
     direction: '',
     experience: '',
     commitment: '',
@@ -254,6 +287,7 @@ export default function AdmissionPage() {
   const canSubmit =
     form.name.trim() &&
     form.contact.trim() &&
+    form.email.trim() &&
     form.direction.trim() &&
     allRadioQuestions.every(q => form[q.id as keyof FormData]);
 
@@ -285,6 +319,7 @@ export default function AdmissionPage() {
     setForm({
       name: '',
       contact: '',
+      email: '',
       direction: '',
       experience: '',
       commitment: '',
@@ -373,7 +408,17 @@ export default function AdmissionPage() {
                       type="text"
                       value={form.contact}
                       onChange={(e) => updateField('contact', e.target.value)}
-                      placeholder="微信 / 手机 / 邮箱"
+                      placeholder="微信 / 手机"
+                      className="w-full bg-[var(--btn-hover)] text-[var(--text-body)] text-sm rounded-lg p-4 border border-[var(--border-default)] focus:outline-none focus:border-[var(--color-accent)] transition-colors duration-200 placeholder:text-[var(--text-tertiary)]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-[var(--text-body)] mb-1.5">邮箱（接收评估报告）</label>
+                    <input
+                      type="email"
+                      value={form.email}
+                      onChange={(e) => updateField('email', e.target.value)}
+                      placeholder="your@email.com"
                       className="w-full bg-[var(--btn-hover)] text-[var(--text-body)] text-sm rounded-lg p-4 border border-[var(--border-default)] focus:outline-none focus:border-[var(--color-accent)] transition-colors duration-200 placeholder:text-[var(--text-tertiary)]"
                     />
                   </div>
@@ -564,6 +609,9 @@ export default function AdmissionPage() {
                   选择作业框架 →
                 </a>
               )}
+
+              {/* Share */}
+              <ShareButton score={result.score} level={result.levelLabel} />
 
               {result.adjustments && result.adjustments.length > 0 && (
                 <div className="border border-[var(--border-default)] rounded-lg p-6 mb-6">

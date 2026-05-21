@@ -42,6 +42,34 @@ function scoreDirection(text: string): number {
   return 10;
 }
 
+async function sendAutoReply(name: string, email: string, score: number, level: string, feedback: string, weakPoints: string[], levelLabel: string) {
+  if (!resend || !email) return;
+  try {
+    await resend.emails.send({
+      from: 'fhopc <noreply@fhopc.top>',
+      to: [email],
+      subject: `你的 fhopc 方向评估结果：${score}分 - ${levelLabel}`,
+      html: [
+        `<p style="font-family:sans-serif;color:#1A1A1A">${name}，你好</p>`,
+        '<p style="font-family:sans-serif;color:#1A1A1A">感谢你完成 fhopc 方向评估。以下是你的评估结果：</p>',
+        '<div style="font-family:sans-serif;margin:24px 0">',
+        `<div style="text-align:center;margin-bottom:24px">`,
+        `<span style="display:inline-block;font-size:36px;font-weight:bold;color:#f87500">${score}</span>`,
+        `<span style="color:#8b8b8b;font-size:14px">/100</span>`,
+        `<br><span style="display:inline-block;margin-top:8px;font-size:12px;color:#f87500;border:1px solid #f87500;border-radius:4px;padding:2px 10px">${levelLabel}</span>`,
+        `</div>`,
+        `<p style="font-family:sans-serif;color:#1A1A1A;line-height:1.6">${feedback}</p>`,
+        weakPoints.length > 0 ? `<div style="margin:16px 0"><p style="font-family:sans-serif;font-weight:600;color:#1A1A1A;font-size:13px">需要注意：</p><ul style="font-family:sans-serif;font-size:13px;color:#666;padding-left:20px">${weakPoints.map(w => `<li style="margin-bottom:4px">${w}</li>`).join('')}</ul></div>` : '',
+        '</div>',
+        '<hr style="border:none;border-top:1px solid #eee;margin:24px 0">',
+        '<p style="font-family:sans-serif;font-size:12px;color:#8b8b8b">fhopc · 一人公司系统化交付 · <a href="https://fhopc.top" style="color:#f87500">fhopc.top</a></p>',
+      ].join(''),
+    });
+  } catch (e) {
+    console.error('Failed to send auto-reply:', e);
+  }
+}
+
 const EXPERIENCE_SCORE: Record<string, number> = {
   none: 0,
   'less-than-1': 2,
@@ -134,7 +162,7 @@ function scoreDirectionText(direction: string): number {
 export async function POST(request: NextRequest) {
   const body = await request.json();
   const {
-    name, contact, direction, experience, commitment, budget, blocker,
+    name, contact, email, direction, experience, commitment, budget, blocker,
     demand, tech, monetization, competition, fit,
   } = body;
 
@@ -182,6 +210,7 @@ export async function POST(request: NextRequest) {
   // === Score >= 70: 深度协作 ===
   if (total >= 70) {
     await sendNotification(body, total, '深度协作');
+    await sendAutoReply(name, email, total, 'deep', '综合评分优秀。你的方向清晰，个人条件充分，赛道评估显示可行。建议直接进入深度协作阶段。', weakPoints, '深度协作');
     return NextResponse.json({
       score: total,
       maxScore,
@@ -210,6 +239,8 @@ export async function POST(request: NextRequest) {
     } else {
       feedback = '方向和个人条件都在可推进范围。建议从经营诊断开始，30 天内把你的方向跑通。';
     }
+
+    await sendAutoReply(name, email, total, 'diagnosis', feedback, weakPoints, '经营诊断');
 
     return NextResponse.json({
       score: total,
@@ -245,6 +276,8 @@ export async function POST(request: NextRequest) {
   } else {
     feedback = '综合来看，目前启动的时机还不成熟。建议参考调整建议，准备好后再来评估。';
   }
+
+  await sendAutoReply(name, email, total, 'framework', feedback, weakPoints, '作业框架');
 
   return NextResponse.json({
     score: total,
