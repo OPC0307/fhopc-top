@@ -3,6 +3,8 @@
 import { useCallback, useEffect, useState } from 'react';
 
 type FormData = {
+  name: string;
+  contact: string;
   direction: string;
   experience: string;
   commitment: string;
@@ -220,6 +222,8 @@ function RadioGroup({
 export default function AdmissionPage() {
   const [pageVisible, setPageVisible] = useState(false);
   const [form, setForm] = useState<FormData>({
+    name: '',
+    contact: '',
     direction: '',
     experience: '',
     commitment: '',
@@ -248,6 +252,8 @@ export default function AdmissionPage() {
 
   const allRadioQuestions = [...BASE_QUESTIONS, ...TRACK_QUESTIONS].filter(q => q.id !== 'direction');
   const canSubmit =
+    form.name.trim() &&
+    form.contact.trim() &&
     form.direction.trim() &&
     allRadioQuestions.every(q => form[q.id as keyof FormData]);
 
@@ -277,6 +283,8 @@ export default function AdmissionPage() {
 
   const handleReset = useCallback(() => {
     setForm({
+      name: '',
+      contact: '',
       direction: '',
       experience: '',
       commitment: '',
@@ -337,6 +345,39 @@ export default function AdmissionPage() {
               {/* Section label: 基础诊断 */}
               <div className="py-8 first:pt-0">
                 <span className="text-xs font-semibold text-[var(--color-accent)] uppercase tracking-wider">第一部分：基础诊断</span>
+              </div>
+
+              {/* 姓名 + 联系方式 */}
+              <div className="py-8 border-b border-[var(--border-default)]">
+                <div className="flex items-baseline gap-3 mb-6">
+                  <span className="text-xs font-semibold text-[var(--color-accent)] tabular-nums">—</span>
+                  <h2 className="text-[1.125rem] font-heading font-semibold text-[var(--text-heading)]">
+                    先留个联系方式
+                  </h2>
+                </div>
+                <p className="text-xs text-[var(--text-secondary)] mb-5">填完姓名和联系方式再开始评估，我们好把结果发给你。</p>
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-xs font-medium text-[var(--text-body)] mb-1.5">你的名字</label>
+                    <input
+                      type="text"
+                      value={form.name}
+                      onChange={(e) => updateField('name', e.target.value)}
+                      placeholder="你的名字"
+                      className="w-full bg-[var(--btn-hover)] text-[var(--text-body)] text-sm rounded-lg p-4 border border-[var(--border-default)] focus:outline-none focus:border-[var(--color-accent)] transition-colors duration-200 placeholder:text-[var(--text-tertiary)]"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-[var(--text-body)] mb-1.5">联系方式</label>
+                    <input
+                      type="text"
+                      value={form.contact}
+                      onChange={(e) => updateField('contact', e.target.value)}
+                      placeholder="微信 / 手机 / 邮箱"
+                      className="w-full bg-[var(--btn-hover)] text-[var(--text-body)] text-sm rounded-lg p-4 border border-[var(--border-default)] focus:outline-none focus:border-[var(--color-accent)] transition-colors duration-200 placeholder:text-[var(--text-tertiary)]"
+                    />
+                  </div>
+                </div>
               </div>
 
               {BASE_QUESTIONS.map((q) => (
