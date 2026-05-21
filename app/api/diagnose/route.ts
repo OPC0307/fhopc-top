@@ -109,6 +109,13 @@ async function sendAutoReply(name: string, email: string, score: number, level: 
   }
 }
 
+const EXPERIENCE_SCORE: Record<string, number> = {
+  none: 0,
+  'less-than-1': 3,
+  '1-3': 7,
+  '3-plus': 10,
+};
+
 const COMMITMENT_SCORE: Record<string, number> = {
   'less-than-5': 0,
   '5-15': 3,
