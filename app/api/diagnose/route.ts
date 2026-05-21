@@ -46,7 +46,7 @@ function scoreDirection(text: string): number {
   return 10;
 }
 
-const WECHAT_CONTACT = process.env.WECHAT_CONTACT || '';
+const QR_URL = 'https://fhopc.top/qr-contact.jpg';
 
 function getPlanName(level: string): string {
   if (level === 'deep') return '深度协作';
@@ -65,13 +65,13 @@ async function sendAutoReply(name: string, email: string, score: number, level: 
 
   if (level === 'deep') {
     levelBody = '你的方向清晰、个人条件到位、赛道评估显示可行。三项指标全部达标。评估结论是：你的方向具备启动条件，可以往前推了。但方向对了不等于每一步都对。接下来最容易踩坑的 3 个点、第一周具体做什么，报告写不全——需要聊。';
-    nextSteps = `回复这封邮件，或添加微信：<strong>${WECHAT_CONTACT}</strong> | 备注：评估-${name}<br><br><strong>30 分钟方向推演，不做推销：</strong><br>1. 拆解你得分的真实含义<br>2. 指出最容易翻车的 3 个节点<br>3. 给一份「第一周行动清单」`;
+    nextSteps = `回复这封邮件，或扫描下方二维码添加微信：<br><br><img src="${QR_URL}" alt="扫码联系" style="display:block;width:122px;height:99px;border:1px solid #eee;border-radius:4px;margin:12px 0"><br>备注：评估-${name}<br><br><strong>30 分钟方向推演，不做推销：</strong><br>1. 拆解你得分的真实含义<br>2. 指出最容易翻车的 3 个节点<br>3. 给一份「第一周行动清单」`;
   } else if (level === 'diagnosis') {
     levelBody = '你的方向有基础，但还有 1-2 个维度没到位。这不代表方向不行——大部分可行方向都不是评估满分起步的，而是在跑的过程中补上的。评估告诉你缺什么，我们聊怎么补。';
-    nextSteps = `回复这封邮件，或添加微信：<strong>${WECHAT_CONTACT}</strong> | 备注：诊断-${name}<br><br><strong>30 分钟经营诊断，不做推销：</strong><br>1. 告诉你缺的那个维度怎么补<br>2. 补多久<br>3. 补完用什么标准判断「到位了」`;
+    nextSteps = `回复这封邮件，或扫描下方二维码添加微信：<br><br><img src="${QR_URL}" alt="扫码联系" style="display:block;width:122px;height:99px;border:1px solid #eee;border-radius:4px;margin:12px 0"><br>备注：诊断-${name}<br><br><strong>30 分钟经营诊断，不做推销：</strong><br>1. 告诉你缺的那个维度怎么补<br>2. 补多久<br>3. 补完用什么标准判断「到位了」`;
   } else {
     levelBody = '当前评估结果偏低。但不一定代表你的方向不行——有可能是评估题目没准确覆盖你的情况，也有可能是选题比较新，评估模型没有完全捕捉到。如果你想知道为什么是这个分数、或者觉得评估结果和你的真实情况有偏差，我们可以聊聊。';
-    nextSteps = `回复这封邮件，或添加微信：<strong>${WECHAT_CONTACT}</strong> | 备注：辅导-${name}<br><br>我们陪你把方向重新梳理一遍。不推销，不催单。聊完你觉得有价值再决定下一步。`;
+    nextSteps = `回复这封邮件，或扫描下方二维码添加微信：<br><br><img src="${QR_URL}" alt="扫码联系" style="display:block;width:122px;height:99px;border:1px solid #eee;border-radius:4px;margin:12px 0"><br>备注：辅导-${name}<br><br>我们陪你把方向重新梳理一遍。不推销，不催单。聊完你觉得有价值再决定下一步。`;
   }
 
   try {
