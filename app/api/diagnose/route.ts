@@ -9,7 +9,7 @@ async function sendNotification(body: Record<string, string>, score: number, lev
   try {
     await resend.emails.send({
       from: 'fhopc <noreply@fhopc.top>',
-      to: ['40257516@qq.com'],
+      to: ['hello@fhopc.top'],
       subject: `新评估: ${score}分 - ${body.direction?.slice(0, 30) || ''}`,
       html: [
         '<table style="font-family:sans-serif;border-collapse:collapse;width:100%;max-width:480px">',
