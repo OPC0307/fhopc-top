@@ -15,8 +15,12 @@ async function sendNotification(body: Record<string, string>, score: number, lev
         '<table style="font-family:sans-serif;border-collapse:collapse;width:100%;max-width:480px">',
         '<tr><td style="padding:12px;border:1px solid #ddd;font-weight:bold;background:#f9f9f9">姓名</td>',
         `<td style="padding:12px;border:1px solid #ddd">${body.name || '-'}</td></tr>`,
-        '<tr><td style="padding:12px;border:1px solid #ddd;font-weight:bold;background:#f9f9f9">联系方式</td>',
-        `<td style="padding:12px;border:1px solid #ddd">${body.contact || '-'}</td></tr>`,
+        '<tr><td style="padding:12px;border:1px solid #ddd;font-weight:bold;background:#f9f9f9">邮箱</td>',
+        `<td style="padding:12px;border:1px solid #ddd">${body.email || '-'}</td></tr>`,
+        '<tr><td style="padding:12px;border:1px solid #ddd;font-weight:bold;background:#f9f9f9">微信</td>',
+        `<td style="padding:12px;border:1px solid #ddd">${body.wechat || '-'}</td></tr>`,
+        '<tr><td style="padding:12px;border:1px solid #ddd;font-weight:bold;background:#f9f9f9">手机</td>',
+        `<td style="padding:12px;border:1px solid #ddd">${body.phone || '-'}</td></tr>`,
         '<tr><td style="padding:12px;border:1px solid #ddd;font-weight:bold;background:#f9f9f9">方向</td>',
         `<td style="padding:12px;border:1px solid #ddd">${body.direction || '-'}</td></tr>`,
         '<tr><td style="padding:12px;border:1px solid #ddd;font-weight:bold;background:#f9f9f9">评分</td>',
@@ -162,13 +166,13 @@ function scoreDirectionText(direction: string): number {
 export async function POST(request: NextRequest) {
   const body = await request.json();
   const {
-    name, contact, email, direction, experience, commitment, budget, blocker,
+    name, wechat, phone, email, direction, experience, commitment, budget, blocker,
     demand, tech, monetization, competition, fit,
   } = body;
 
   // Validate required fields
-  if (!name || !contact) {
-    return NextResponse.json({ error: '请填写姓名和联系方式' }, { status: 400 });
+  if (!name || !email) {
+    return NextResponse.json({ error: '请填写姓名和邮箱' }, { status: 400 });
   }
   if (!direction || !experience || !commitment || !budget || !blocker) {
     return NextResponse.json({ error: '请填写所有基础问题（Q1-Q5）' }, { status: 400 });

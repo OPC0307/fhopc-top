@@ -4,7 +4,8 @@ import { useCallback, useEffect, useState } from 'react';
 
 type FormData = {
   name: string;
-  contact: string;
+  wechat: string;
+  phone: string;
   email: string;
   direction: string;
   experience: string;
@@ -255,7 +256,8 @@ export default function AdmissionPage() {
   const [pageVisible, setPageVisible] = useState(false);
   const [form, setForm] = useState<FormData>({
     name: '',
-    contact: '',
+    wechat: '',
+    phone: '',
     email: '',
     direction: '',
     experience: '',
@@ -290,7 +292,8 @@ export default function AdmissionPage() {
     allRadioQuestions.every(q => form[q.id as keyof FormData]);
   const contactDone =
     form.name.trim() &&
-    form.email.trim();
+    form.email.trim() &&
+    (form.wechat.trim() || form.phone.trim());
 
   const handleFirstSubmit = useCallback(() => {
     if (!questionsDone) return;
@@ -327,7 +330,8 @@ export default function AdmissionPage() {
   const handleReset = useCallback(() => {
     setForm({
       name: '',
-      contact: '',
+      wechat: '',
+      phone: '',
       email: '',
       direction: '',
       experience: '',
@@ -509,12 +513,22 @@ export default function AdmissionPage() {
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-[var(--text-body)] mb-1.5">联系方式 <span className="text-[var(--text-tertiary)]">（选填）</span></label>
+                        <label className="block text-xs font-medium text-[var(--text-body)] mb-1.5">微信 <span className="text-[var(--text-tertiary)]">（二选一）</span></label>
                         <input
                           type="text"
-                          value={form.contact}
-                          onChange={(e) => updateField('contact', e.target.value)}
-                          placeholder="微信 / 手机"
+                          value={form.wechat}
+                          onChange={(e) => updateField('wechat', e.target.value)}
+                          placeholder="微信号"
+                          className="w-full bg-[var(--btn-hover)] text-[var(--text-body)] text-sm rounded-lg p-4 border border-[var(--border-default)] focus:outline-none focus:border-[var(--color-accent)] transition-colors duration-200 placeholder:text-[var(--text-tertiary)]"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-medium text-[var(--text-body)] mb-1.5">手机 <span className="text-[var(--text-tertiary)]">（二选一）</span></label>
+                        <input
+                          type="text"
+                          value={form.phone}
+                          onChange={(e) => updateField('phone', e.target.value)}
+                          placeholder="手机号"
                           className="w-full bg-[var(--btn-hover)] text-[var(--text-body)] text-sm rounded-lg p-4 border border-[var(--border-default)] focus:outline-none focus:border-[var(--color-accent)] transition-colors duration-200 placeholder:text-[var(--text-tertiary)]"
                         />
                       </div>
