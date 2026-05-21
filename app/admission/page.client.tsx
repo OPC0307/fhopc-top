@@ -290,7 +290,6 @@ export default function AdmissionPage() {
     allRadioQuestions.every(q => form[q.id as keyof FormData]);
   const contactDone =
     form.name.trim() &&
-    form.contact.trim() &&
     form.email.trim();
 
   const handleFirstSubmit = useCallback(() => {
@@ -500,7 +499,7 @@ export default function AdmissionPage() {
                     <p className="text-xs text-[var(--text-secondary)] mb-5">填完联系方式即可查看评估结果。评估报告也会发送到你的邮箱。</p>
                     <div className="space-y-4">
                       <div>
-                        <label className="block text-xs font-medium text-[var(--text-body)] mb-1.5">你的名字</label>
+                        <label className="block text-xs font-medium text-[var(--text-body)] mb-1.5">我们要怎么称呼您？</label>
                         <input
                           type="text"
                           value={form.name}
@@ -510,7 +509,7 @@ export default function AdmissionPage() {
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-[var(--text-body)] mb-1.5">联系方式</label>
+                        <label className="block text-xs font-medium text-[var(--text-body)] mb-1.5">联系方式 <span className="text-[var(--text-tertiary)]">（选填）</span></label>
                         <input
                           type="text"
                           value={form.contact}
@@ -520,7 +519,7 @@ export default function AdmissionPage() {
                         />
                       </div>
                       <div>
-                        <label className="block text-xs font-medium text-[var(--text-body)] mb-1.5">邮箱（接收评估报告）</label>
+                        <label className="block text-xs font-medium text-[var(--text-body)] mb-1.5">邮箱 <span className="text-red-500">*</span></label>
                         <input
                           type="email"
                           value={form.email}
