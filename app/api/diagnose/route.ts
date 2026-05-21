@@ -1,4 +1,33 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { Resend } from 'resend';
+
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const resend = RESEND_API_KEY ? new Resend(RESEND_API_KEY) : null;
+
+async function sendNotification(body: Record<string, string>, score: number, level: string) {
+  if (!resend) return;
+  try {
+    await resend.emails.send({
+      from: 'fhopc <noreply@fhopc.top>',
+      to: ['40257516@qq.com'],
+      subject: `新评估: ${score}分 - ${body.direction?.slice(0, 30) || ''}`,
+      html: [
+        '<table style="font-family:sans-serif;border-collapse:collapse;width:100%;max-width:480px">',
+        '<tr><td style="padding:12px;border:1px solid #ddd;font-weight:bold;background:#f9f9f9">方向</td>',
+        `<td style="padding:12px;border:1px solid #ddd">${body.direction || '-'}</td></tr>`,
+        '<tr><td style="padding:12px;border:1px solid #ddd;font-weight:bold;background:#f9f9f9">评分</td>',
+        `<td style="padding:12px;border:1px solid #ddd">${score}/100</td></tr>`,
+        '<tr><td style="padding:12px;border:1px solid #ddd;font-weight:bold;background:#f9f9f9">推荐方案</td>',
+        `<td style="padding:12px;border:1px solid #ddd">${level}</td></tr>`,
+        '<tr><td style="padding:12px;border:1px solid #ddd;font-weight:bold;background:#f9f9f9">时间</td>',
+        `<td style="padding:12px;border:1px solid #ddd">${new Date().toLocaleString('zh-CN')}</td></tr>`,
+        '</table>',
+      ].join(''),
+    });
+  } catch (e) {
+    console.error('Failed to send notification:', e);
+  }
+}
 
 // === 基础诊断评分（Q1-Q5，每题 0-10）===
 
@@ -145,6 +174,7 @@ export async function POST(request: NextRequest) {
 
   // === Score >= 70: 深度协作 ===
   if (total >= 70) {
+    await sendNotification(body, total, '深度协作');
     return NextResponse.json({
       score: total,
       maxScore,
@@ -162,6 +192,7 @@ export async function POST(request: NextRequest) {
 
   // === Score >= 40: 经营诊断 ===
   if (total >= 40) {
+    await sendNotification(body, total, '经营诊断');
     let feedback: string;
     const weakestDim = Object.entries(scores).sort((a, b) => a[1] - b[1])[0];
 
@@ -189,6 +220,7 @@ export async function POST(request: NextRequest) {
   }
 
   // === Score < 40: 作业框架 ===
+  await sendNotification(body, total, '作业框架');
   const adjustments: string[] = [];
   if (expScore < 6) adjustments.push('花 2-4 周深入了解目标行业，通过兼职、访谈、调研等方式积累行业认知');
   if (comScore < 7) adjustments.push('每周至少保证 15 小时以上投入，一人公司本质上是时间换空间');
