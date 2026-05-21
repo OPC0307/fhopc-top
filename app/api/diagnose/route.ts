@@ -10,7 +10,7 @@ async function sendNotification(body: Record<string, string>, score: number, lev
     await resend.emails.send({
       from: 'fhopc <noreply@fhopc.top>',
       to: ['hello@fhopc.top'],
-      subject: `新评估: ${score}分 - ${body.direction?.slice(0, 30) || ''}`,
+      subject: `New Evaluation: ${score}/100 - fhopc`,
       html: [
         '<table style="font-family:sans-serif;border-collapse:collapse;width:100%;max-width:480px">',
         '<tr><td style="padding:12px;border:1px solid #ddd;font-weight:bold;background:#f9f9f9">姓名</td>',
@@ -47,6 +47,12 @@ function scoreDirection(text: string): number {
 }
 
 const QR_URL = 'https://fhopc.top/qr-contact.jpg';
+const WECHAT_CONTACT = process.env.WECHAT_CONTACT || '';
+
+function qrBlock(name: string): string {
+  const text = WECHAT_CONTACT ? `微信：${WECHAT_CONTACT}` : '扫码联系';
+  return `<a href="${QR_URL}" target="_blank" style="display:inline-block"><img src="${QR_URL}" alt="${text}" style="display:block;width:122px;height:99px;border:1px solid #eee;border-radius:4px;margin:12px 0"></a><br><span style="font-size:12px;color:#8b8b8b">长按或扫码添加微信${WECHAT_CONTACT ? '（微信：' + WECHAT_CONTACT + '）' : ''}</span>`;
+}
 
 function getPlanName(level: string): string {
   if (level === 'deep') return '深度协作';
@@ -65,20 +71,20 @@ async function sendAutoReply(name: string, email: string, score: number, level: 
 
   if (level === 'deep') {
     levelBody = '你的方向清晰、个人条件到位、赛道评估显示可行。三项指标全部达标。评估结论是：你的方向具备启动条件，可以往前推了。但方向对了不等于每一步都对。接下来最容易踩坑的 3 个点、第一周具体做什么，报告写不全——需要聊。';
-    nextSteps = `回复这封邮件，或扫描下方二维码添加微信：<br><br><img src="${QR_URL}" alt="扫码联系" style="display:block;width:122px;height:99px;border:1px solid #eee;border-radius:4px;margin:12px 0"><br>备注：评估-${name}<br><br><strong>30 分钟方向推演，不做推销：</strong><br>1. 拆解你得分的真实含义<br>2. 指出最容易翻车的 3 个节点<br>3. 给一份「第一周行动清单」`;
+    nextSteps = `回复这封邮件，或扫码添加微信：<br><br>${qrBlock(name)}<br>备注：评估-${name}<br><br><strong>30 分钟方向推演，不做推销：</strong><br>1. 拆解你得分的真实含义<br>2. 指出最容易翻车的 3 个节点<br>3. 给一份第一周行动清单`;
   } else if (level === 'diagnosis') {
     levelBody = '你的方向有基础，但还有 1-2 个维度没到位。这不代表方向不行——大部分可行方向都不是评估满分起步的，而是在跑的过程中补上的。评估告诉你缺什么，我们聊怎么补。';
-    nextSteps = `回复这封邮件，或扫描下方二维码添加微信：<br><br><img src="${QR_URL}" alt="扫码联系" style="display:block;width:122px;height:99px;border:1px solid #eee;border-radius:4px;margin:12px 0"><br>备注：诊断-${name}<br><br><strong>30 分钟经营诊断，不做推销：</strong><br>1. 告诉你缺的那个维度怎么补<br>2. 补多久<br>3. 补完用什么标准判断「到位了」`;
+    nextSteps = `回复这封邮件，或扫码添加微信：<br><br>${qrBlock(name)}<br>备注：诊断-${name}<br><br><strong>30 分钟经营诊断，不做推销：</strong><br>1. 告诉你缺的那个维度怎么补<br>2. 补多久<br>3. 补完用什么标准判断到位了`;
   } else {
     levelBody = '当前评估结果偏低。但不一定代表你的方向不行——有可能是评估题目没准确覆盖你的情况，也有可能是选题比较新，评估模型没有完全捕捉到。如果你想知道为什么是这个分数、或者觉得评估结果和你的真实情况有偏差，我们可以聊聊。';
-    nextSteps = `回复这封邮件，或扫描下方二维码添加微信：<br><br><img src="${QR_URL}" alt="扫码联系" style="display:block;width:122px;height:99px;border:1px solid #eee;border-radius:4px;margin:12px 0"><br>备注：辅导-${name}<br><br>我们陪你把方向重新梳理一遍。不推销，不催单。聊完你觉得有价值再决定下一步。`;
+    nextSteps = `回复这封邮件，或扫码添加微信：<br><br>${qrBlock(name)}<br>备注：辅导-${name}<br><br>我们陪你把方向重新梳理一遍。不推销，不催单。聊完你觉得有价值再决定下一步。`;
   }
 
   try {
     await resend.emails.send({
       from: 'fhopc 评估中心 <noreply@fhopc.top>',
       to: [email],
-      subject: `${score}/100 · 你的方向评估报告 | fhopc`,
+      subject: `Assessment Report: ${score}/100 - fhopc`,
       html: [
         `<p style="font-family:sans-serif;color:#1A1A1A">${name}，你好</p>`,
         `<div style="font-family:sans-serif;margin:24px 0;text-align:center">`,
