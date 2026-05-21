@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { FILE_SLUG_MAP } from '@/data/blog-slugs';
 
 const SITE_URL = 'https://fhopc.top';
 const BLOG_DIR = path.join(process.cwd(), 'content', 'blog');
@@ -14,14 +15,15 @@ export async function GET() {
     : [];
 
   const items = files.map(file => {
+    const fileSlug = file.replace('.md', '');
+    const slug = FILE_SLUG_MAP[fileSlug] || fileSlug;
     const raw = fs.readFileSync(path.join(BLOG_DIR, file), 'utf-8');
     const { data } = matter(raw);
-    const slug = file.replace('.md', '');
     return {
       title: data.title || '',
       date: data.date ? new Date(data.date).toUTCString() : '',
       summary: data.summary || '',
-      url: `${SITE_URL}/insights`,
+      url: `${SITE_URL}/content/blog/${slug}`,
     };
   });
 
@@ -31,11 +33,16 @@ export async function GET() {
     <title>一人公司系统化交付</title>
     <link>${SITE_URL}</link>
     <description>想清楚的人，我陪你走一段。</description>
+    <image>
+      <url>${SITE_URL}/favicon.svg</url>
+      <title>一人公司系统化交付</title>
+      <link>${SITE_URL}</link>
+    </image>
     ${items.map(item => `
     <item>
-      <title>${item.title}</title>
+      <title><![CDATA[${item.title}]]></title>
       <link>${item.url}</link>
-      <description>${item.summary}</description>
+      <description><![CDATA[${item.summary}]]></description>
       <pubDate>${item.date}</pubDate>
     </item>`).join('')}
   </channel>

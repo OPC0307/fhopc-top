@@ -1,8 +1,20 @@
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
+import { FILE_SLUG_MAP } from '@/data/blog-slugs';
 
 const BLOG_DIR = path.join(process.cwd(), 'content', 'blog');
+
+export const metadata = {
+  title: '痛点词典',
+  description: '非技术出身的人做一人公司，卡住的不是能力，是差一层翻译。每个痛点，一篇 1000 字。',
+  alternates: { canonical: '/insights' },
+  openGraph: {
+    title: '痛点词典 | fhopc',
+    description: '非技术出身的人做一人公司，卡住的不是能力，是差一层翻译。',
+    url: 'https://fhopc.top/insights',
+  },
+};
 
 interface BlogPost {
   slug: string;
@@ -16,21 +28,6 @@ function getBlogPosts(): BlogPost[] {
   if (!fs.existsSync(BLOG_DIR)) return [];
   const files = fs.readdirSync(BLOG_DIR).filter(f => f.endsWith('.md'));
   files.sort().reverse();
-
-  const FILE_SLUG_MAP: Record<string, string> = {
-    '2026-05-20-ai-agent-first-employee': 'di-yi-ge-yuan-gong',
-    '2026-05-18-time-trap': 'shi-jian-hei-dong',
-    '2026-05-18-ai-opc-million-myth': 'po-mie-pao-mo',
-    '2026-05-17-swimming': 'zhen-shi-zha-ji',
-    '2026-05-20-track-assessment': 'sai-dao-san-wei-du',
-    '2026-05-20-seven-day-mvp': 'qi-tian-mvp',
-    '2026-05-20-three-tier-tools': 'san-ceng-gong-ju-zhan',
-    '2026-05-20-platform-strategies': 'wu-da-ping-tai-huo-ke',
-    '2026-05-20-delivery-sop': 'biao-zhun-hua-jiao-fu',
-    '2026-05-20-side-hustle-to-main': 'fu-ye-dao-zhu-ye',
-    '2026-05-20-pricing-trap': 'ding-jia-xian-jing',
-    '2026-05-20-decision-burden': 'jue-ce-dai-jia',
-  };
 
   return files.slice(0, 9).map(file => {
     const fileSlug = file.replace('.md', '');

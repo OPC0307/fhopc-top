@@ -24,7 +24,7 @@ export function Hero() {
           {/* 主标题 - 左对齐 */}
           <h1 className={`text-[2.125rem] md:text-[2.5rem] lg:text-[2.625rem] font-heading font-semibold tracking-tight text-[var(--text-heading)] leading-[1.15] mb-8 transition-all duration-800 cubic-bezier(0.16,1,0.3,1) delay-100ms ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             一人公司<br />
-            <span className="text-[var(--color-foreground)]">孵化器</span>
+            <span className="text-[var(--color-foreground)]">系统化交付</span>
           </h1>
 
           {/* 副标题 - 左对齐 */}

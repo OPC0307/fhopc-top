@@ -22,8 +22,38 @@ export const metadata = {
     template: '%s | fhopc',
   },
   description: '有行业经验，想自己干。剩下的，交给系统。',
-  authors: [{ name: '一人公司系统化交付' }],
+  authors: [{ name: '一人公司系统化交付', url: 'https://fhopc.top' }],
+  creator: 'fhopc',
+  publisher: 'fhopc',
   metadataBase: new URL('https://fhopc.top'),
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'zh_CN',
+    siteName: 'fhopc · 一人公司系统化交付',
+    title: 'fhopc · 一人公司系统化交付',
+    description: '有行业经验，想自己干。剩下的，交给系统。',
+    url: 'https://fhopc.top',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'fhopc · 一人公司系统化交付',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'fhopc · 一人公司系统化交付',
+    description: '有行业经验，想自己干。剩下的，交给系统。',
+    images: ['/og-image.png'],
+  },
+  icons: {
+    icon: '/favicon.svg',
+  },
 };
 
 export default function RootLayout({
@@ -45,6 +75,18 @@ export default function RootLayout({
             })();
           `
         }} />
+        <script dangerouslySetInnerHTML={{
+          __html: `
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?a5621eae6e5f4f4f530c462888dae44f";
+  var s = document.getElementsByTagName("script")[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+          `.trim(),
+        }} />
+        <link rel="alternate" type="application/rss+xml" title="一人公司系统化交付 - RSS Feed" href="/feed.xml" />
       </head>
       <body
         className={`${inter.className} ${notoSansSC.className} antialiased`}
