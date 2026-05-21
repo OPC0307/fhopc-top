@@ -161,12 +161,7 @@
     @apply text-base md:text-lg text-[var(--text-secondary)] max-w-xl;
   }
 
-  /* Theme toggle button */
-  .theme-toggle {
-    @apply text-sm text-[var(--text-secondary)] hover:text-[var(--text-heading)] transition-colors cursor-pointer bg-transparent border-none;
-    font-family: inherit;
   }
-}
 
 /* Font override */
 .font-heading {

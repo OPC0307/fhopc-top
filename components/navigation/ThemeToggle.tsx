@@ -23,7 +23,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={toggle}
-      className="theme-toggle text-xs"
+      className="theme-toggle bg-[var(--color-accent)] text-white px-3 py-1.5 rounded-md font-medium text-xs hover:bg-[var(--color-foreground)] hover:text-[var(--color-background)] transition-colors"
       aria-label={isDark ? '切换到浅色模式' : '切换到深色模式'}
     >
       {isDark ? '浅色' : '深色'}
