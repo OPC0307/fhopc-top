@@ -271,6 +271,7 @@ export default function AdmissionPage() {
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<ResultData | null>(null);
   const [error, setError] = useState('');
+  const [showContact, setShowContact] = useState(false);
 
   useEffect(() => {
     setPageVisible(true);
@@ -284,15 +285,24 @@ export default function AdmissionPage() {
   );
 
   const allRadioQuestions = [...BASE_QUESTIONS, ...TRACK_QUESTIONS].filter(q => q.id !== 'direction');
-  const canSubmit =
-    form.name.trim() &&
-    form.contact.trim() &&
-    form.email.trim() &&
+  const questionsDone =
     form.direction.trim() &&
     allRadioQuestions.every(q => form[q.id as keyof FormData]);
+  const contactDone =
+    form.name.trim() &&
+    form.contact.trim() &&
+    form.email.trim();
+
+  const handleFirstSubmit = useCallback(() => {
+    if (!questionsDone) return;
+    setShowContact(true);
+    setTimeout(() => {
+      document.getElementById('contact-section')?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
+  }, [questionsDone]);
 
   const handleSubmit = useCallback(async () => {
-    if (!canSubmit || submitting) return;
+    if (!contactDone || submitting) return;
     setSubmitting(true);
     setError('');
 
@@ -313,7 +323,7 @@ export default function AdmissionPage() {
     } finally {
       setSubmitting(false);
     }
-  }, [canSubmit, submitting, form]);
+  }, [contactDone, submitting, form]);
 
   const handleReset = useCallback(() => {
     setForm({
@@ -333,6 +343,7 @@ export default function AdmissionPage() {
     });
     setResult(null);
     setError('');
+    setShowContact(false);
   }, []);
 
   return (
@@ -382,49 +393,7 @@ export default function AdmissionPage() {
                 <span className="text-xs font-semibold text-[var(--color-accent)] uppercase tracking-wider">第一部分：基础诊断</span>
               </div>
 
-              {/* 姓名 + 联系方式 */}
-              <div className="py-8 border-b border-[var(--border-default)]">
-                <div className="flex items-baseline gap-3 mb-6">
-                  <span className="text-xs font-semibold text-[var(--color-accent)] tabular-nums">—</span>
-                  <h2 className="text-[1.125rem] font-heading font-semibold text-[var(--text-heading)]">
-                    先留个联系方式
-                  </h2>
-                </div>
-                <p className="text-xs text-[var(--text-secondary)] mb-5">填完姓名和联系方式再开始评估，我们好把结果发给你。</p>
-                <div className="space-y-4">
-                  <div>
-                    <label className="block text-xs font-medium text-[var(--text-body)] mb-1.5">你的名字</label>
-                    <input
-                      type="text"
-                      value={form.name}
-                      onChange={(e) => updateField('name', e.target.value)}
-                      placeholder="你的名字"
-                      className="w-full bg-[var(--btn-hover)] text-[var(--text-body)] text-sm rounded-lg p-4 border border-[var(--border-default)] focus:outline-none focus:border-[var(--color-accent)] transition-colors duration-200 placeholder:text-[var(--text-tertiary)]"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-medium text-[var(--text-body)] mb-1.5">联系方式</label>
-                    <input
-                      type="text"
-                      value={form.contact}
-                      onChange={(e) => updateField('contact', e.target.value)}
-                      placeholder="微信 / 手机"
-                      className="w-full bg-[var(--btn-hover)] text-[var(--text-body)] text-sm rounded-lg p-4 border border-[var(--border-default)] focus:outline-none focus:border-[var(--color-accent)] transition-colors duration-200 placeholder:text-[var(--text-tertiary)]"
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-medium text-[var(--text-body)] mb-1.5">邮箱（接收评估报告）</label>
-                    <input
-                      type="email"
-                      value={form.email}
-                      onChange={(e) => updateField('email', e.target.value)}
-                      placeholder="your@email.com"
-                      className="w-full bg-[var(--btn-hover)] text-[var(--text-body)] text-sm rounded-lg p-4 border border-[var(--border-default)] focus:outline-none focus:border-[var(--color-accent)] transition-colors duration-200 placeholder:text-[var(--text-tertiary)]"
-                    />
-                  </div>
-                </div>
-              </div>
-
+              
               {BASE_QUESTIONS.map((q) => (
                 <div key={q.id} className="py-12">
                   <div className="flex items-baseline gap-3 mb-3">
@@ -499,27 +468,86 @@ export default function AdmissionPage() {
               ))}
             </div>
 
-            {/* Submit */}
+            {/* Submit / Contact */}
             <div className="container-content py-12 border-t border-[var(--border-default)]">
               {error && (
                 <p className="text-sm text-red-500 mb-4 text-center">
                   {error}
                 </p>
               )}
-              <button
-                onClick={handleSubmit}
-                disabled={!canSubmit || submitting}
-                className="w-full bg-[var(--color-accent)] text-white font-medium text-sm px-6 py-3.5 rounded-lg transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-110 flex items-center justify-center gap-2"
-              >
-                {submitting ? (
-                  <>
-                    <span className="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    评估中...
-                  </>
-                ) : (
-                  '提交评估'
-                )}
-              </button>
+
+              {!showContact ? (
+                /* Step 1: Submit questions */
+                <button
+                  onClick={handleFirstSubmit}
+                  disabled={!questionsDone || submitting}
+                  className="w-full bg-[var(--color-accent)] text-white font-medium text-sm px-6 py-3.5 rounded-lg transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-110 flex items-center justify-center gap-2"
+                >
+                  {submitting ? (
+                    <>
+                      <span className="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      评估中...
+                    </>
+                  ) : (
+                    '提交评估'
+                  )}
+                </button>
+              ) : (
+                /* Step 2: Contact info */
+                <div id="contact-section" className="animate-fade-in">
+                  <div className="rounded-lg border border-[var(--border-default)] p-6 mb-6">
+                    <p className="text-sm font-semibold text-[var(--text-heading)] mb-1">最后一步</p>
+                    <p className="text-xs text-[var(--text-secondary)] mb-5">填完联系方式即可查看评估结果。评估报告也会发送到你的邮箱。</p>
+                    <div className="space-y-4">
+                      <div>
+                        <label className="block text-xs font-medium text-[var(--text-body)] mb-1.5">你的名字</label>
+                        <input
+                          type="text"
+                          value={form.name}
+                          onChange={(e) => updateField('name', e.target.value)}
+                          placeholder="你的名字"
+                          className="w-full bg-[var(--btn-hover)] text-[var(--text-body)] text-sm rounded-lg p-4 border border-[var(--border-default)] focus:outline-none focus:border-[var(--color-accent)] transition-colors duration-200 placeholder:text-[var(--text-tertiary)]"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-medium text-[var(--text-body)] mb-1.5">联系方式</label>
+                        <input
+                          type="text"
+                          value={form.contact}
+                          onChange={(e) => updateField('contact', e.target.value)}
+                          placeholder="微信 / 手机"
+                          className="w-full bg-[var(--btn-hover)] text-[var(--text-body)] text-sm rounded-lg p-4 border border-[var(--border-default)] focus:outline-none focus:border-[var(--color-accent)] transition-colors duration-200 placeholder:text-[var(--text-tertiary)]"
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-xs font-medium text-[var(--text-body)] mb-1.5">邮箱（接收评估报告）</label>
+                        <input
+                          type="email"
+                          value={form.email}
+                          onChange={(e) => updateField('email', e.target.value)}
+                          placeholder="your@email.com"
+                          className="w-full bg-[var(--btn-hover)] text-[var(--text-body)] text-sm rounded-lg p-4 border border-[var(--border-default)] focus:outline-none focus:border-[var(--color-accent)] transition-colors duration-200 placeholder:text-[var(--text-tertiary)]"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={handleSubmit}
+                    disabled={!contactDone || submitting}
+                    className="w-full bg-[var(--color-accent)] text-white font-medium text-sm px-6 py-3.5 rounded-lg transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed hover:brightness-110 flex items-center justify-center gap-2"
+                  >
+                    {submitting ? (
+                      <>
+                        <span className="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        评估中...
+                      </>
+                    ) : (
+                      '查看结果'
+                    )}
+                  </button>
+                </div>
+              )}
             </div>
           </section>
         ) : (
