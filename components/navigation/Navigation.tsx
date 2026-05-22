@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import { ThemeToggle } from './ThemeToggle';
 
 const navItems = [
-  { label: '团队', href: '/team' },
-  { label: '协作', href: '/collab' },
+  { label: '关于', href: '/team' },
+  { label: '合作', href: '/collab' },
   { label: '痛点', href: '/insights' },
   { label: '准入', href: '/admission' },
 ];

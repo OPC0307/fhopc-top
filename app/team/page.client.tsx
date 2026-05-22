@@ -1,117 +1,81 @@
 'use client';
-
 import { useEffect, useState } from 'react';
 
 const roles = [
   {
-    id: '01', status: '生效中',
-    title: '准入审核官',
+    id: '01', status: '生效中', title: '方向审查',
     do: [
-      '用赛道自评打分表量化评估方向成熟度（需求刚性×技术成熟度×变现清晰度）',
-      '对照转化 5 阶段判断你的所处位置（首次接触→需求诊断→方案报价→标准交付→复购推荐）',
-      '根据百日盈利蓝图的三阶段规划推荐匹配的验证方案',
-      '输出方向评估报告：分数、薄弱点、推荐方案',
+      '量化评估你的方向成熟度：需求有多迫切、实现难度多大、变现路径清不清晰',
+      '判断你处于什么阶段——刚有想法、已经开始、还是扛不住了',
+      '输出方向评估报告：分数、薄弱点、推荐下一步',
     ],
-    dont: [
-      '不降低评估标准凑验证数量',
-      '不替你做创业决定',
-    ],
+    dont: ['不降低标准凑数量', '不替你做创业决定'],
   },
   {
-    id: '02', status: '生效中',
-    title: '赛道研判师',
+    id: '02', status: '生效中', title: '赛道分析',
     do: [
-      '用赛道三维度模型量化评估方向（需求刚性 × 技术成熟度 × 变现清晰度）',
-      '对照 2026 年 TOP10 高潜力赛道数据和竞争格局做市场对标',
-      '识别 5 类高危禁区——从真实踩坑案例中提取的决策红线',
-      '输出赛道评分报告，含 23 城市 OPC 政策红利对比',
-      '基于四象限商业模式和三明治定价法设计收入结构方案',
+      '用数据判断赛道空间和入局窗口',
+      '对照最新市场数据和竞争格局做对标',
+      '识别高危禁区——从真实踩坑案例中提取的决策红线',
+      '输出赛道评分报告',
     ],
-    dont: [
-      '不看宏观趋势报告，不讲大故事',
-      '不替你做决定，只给数据和逻辑',
-    ],
+    dont: ['不看宏观趋势报告', '不画大饼只说事实'],
   },
   {
-    id: '03', status: '生效中',
-    title: '合规架构师',
+    id: '03', status: '生效中', title: '合规规划',
     do: [
-      '主体选择决策（个体户 vs 有限公司，按收入规模分级推荐）',
-      '城市选择矩阵（7 维度 × 7 城市打分，推荐最优注册地）',
-      '财税合规体系搭建——对公账户、凭证留存、按时申报 3 条铁律',
-      'AI 合规自查（大模型备案、数据合规、版权归属、算法备案适用场景）',
-      'AI 服务合同模板设计（金额、交付、验收、退款、版权条款）',
+      '主体选择建议：个体户还是有限公司，按收入规模推荐',
+      '注册城市推荐：多维度打分，推荐最优注册地',
+      '财税合规框架搭建：对公账户、凭证留存、申报三条铁律',
+      '合同模板设计：金额、交付、验收、退款、版权条款',
     ],
-    dont: [
-      '不替代律师/会计师提供具体法律意见',
-      '不承诺节税结果',
-    ],
+    dont: ['不替代律师提供法律意见', '不承诺节税结果'],
   },
   {
-    id: '04', status: '生效中',
-    title: 'MVP 验证师',
+    id: '04', status: '生效中', title: '市场验证',
     do: [
-      '7 天 MVP 验证法：Day1-2 痛点访谈 → Day3-5 原型搭建 → Day6-7 种子测试 → Day8-14 收第一笔付费',
-      '提供 MVP 检查清单：可演示服务 + ≥3 个付费意向标准',
-      '种子用户获取 6 大渠道策略（社群、内容、冷启动联盟等）',
-      '输出付费验证记录与 Go/No-Go 决策报告',
+      '7 天从想法到验证：痛点访谈→原型搭建→种子用户测试→收第一笔钱',
+      '提供验证检查清单：可演示方案 + 至少 3 个付费意向',
+      '种子用户获取渠道策略',
+      '输出付费验证记录与决策报告',
     ],
-    dont: [
-      '不搞调研问卷，不分析"意向"',
-      '不替代你执行核心产出',
-    ],
+    dont: ['不搞问卷调研', '不替代你执行核心产出'],
   },
   {
-    id: '05', status: '生效中',
-    title: '自动化工程师',
+    id: '05', status: '生效中', title: '自动化搭建',
     do: [
-      '三层工具栈按预算配置（验证期 0-500 / 稳定期 500-2000 / 增长期 2000+）',
-      '6 大 Agent 框架选型指南（LangChain / Dify / Coze / n8n / CrewAI / OpenClaw）',
-      'AI 成本优化六技：成本追踪表 + 预算上限 + 降级策略',
-      '无代码 / 低代码 / 自建三种自动化工作流方案',
-      '按职能匹配工具矩阵（内容、客服、数据、项目自动化）',
+      '按预算配置工具：验证期 0-500 / 稳定期 500-2000 / 增长期 2000+',
+      'AI 框架选型指南：Dify / Coze / n8n 等主流方案对比',
+      '成本优化：追踪表 + 预算上限 + 降级策略',
+      '按职能匹配工具：内容、客服、数据、项目自动化',
     ],
-    dont: [
-      '不做大平台集成',
-      '不搭你当前不需要的流水线',
-    ],
+    dont: ['不做大平台集成', '不搭你当前不需要的东西'],
   },
   {
-    id: '06', status: '生效中',
-    title: '经营审计师',
+    id: '06', status: '生效中', title: '经营审计',
     do: [
-      '核心经营指标体系诊断（收入结构、成本分布、时间分配）',
-      '五大平台获客策略复盘与优化（小红书、公众号、即刻、推特、视频号）',
-      '标准化交付 SOP 5 阶段审计（启动→执行→内审→修订→交付）',
-      '复购与裂变机制设计（订阅制转化、会员体系、自动续费、转介绍激励）',
-      '百日复盘：Go/No-Go 决策 + 下阶段计划',
+      '核心经营指标诊断：收入结构、成本分布、时间分配',
+      '获客策略复盘与优化：哪些渠道有效、哪些在浪费',
+      '标准化交付流程审计：启动→执行→内审→修订→交付',
+      '复购与转介绍机制设计',
     ],
-    dont: [
-      '不做财务记账',
-      '不做安慰式复盘',
-    ],
+    dont: ['不做财务记账', '不做安慰式复盘'],
   },
   {
-    id: '07', status: '生效中',
-    title: '交付监理',
+    id: '07', status: '生效中', title: '交付把关',
     do: [
-      '标准化交付 5 阶段管理（需求确认→方案设计→执行→验收→交付）',
+      '标准化交付管理：需求确认→方案设计→执行→验收→交付',
       '每阶段验收标准与进度可视化',
-      'NPS 满意度管理与复购闭环设计',
+      '客户满意度管理与复购闭环设计',
       '客户案例沉淀——把交付物变成获客素材',
-      '合同与收款路径设计（交付物定义、验收标准、退款条款）',
     ],
-    dont: [
-      '不替你写代码写文案（那是你的产出）',
-      '不外包你的核心工作',
-    ],
+    dont: ['不替你写代码写文案', '不外包你的核心工作'],
   },
 ];
 
 function RoleCard({ role, index }: { role: typeof roles[0]; index: number }) {
   const [visible, setVisible] = useState(false);
   useEffect(() => { const t = setTimeout(() => setVisible(true), 200 + index * 120); return () => clearTimeout(t); }, [index]);
-
   return (
     <div className={`transition-all duration-600 ease-helio ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
       <div className="flex items-center gap-3 mb-3">
@@ -150,67 +114,54 @@ function RoleCard({ role, index }: { role: typeof roles[0]; index: number }) {
 export default function TeamPage() {
   const [pageVisible, setPageVisible] = useState(false);
   useEffect(() => { setPageVisible(true); }, []);
-
   return (
     <div className="min-h-screen bg-[var(--color-background)]">
       <div className="max-w-[1080px] mx-auto md:border-x md:border-[var(--border-default)]">
-        {/* Header */}
         <section className="py-32 md:py-40">
           <div className="px-8">
             <div className={`transition-all duration-800 ease-helio ${pageVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              <div className="section-label">一人公司系统化交付</div>
+              <div className="section-label">关于我们</div>
               <h1 className="text-[2rem] md:text-[2.5rem] font-heading font-bold tracking-tight text-[var(--text-heading)] mb-4">
-                七个角色，一个系统
+                我们自己就是一人公司
               </h1>
               <p className="text-base md:text-lg text-[var(--text-secondary)] max-w-xl">
-                从赛道评估到合规落地，从验证到自动化，每个节点由对应角色把关。
+                我们自己就是一个人跑通全流程的。所以你的每一个痛点，我们都亲自经历过。
               </p>
             </div>
           </div>
         </section>
 
-        {/* Roles */}
+        <section className="pb-16 border-t border-[var(--border-default)]">
+          <div className="px-8 py-16">
+            <div className="max-w-2xl text-sm text-[var(--text-body)] leading-relaxed space-y-4">
+              <p>fhopc 本身就是一个一人公司。没有团队，没有办公室，没有融资。</p>
+              <p>我们搭建这套系统，首先是为了让自己能一个人运转——内容、获客、交付、审计，全部自动化跑通。后来发现，这个过程本身可以复制给跟我们一样的人。</p>
+              <p>所以我们的七个角色，不是什么咨询师团队。是一套 AI 驱动的自动化系统，在背后替你盯着每一个环节。你做决定，系统执行。</p>
+            </div>
+          </div>
+        </section>
+
         <section className="pb-32 border-t border-[var(--border-default)]">
           <div className="container-content divide-y divide-[var(--border-default)]">
             {roles.map((role, i) => (
-              <div key={role.id} className="py-12 first:pt-16">
-                <RoleCard role={role} index={i} />
-              </div>
+              <div key={role.id} className="py-12 first:pt-16"><RoleCard role={role} index={i} /></div>
             ))}
           </div>
         </section>
 
-        {/* Footer note */}
-        <section className="py-16 border-t border-[var(--border-default)]">
-          <div className="container-content">
-            <p className="text-xs text-[var(--text-tertiary)] leading-relaxed">
-              七个角色由 AI 扮演执行。决定权在你，执行交给系统。
-            </p>
-          </div>
-        </section>
-
-        {/* CTA */}
         <section className="py-20 border-t border-[var(--border-default)]">
           <div className="container-content text-center">
-            <p className="text-sm text-[var(--text-heading)] font-medium mb-6">
-              评估你的方向 →
-            </p>
-            <a
-              href="/admission"
-              className="inline-flex items-center gap-2 bg-[var(--color-foreground)] text-[var(--color-background)] px-6 py-3 rounded-md font-medium text-sm hover:bg-[var(--color-accent)] transition-colors"
-            >
-              免费评估 →
-            </a>
+            <p className="text-sm text-[var(--text-heading)] font-medium mb-6">先看看你的方向对不对 →</p>
+            <a href="/admission" className="inline-flex items-center gap-2 bg-[var(--color-foreground)] text-[var(--color-background)] px-6 py-3 rounded-md font-medium text-sm hover:bg-[var(--color-accent)] transition-colors">免费评估 →</a>
           </div>
         </section>
 
-        {/* Footer */}
         <footer className="py-16 border-t border-[var(--border-default)]">
           <div className="container-content">
             <div className="text-sm font-heading font-semibold text-[var(--text-heading)] mb-2">fhopc · 一人公司系统化交付</div>
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-[var(--text-secondary)]">
               <a href="/" className="hover:text-[var(--text-heading)] transition-colors">首页</a>
-              <a href="/collab" className="hover:text-[var(--text-heading)] transition-colors">协作</a>
+              <a href="/collab" className="hover:text-[var(--text-heading)] transition-colors">合作</a>
               <a href="/insights" className="hover:text-[var(--text-heading)] transition-colors">痛点</a>
               <a href="/admission" className="hover:text-[var(--text-heading)] transition-colors">准入</a>
               <a href="mailto:hello@fhopc.top" className="hover:text-[var(--text-heading)] transition-colors">hello@fhopc.top</a>

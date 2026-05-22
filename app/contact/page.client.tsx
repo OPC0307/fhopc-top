@@ -5,9 +5,9 @@ import { useSearchParams } from 'next/navigation';
 import { Suspense } from 'react';
 
 const PLAN_LABELS: Record<string, string> = {
-  framework: '作业框架',
-  diagnosis: '经营诊断',
-  deep: '深度协作',
+  framework: '启动包',
+  diagnosis: '陪跑计划',
+  deep: '全托管',
 };
 
 function ContactForm() {
@@ -116,13 +116,13 @@ function ContactForm() {
                   href="/team"
                   className="hover:text-[var(--text-heading)] transition-colors"
                 >
-                  团队
+                  关于
                 </a>
                 <a
                   href="/collab"
                   className="hover:text-[var(--text-heading)] transition-colors"
                 >
-                  协作
+                  合作
                 </a>
                 <a
                   href="/insights"
@@ -267,13 +267,13 @@ function ContactForm() {
                 href="/team"
                 className="hover:text-[var(--text-heading)] transition-colors"
               >
-                团队
+                关于
               </a>
               <a
                 href="/collab"
                 className="hover:text-[var(--text-heading)] transition-colors"
               >
-                协作
+                合作
               </a>
               <a
                 href="/insights"

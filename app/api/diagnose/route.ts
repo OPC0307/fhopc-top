@@ -55,9 +55,9 @@ function qrBlock(name: string): string {
 }
 
 function getPlanName(level: string): string {
-  if (level === 'deep') return '深度协作';
-  if (level === 'diagnosis') return '经营诊断';
-  return '作业框架';
+  if (level === 'deep') return '全托管';
+  if (level === 'diagnosis') return '陪跑计划';
+  return '启动包';
 }
 
 async function sendAutoReply(name: string, email: string, score: number, level: string, feedback: string, weakPoints: string[], levelLabel: string) {
@@ -74,7 +74,7 @@ async function sendAutoReply(name: string, email: string, score: number, level: 
     nextSteps = `回复这封邮件，或扫码添加微信：<br><br>${qrBlock(name)}<br>备注：评估-${name}<br><br><strong>30 分钟方向推演，不做推销：</strong><br>1. 拆解你得分的真实含义<br>2. 指出最容易翻车的 3 个节点<br>3. 给一份第一周行动清单`;
   } else if (level === 'diagnosis') {
     levelBody = '你的方向有基础，但还有 1-2 个维度没到位。这不代表方向不行——大部分可行方向都不是评估满分起步的，而是在跑的过程中补上的。评估告诉你缺什么，我们聊怎么补。';
-    nextSteps = `回复这封邮件，或扫码添加微信：<br><br>${qrBlock(name)}<br>备注：诊断-${name}<br><br><strong>30 分钟经营诊断，不做推销：</strong><br>1. 告诉你缺的那个维度怎么补<br>2. 补多久<br>3. 补完用什么标准判断到位了`;
+    nextSteps = `回复这封邮件，或扫码添加微信：<br><br>${qrBlock(name)}<br>备注：诊断-${name}<br><br><strong>30 分钟方向梳理，不做推销：</strong><br>1. 告诉你缺的那个维度怎么补<br>2. 补多久<br>3. 补完用什么标准判断到位了`;
   } else {
     levelBody = '当前评估结果偏低。但不一定代表你的方向不行——有可能是评估题目没准确覆盖你的情况，也有可能是选题比较新，评估模型没有完全捕捉到。如果你想知道为什么是这个分数、或者觉得评估结果和你的真实情况有偏差，我们可以聊聊。';
     nextSteps = `回复这封邮件，或扫码添加微信：<br><br>${qrBlock(name)}<br>备注：辅导-${name}<br><br>我们陪你把方向重新梳理一遍。不推销，不催单。聊完你觉得有价值再决定下一步。`;
@@ -252,58 +252,58 @@ export async function POST(request: NextRequest) {
 
   const weakPoints = getWeakPoints(scores);
 
-  // === Score >= 70: 深度协作 ===
+  // === Score >= 70: 全托管 ===
   if (total >= 70) {
-    await sendNotification(body, total, '深度协作');
-    await sendAutoReply(name, email, total, 'deep', '综合评分优秀。你的方向清晰，个人条件充分，赛道评估显示可行。建议直接进入深度协作阶段。', weakPoints, '深度协作');
+    await sendNotification(body, total, '全托管');
+    await sendAutoReply(name, email, total, 'deep', '综合评分优秀。你的方向清晰，个人条件充分，赛道评估显示可行。建议直接进入全托管阶段。', weakPoints, '全托管');
     return NextResponse.json({
       score: total,
       maxScore,
       level: 'deep',
-      levelLabel: '深度协作',
+      levelLabel: '全托管',
       recommendation: {
-        plan: '深度协作',
-        planPrice: '¥999',
-        summary: '你的方向和条件经过验证，成熟度较高。推荐深度协作——全周期验证，7 个角色按需介入，你冲执行，系统盯方向和质量。',
+        plan: '全托管',
+        planPrice: '¥2,200/月',
+        summary: '你的方向和条件经过验证，成熟度较高。推荐全托管——你只管产品，合规、财税、内容、获客、交付，系统自动跑完。',
       },
       weakPoints,
-      feedback: '综合评分优秀。你的方向清晰，个人条件充分，赛道评估显示可行。建议直接进入深度协作阶段。',
+      feedback: '综合评分优秀。你的方向清晰，个人条件充分，赛道评估显示可行。建议直接进入全托管阶段。',
     });
   }
 
-  // === Score >= 40: 经营诊断 ===
+  // === Score >= 40: 陪跑计划 ===
   if (total >= 40) {
-    await sendNotification(body, total, '经营诊断');
+    await sendNotification(body, total, '陪跑计划');
     let feedback: string;
     const weakestDim = Object.entries(scores).sort((a, b) => a[1] - b[1])[0];
 
     if (weakestDim[1] <= 3) {
-      feedback = '你有基础条件，但在个别维度还需要补强。建议从经营诊断开始，先优化薄弱环节再扩大投入。';
+      feedback = '你有基础条件，但在个别维度还需要补强。建议从陪跑计划开始，先优化薄弱环节再扩大投入。';
     } else if (scores.demand < 7 || scores.monetization < 7) {
       feedback = '方向基本可行，但市场需求或变现路径还需要验证。建议先跑一个最小 MVP 测试市场反应。';
     } else {
-      feedback = '方向和个人条件都在可推进范围。建议从经营诊断开始，30 天内把你的方向跑通。';
+      feedback = '方向和个人条件都在可推进范围。建议从陪跑计划开始，30 天内把你的方向跑通。';
     }
 
-    await sendAutoReply(name, email, total, 'diagnosis', feedback, weakPoints, '经营诊断');
+    await sendAutoReply(name, email, total, 'diagnosis', feedback, weakPoints, '陪跑计划');
 
     return NextResponse.json({
       score: total,
       maxScore,
       level: 'diagnosis',
-      levelLabel: '经营诊断',
+      levelLabel: '陪跑计划',
       recommendation: {
-        plan: '经营诊断',
-        planPrice: '¥399',
-        summary: '你有基础条件和明确方向，推荐从经营诊断开始——月度数据审计 + 策略复盘，帮你优化经营效率。',
+        plan: '陪跑计划',
+        planPrice: '¥1,500/月',
+        summary: '你有基础条件和明确方向，推荐从陪跑计划开始——每月盯数据、调方向，哪里在漏哪里在赚，数据说话。',
       },
       weakPoints,
       feedback,
     });
   }
 
-  // === Score < 40: 作业框架 ===
-  await sendNotification(body, total, '作业框架');
+  // === Score < 40: 启动包 ===
+  await sendNotification(body, total, '启动包');
   const adjustments: string[] = [];
   if (expScore < 6) adjustments.push('花 2-4 周深入了解目标行业，通过兼职、访谈、调研等方式积累行业认知');
   if (comScore < 7) adjustments.push('每周至少保证 15 小时以上投入，一人公司本质上是时间换空间');
@@ -322,17 +322,17 @@ export async function POST(request: NextRequest) {
     feedback = '综合来看，目前启动的时机还不成熟。建议参考调整建议，准备好后再来评估。';
   }
 
-  await sendAutoReply(name, email, total, 'framework', feedback, weakPoints, '作业框架');
+  await sendAutoReply(name, email, total, 'framework', feedback, weakPoints, '启动包');
 
   return NextResponse.json({
     score: total,
     maxScore,
     level: 'framework',
-    levelLabel: '作业框架',
+    levelLabel: '启动包',
     recommendation: {
-      plan: '作业框架',
-      planPrice: '待定',
-      summary: '方向需要先验证。推荐从作业框架开始——30 天 SOP + 模板包，从 0 到第一单客户。',
+      plan: '启动包',
+      planPrice: '¥3,800（一次性）',
+      summary: '方向需要先验证。推荐从启动包开始——30 天执行路径 + 工具包，系统搭好你照着跑。',
     },
     weakPoints,
     feedback,

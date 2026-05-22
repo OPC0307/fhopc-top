@@ -1,218 +1,148 @@
 'use client';
-
 import { useEffect, useState } from 'react';
 
-export default function CollabPage() {
-  const [pageVisible, setPageVisible] = useState(false);
-  useEffect(() => { setPageVisible(true); }, []);
+const plans = [
+  {
+    id: '01', title: '启动包',
+    desc: '系统搭好，你照着跑。',
+    detail: '适合有方向、能自己推进的人。30天执行路径 + 工具包，每一步写清楚。',
+    price: '3,800 元（一次性）',
+    items: ['自动化系统搭建', '发布队列管理工具', '落地页系统部署', '企业微信+自动回复', '操作手册+线上培训'],
+  },
+  {
+    id: '02', title: '陪跑计划',
+    desc: '每月盯数据、调方向。',
+    detail: '适合已经在做、需要优化效率的人。我出诊断你执行，哪里在漏哪里在赚，数据说话。',
+    price: '1,500 元/月',
+    items: ['每月数据审计报告', '每月策略复盘会', '每周内容批量生产', '系统维护与更新', '运营问题响应'],
+  },
+  {
+    id: '03', title: '全托管',
+    desc: '你只管产品，其他归我。',
+    detail: '适合一个人扛不住、需要系统兜底的人。你冲执行，系统替你盯方向和质量。',
+    price: '2,200 元/月',
+    items: ['含启动包+陪跑计划全部内容', '日常发布执行+追踪', '客户自动应答+意向过滤', '即时问题响应'],
+  },
+];
+
+const roiRows = [
+  ['每日时间投入', '2-3 小时', '15 分钟'],
+  ['月度工具成本', '乱买 ≈ 800 元', '按需 ≈ 200 元'],
+  ['方向试错', '3-6 个月没方向', '数据跟踪，及时调整'],
+  ['出单预期', '不确定', '30 天可见效果'],
+  ['心态损耗', '高（一个人扛）', '低（有人把关）'],
+];
+
+export default function CollabContent() {
+  const [visible, setVisible] = useState(false);
+  useEffect(() => { setVisible(true); }, []);
 
   return (
     <div className="min-h-screen bg-[var(--color-background)]">
       <div className="max-w-[1080px] mx-auto md:border-x md:border-[var(--border-default)]">
-        {/* Header */}
-        <section className="py-32 md:py-40">
+
+        <section className="py-24 md:py-32">
           <div className="px-8">
-            <div className={`transition-all duration-800 ease-helio ${pageVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-              <div className="section-label">协作</div>
-              <h1 className="text-[2rem] md:text-[2.5rem] font-heading font-bold tracking-tight text-[var(--text-heading)] mb-4">
-                三种深度，按需选择
-              </h1>
-              <p className="text-base md:text-lg text-[var(--text-secondary)] max-w-xl">
-                一人公司系统化交付不卖套餐。你的阶段决定了你需要什么深度。
-              </p>
+            <div className="max-w-2xl">
+              <div className={`text-xs font-semibold text-[var(--color-accent)] mb-4 tracking-widest transition-all duration-800 ease-helio ${visible ? 'opacity-100' : 'opacity-0'}`}>合作方式</div>
+              <h1 className={`text-[2.5rem] md:text-[3rem] font-heading font-bold tracking-tight leading-[1.15] text-[var(--text-heading)] mb-4 transition-all duration-800 ease-helio ${visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>三种深度，按需选择</h1>
+              <p className={`text-sm text-[var(--text-secondary)] leading-relaxed transition-all duration-800 ease-helio delay-100ms ${visible ? 'opacity-100' : 'opacity-0'}`}>从自己照着跑到全托管，总有一种适合你现在的阶段。按月结算，随时可退。</p>
             </div>
           </div>
         </section>
 
-        {/* Mode 1: 作业框架 */}
-        <section className="border-t border-[var(--border-default)]">
-          <div className="container-content py-20">
-            <h2 className="text-[1.25rem] font-heading font-semibold text-[var(--text-heading)] mb-2">01 作业框架</h2>
-            <p className="text-sm text-[var(--color-accent)] mb-4">适用阶段：有想法不知道怎么变成第一单</p>
-            <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-6">30 天从想法到第一笔订单的验证方案 SOP。含 7 天 MVP 验证法、赛道三维度评估、三层工具栈配置指南。</p>
-
-            <div className="grid md:grid-cols-3 gap-8 mb-8">
-              <div>
-                <h3 className="text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-wider mb-3">包含内容</h3>
-                <ul className="space-y-2 text-sm text-[var(--text-body)]">
-                  <li>• 从零到第一单客户的 30 天 SOP（标准作业流程）</li>
-                  <li>• 工具包：合同模板、报价模板、交付清单、客户跟进 SOP</li>
-                  <li>• 每周自查清单 —— 不等人催，自己就知道下一步该做什么</li>
-                  <li>• 30 天社群答疑（群内随时提问）</li>
+        <section className="pb-24 border-t border-[var(--border-default)]">
+          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--border-default)]">
+            {plans.map((plan, i) => (
+              <div key={plan.id} className="p-8 flex flex-col animate-fade-in-up" style={{ animationDelay: `${i * 150}ms` }}>
+                <div className="text-xs font-semibold text-[var(--text-tertiary)] tabular-nums mb-3">{plan.id}</div>
+                <h2 className="text-xl font-heading font-bold text-[var(--text-heading)] mb-2">{plan.title}</h2>
+                <p className="text-sm text-[var(--text-body)] mb-1">{plan.desc}</p>
+                <p className="text-xs text-[var(--text-tertiary)] mb-4">{plan.detail}</p>
+                <p className="text-lg font-bold text-[var(--text-heading)] mb-6">{plan.price}</p>
+                <ul className="space-y-2 mb-8">
+                  {plan.items.map((item, j) => (
+                    <li key={j} className="text-sm text-[var(--text-secondary)] flex items-start gap-2">
+                      <span className="text-[var(--color-accent)] mt-0.5">·</span>
+                      {item}
+                    </li>
+                  ))}
                 </ul>
+                <div className="mt-auto">
+                  <a href="/admission" className="inline-block w-full text-center border border-[var(--border-default)] text-[var(--text-secondary)] px-4 py-2.5 rounded-md text-sm hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors">先做免费评估 →</a>
+                </div>
               </div>
-              <div>
-                <h3 className="text-xs font-semibold text-[var(--color-accent)] uppercase tracking-wider mb-3">产出清单</h3>
-                <ul className="space-y-2 text-sm text-[var(--text-body)]">
-                  <li>• 赛道评分报告（需求刚性 × 技术成熟度 × 变现清晰度）</li>
-                  <li>• MVP 原型 + 付费验证记录</li>
-                  <li>• 百日计划表（Day 1-30 定位与验证）</li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider mb-3">不包含</h3>
-                <ul className="space-y-2 text-sm text-[var(--text-tertiary)]">
-                  <li>• 不涉及经营数据诊断</li>
-                  <li>• 不提供 1v1 复盘会议</li>
-                  <li>• 不含自动化工具搭建</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="pt-6 border-t border-[var(--border-default)] flex flex-wrap gap-x-8 gap-y-2 text-xs text-[var(--text-secondary)]">
-              <span>交付方式：Notion 文档 + 模板包，自主推进</span>
-              <span>预期节奏：最快 30 天出第一单</span>
-              <span className="text-[var(--text-tertiary)] w-full mt-1">卡点对应：有想法不知道怎么变成第一单 → 从0到出单的30天路径，每一步写清楚。</span>
-            </div>
-            <div className="mt-8">
-              <a
-                href="/contact?plan=framework"
-                className="inline-flex items-center gap-2 border border-[var(--color-accent)] text-[var(--color-accent)] px-6 py-3 rounded-md font-medium text-sm hover:bg-[var(--color-accent)] hover:text-white transition-all duration-200"
-              >
-                选择作业框架 →
-              </a>
-            </div>
+            ))}
           </div>
         </section>
 
-        {/* Mode 2: 经营诊断 */}
-        <section className="border-t border-[var(--border-default)]">
-          <div className="container-content py-20">
-            <h2 className="text-[1.25rem] font-heading font-semibold text-[var(--text-heading)] mb-2">02 经营诊断</h2>
-            <p className="text-sm text-[var(--color-accent)] mb-4">适用阶段：已经在做，但不知道对不对</p>
-            <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-6">月度经营数据审计 + 策略复盘。含核心指标体系诊断、成本控制优化、NPS 满意度管理、复购裂变设计。</p>
-
-            <div className="grid md:grid-cols-3 gap-8 mb-8">
-              <div>
-                <h3 className="text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-wider mb-3">包含内容</h3>
-                <ul className="space-y-2 text-sm text-[var(--text-body)]">
-                  <li>• 每月一次完整数据审计：收入结构、成本分布、时间分配</li>
-                  <li>• 核心经营指标体系诊断 —— 哪在漏、哪在赚、哪在拖</li>
-                  <li>• 30 分钟复盘会，我出诊断你执行</li>
-                  <li>• 经营指标看板（数据可视化）</li>
-                  <li>• NPS 满意度管理与复购裂变机制设计</li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="text-xs font-semibold text-[var(--color-accent)] uppercase tracking-wider mb-3">产出清单</h3>
-                <ul className="space-y-2 text-sm text-[var(--text-body)]">
-                  <li>• 月度诊断报告（含核心指标变化趋势）</li>
-                  <li>• 成本优化建议书</li>
-                  <li>• 复购方案（订阅制/会员体系/自动续费/转介绍激励）</li>
-                  <li>• 下月行动计划</li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider mb-3">不包含</h3>
-                <ul className="space-y-2 text-sm text-[var(--text-tertiary)]">
-                  <li>• 不手把手帮你执行</li>
-                  <li>• 不含自动化搭建</li>
-                  <li>• 不代替你做决策</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="pt-6 border-t border-[var(--border-default)] flex flex-wrap gap-x-8 gap-y-2 text-xs text-[var(--text-secondary)]">
-              <span>交付方式：月度数据报告 + 复盘会议</span>
-              <span>预期节奏：月度循环</span>
-              <span className="text-[var(--text-tertiary)] w-full mt-1">卡点对应：在做但不知道对不对 → 数据告诉你哪里在漏、哪里在赚。</span>
-            </div>
-            <div className="mt-8">
-              <a
-                href="/contact?plan=diagnosis"
-                className="inline-flex items-center gap-2 border border-[var(--color-accent)] text-[var(--color-accent)] px-6 py-3 rounded-md font-medium text-sm hover:bg-[var(--color-accent)] hover:text-white transition-all duration-200"
-              >
-                选择经营诊断 →
-              </a>
-            </div>
-          </div>
-        </section>
-
-        {/* Mode 3: 深度协作 */}
-        <section className="border-t border-[var(--border-default)]">
-          <div className="container-content py-20">
-            <h2 className="text-[1.25rem] font-heading font-semibold text-[var(--text-heading)] mb-2">03 深度协作</h2>
-            <p className="text-sm text-[var(--color-accent)] mb-4">适用阶段：一个人扛不住了，需要系统兜底</p>
-            <p className="text-sm text-[var(--text-secondary)] leading-relaxed mb-6">全周期验证方案，每周同步。含标准化交付 5 阶段管理、客户案例沉淀、复购裂变设计、合同与收款路径设计。</p>
-
-            <div className="grid md:grid-cols-3 gap-8 mb-8">
-              <div>
-                <h3 className="text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-wider mb-3">包含内容</h3>
-                <ul className="space-y-2 text-sm text-[var(--text-body)]">
-                  <li>• 全流程盯控：方向、执行、交付，每个环节有人把关</li>
-                  <li>• 准入 → 赛道 → 合规 → 验证 → 自动化 → 审计 → 交付，7 个角色介入</li>
-                  <li>• 标准化交付 5 阶段管理（需求确认→方案设计→执行→验收→交付）</li>
-                  <li>• 每周同步 + 随时应急通道</li>
-                  <li>• 随时可退，按月结算，无违约金</li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="text-xs font-semibold text-[var(--color-accent)] uppercase tracking-wider mb-3">产出清单</h3>
-                <ul className="space-y-2 text-sm text-[var(--text-body)]">
-                  <li>• 周同步纪要 + 交付 SOP</li>
-                  <li>• 客户案例库（交付物沉淀为获客素材）</li>
-                  <li>• 合同模板（交付物定义/验收标准/退款条款）</li>
-                  <li>• 收款方案设计</li>
-                </ul>
-              </div>
-              <div>
-                <h3 className="text-xs font-semibold text-[var(--text-tertiary)] uppercase tracking-wider mb-3">不包含</h3>
-                <ul className="space-y-2 text-sm text-[var(--text-tertiary)]">
-                  <li>• 不替你写代码写文案（那是你的产出）</li>
-                  <li>• 不外包你的核心工作</li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="pt-6 border-t border-[var(--border-default)] flex flex-wrap gap-x-8 gap-y-2 text-xs text-[var(--text-secondary)]">
-              <span>交付方式：全流程跟进，你冲执行系统盯方向和质量</span>
-              <span>预期节奏：按周跟进，按月结算</span>
-              <span className="text-[var(--text-tertiary)] w-full mt-1">卡点对应：一个人扛不住了 → 你冲执行，系统替你盯方向和质量。</span>
-            </div>
-            <div className="mt-8">
-              <a
-                href="/contact?plan=deep"
-                className="inline-flex items-center gap-2 border border-[var(--color-accent)] text-[var(--color-accent)] px-6 py-3 rounded-md font-medium text-sm hover:bg-[var(--color-accent)] hover:text-white transition-all duration-200"
-              >
-                选择深度协作 →
-              </a>
-            </div>
-          </div>
-        </section>
-
-        {/* How to choose */}
         <section className="py-20 border-t border-[var(--border-default)]">
           <div className="container-content">
-            <h2 className="text-[1.25rem] font-heading font-semibold text-[var(--text-heading)] mb-6">如何选择</h2>
+            <div className="max-w-2xl mb-10">
+              <div className="text-xs font-semibold text-[var(--color-accent)] mb-4 tracking-widest">投入与回报</div>
+              <h2 className="text-2xl font-heading font-bold text-[var(--text-heading)]">自己干 vs 用系统</h2>
+            </div>
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-[var(--border-default)]">
-                    <th className="text-left py-3 pr-4 text-[var(--text-secondary)] font-medium">你的状态</th>
-                    <th className="text-left py-3 pr-4 text-[var(--text-secondary)] font-medium">推荐模式</th>
-                    <th className="text-left py-3 text-[var(--text-secondary)] font-medium">预计投入</th>
+                    <th className="text-left py-3 pr-4 text-[var(--text-secondary)] font-medium"></th>
+                    <th className="text-left py-3 px-4 text-[var(--text-secondary)] font-medium">自己摸索</th>
+                    <th className="text-left py-3 pl-4 text-[var(--text-secondary)] font-medium">fhopc 方案</th>
                   </tr>
                 </thead>
-                <tbody className="text-[var(--text-body)]">
-                  <tr className="border-b border-[var(--border-default)]"><td className="py-3 pr-4">有想法，在犹豫做不做</td><td className="py-3 pr-4">先做免费评估，再决定</td><td className="py-3">免费</td></tr>
-                  <tr className="border-b border-[var(--border-default)]"><td className="py-3 pr-4">有方向，不知道第一单怎么做</td><td className="py-3 pr-4">作业框架</td><td className="py-3">一次性</td></tr>
-                  <tr className="border-b border-[var(--border-default)]"><td className="py-3 pr-4">已经在做，不确定对不对</td><td className="py-3 pr-4">经营诊断</td><td className="py-3">月度</td></tr>
-                  <tr><td className="py-3 pr-4">一个人扛不住了</td><td className="py-3 pr-4">深度协作</td><td className="py-3">月度</td></tr>
+                <tbody>
+                  {[
+                    ['每日时间投入', '2-3 小时', '15 分钟'],
+                    ['月度工具成本', '乱买 ≈ 800 元', '按需 ≈ 200 元'],
+                    ['方向试错', '3-6 个月没方向', '数据跟踪及时调整'],
+                    ['出单预期', '不确定', '30 天可见效果'],
+                    ['心态损耗', '高（一个人扛）', '低（有人把关）'],
+                  ].map((row, i) => (
+                    <tr key={i} className="border-b border-[var(--border-default)]">
+                      <td className="py-3 pr-4 font-medium text-[var(--text-heading)]">{row[0]}</td>
+                      <td className="py-3 px-4 text-[var(--text-secondary)]">{row[1]}</td>
+                      <td className="py-3 pl-4 text-[var(--color-accent)]">{row[2]}</td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
           </div>
         </section>
 
-        {/* CTA */}
+        <section className="py-20 border-t border-[var(--border-default)]">
+          <div className="container-content">
+            <div className="max-w-2xl mb-10">
+              <div className="text-xs font-semibold text-[var(--color-accent)] mb-4 tracking-widest">怎么选</div>
+              <h2 className="text-2xl font-heading font-bold text-[var(--text-heading)]">你的阶段决定你的起点</h2>
+            </div>
+            <div className="space-y-4">
+              {[
+                { state: '有想法，不知道做不做', action: '先做免费评估', cost: '免费' },
+                { state: '有方向，不知道第一单怎么出', action: '启动包', cost: '一次性' },
+                { state: '已经在做，不确定对不对', action: '陪跑计划', cost: '月度' },
+                { state: '一个人扛不住了', action: '全托管', cost: '月度' },
+              ].map((item, i) => (
+                <div key={i} className="flex items-center justify-between py-4 border-b border-[var(--border-default)] last:border-0">
+                  <span className="text-sm text-[var(--text-heading)]">{item.state}</span>
+                  <div className="flex items-center gap-4">
+                    <span className="text-sm text-[var(--color-accent)]">{item.action}</span>
+                    <span className="text-xs text-[var(--text-tertiary)]">{item.cost}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="py-20 border-t border-[var(--border-default)]">
           <div className="container-content text-center">
-            <p className="text-sm text-[var(--text-secondary)] mb-6">还是不确定选哪个？先做免费评估。15 分钟，系统告诉你该从哪开始。</p>
+            <p className="text-sm text-[var(--text-secondary)] mb-6">还不确定？先做免费评估。10 分钟，系统告诉你该从哪开始。</p>
             <a href="/admission" className="inline-flex items-center gap-2 bg-[var(--color-foreground)] text-[var(--color-background)] px-6 py-3 rounded-md font-medium text-sm hover:bg-[var(--color-accent)] transition-colors">免费评估 →</a>
           </div>
         </section>
 
-        {/* Footer */}
         <footer className="py-16 border-t border-[var(--border-default)]">
           <div className="container-content">
             <div className="text-sm font-heading font-semibold text-[var(--text-heading)] mb-2">fhopc · 一人公司系统化交付</div>
@@ -224,6 +154,7 @@ export default function CollabPage() {
             </div>
           </div>
         </footer>
+
       </div>
     </div>
   );

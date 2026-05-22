@@ -1,12 +1,12 @@
 import TeamContent from './page.client';
 
 export const metadata = {
-  title: '团队',
-  description: '了解一人公司系统化交付的七个角色：从准入审核官到交付监理，每个节点由对应角色把关。',
+  title: '关于',
+  description: 'fhopc 本身就是一个一人公司。没有团队没有办公室没有融资。七角色是AI驱动系统，做决定在你，执行交给系统。',
   alternates: { canonical: '/team' },
   openGraph: {
-    title: '团队 | fhopc',
-    description: '了解一人公司系统化交付的七个角色，每个节点由对应角色把关。',
+    title: '关于 | fhopc',
+    description: '我们自己就是一人公司——你的每一个痛点我们都亲自经历过。',
     url: 'https://fhopc.top/team',
   },
 };

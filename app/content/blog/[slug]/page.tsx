@@ -198,13 +198,13 @@ export default async function BlogPostPage({
                   href="/team"
                   className="hover:text-[var(--text-heading)] transition-colors"
                 >
-                  团队
+                  关于
                 </a>
                 <a
                   href="/collab"
                   className="hover:text-[var(--text-heading)] transition-colors"
                 >
-                  协作
+                  合作
                 </a>
                 <a
                   href="/insights"

@@ -378,7 +378,7 @@ export default function AdmissionPage() {
             <p className="text-sm text-[var(--text-body)] leading-relaxed max-w-2xl mb-6">
               回答以下 10 个问题，我们就知道你的方向值不值得继续。
               5 个基础诊断 + 5 个赛道评估，覆盖个人条件和方向可行性。
-              适合的直接告诉你推荐哪个协作模式，不适合的直接说原因。
+              适合的直接告诉你推荐哪个方案，不适合的直接说原因。
             </p>
             <div className="flex flex-wrap gap-2">
               <span className="text-xs text-[var(--color-accent)] bg-[var(--color-accent)]/10 px-3 py-1 rounded-full">Q1-Q5 基础诊断</span>
@@ -631,7 +631,7 @@ export default function AdmissionPage() {
                   href="/contact?plan=deep"
                   className="block w-full text-center bg-[var(--color-accent)] text-white font-medium text-sm px-6 py-3.5 rounded-lg hover:brightness-110 transition-all duration-200 mb-3"
                 >
-                  选择深度协作 →
+                  选择全托管方案 →
                 </a>
               )}
               {result.level === 'diagnosis' && (
@@ -639,7 +639,7 @@ export default function AdmissionPage() {
                   href="/contact?plan=diagnosis"
                   className="block w-full text-center bg-[var(--color-accent)] text-white font-medium text-sm px-6 py-3.5 rounded-lg hover:brightness-110 transition-all duration-200 mb-3"
                 >
-                  选择经营诊断 →
+                  选择陪跑计划 →
                 </a>
               )}
               {result.level === 'framework' && (
@@ -647,7 +647,7 @@ export default function AdmissionPage() {
                   href="/contact?plan=framework"
                   className="block w-full text-center bg-[var(--color-accent)] text-white font-medium text-sm px-6 py-3.5 rounded-lg hover:brightness-110 transition-all duration-200 mb-3"
                 >
-                  选择作业框架 →
+                  选择启动包 →
                 </a>
               )}
 

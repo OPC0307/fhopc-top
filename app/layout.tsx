@@ -21,7 +21,7 @@ export const metadata = {
     default: 'fhopc · 一人公司系统化交付',
     template: '%s | fhopc',
   },
-  description: '有行业经验，想自己干。剩下的，交给系统。',
+  description: '有行业经验，想自己干。产品你来，其他归我。',
   authors: [{ name: '一人公司系统化交付', url: 'https://fhopc.top' }],
   creator: 'fhopc',
   publisher: 'fhopc',
@@ -34,7 +34,7 @@ export const metadata = {
     locale: 'zh_CN',
     siteName: 'fhopc · 一人公司系统化交付',
     title: 'fhopc · 一人公司系统化交付',
-    description: '有行业经验，想自己干。剩下的，交给系统。',
+    description: '有行业经验，想自己干。产品你来，其他归我。',
     url: 'https://fhopc.top',
     images: [
       {
@@ -48,7 +48,7 @@ export const metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'fhopc · 一人公司系统化交付',
-    description: '有行业经验，想自己干。剩下的，交给系统。',
+    description: '有行业经验，想自己干。产品你来，其他归我。',
     images: ['/og-image.png'],
   },
   icons: {
