@@ -28,7 +28,7 @@ function getBlogPosts(): BlogPost[] {
   if (!fs.existsSync(BLOG_DIR)) return [];
   const files = fs.readdirSync(BLOG_DIR).filter(f => f.endsWith('.md'));
   files.sort().reverse();
-  return files.slice(0, 9).map(file => {
+  return files.slice(0, 13).map(file => {
     const fileSlug = file.replace('.md', '');
     const raw = fs.readFileSync(path.join(BLOG_DIR, file), 'utf-8');
     const { data } = matter(raw);

@@ -12,6 +12,7 @@ export const FILE_SLUG_MAP: Record<string, string> = {
   '2026-05-20-side-hustle-to-main': 'fu-ye-dao-zhu-ye',
   '2026-05-20-pricing-trap': 'ding-jia-xian-jing',
   '2026-05-20-decision-burden': 'jue-ce-dai-jia',
+  '2026-05-23-niche-selection-model': 'sai-dao-san-wei-du-mo-xing',
 };
 
 // Reverse: URL slug → file slug
