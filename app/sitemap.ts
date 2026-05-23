@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { FILE_SLUG_MAP } from '@/data/blog-slugs';
+import { provinces } from '@/data/policies';
 import type { MetadataRoute } from 'next';
 
 const BLOG_DIR = path.join(process.cwd(), 'content', 'blog');
@@ -37,5 +38,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   }
 
-  return [...staticPages, ...blogPages];
+  const policyPages: MetadataRoute.Sitemap = provinces.map(p => ({
+    url: `https://fhopc.top/policy/${p.slug}`,
+    changeFrequency: 'monthly' as const,
+    priority: p.category === 'national' || p.category === 'star-city' ? 0.8 : 0.7,
+  }));
+
+  return [...staticPages, ...blogPages, ...policyPages];
 }

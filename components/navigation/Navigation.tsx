@@ -7,6 +7,7 @@ const navItems = [
   { label: '关于', href: '/team' },
   { label: '合作', href: '/collab' },
   { label: '痛点', href: '/insights' },
+  { label: '政策', href: '/policy' },
   { label: '准入', href: '/admission' },
 ];
 
