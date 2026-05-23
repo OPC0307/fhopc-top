@@ -195,6 +195,44 @@ function getWeakPoints(scores: Record<string, number>): string[] {
   return points;
 }
 
+// === 工具栈推荐 ===
+
+type ToolItem = { category: string; tools: string; cost: string; note: string };
+
+function getToolStack(level: string): ToolItem[] {
+  if (level === 'deep') {
+    return [
+      { category: 'AI 模型', tools: 'Claude + ChatGPT', cost: '$40/月', note: '长文本写作、策略分析、编程协助' },
+      { category: '自动化', tools: 'n8n + Make', cost: '$20/月', note: '获客→内容→交付全链路自动化' },
+      { category: '内容创作', tools: 'Canva Pro + Midjourney', cost: '$20/月', note: '社媒素材、品牌视觉' },
+      { category: 'CRM 与获客', tools: 'HubSpot + LinkedIn', cost: '$50/月', note: '潜客管理、触达自动化' },
+      { category: '建站', tools: 'Vercel + 域名', cost: '$20/月', note: '产品主页、落地页托管' },
+      { category: '任务管理', tools: 'Notion', cost: '$10/月', note: '项目管理、知识库' },
+      { category: '合计', tools: '', cost: '~$160/月', note: '标准栈（可弹性扩展）' },
+    ];
+  }
+  if (level === 'diagnosis') {
+    return [
+      { category: 'AI 模型', tools: 'ChatGPT', cost: '$20/月', note: '日常文案、翻译、头脑风暴' },
+      { category: '自动化', tools: 'n8n（自托管）', cost: '免费', note: '基础工作流自动化' },
+      { category: '内容创作', tools: 'Canva 免费版 + Kimi', cost: '免费', note: '基础设计、中文内容分析' },
+      { category: 'CRM', tools: 'HubSpot 免费版', cost: '免费', note: '基础客户管理' },
+      { category: '建站', tools: 'Vercel + 开源', cost: '免费', note: '快速搭建验证' },
+      { category: '任务管理', tools: 'Notion 免费版', cost: '免费', note: '文档与任务管理' },
+      { category: '合计', tools: '', cost: '~$20/月', note: '极简栈（可逐步升级）' },
+    ];
+  }
+  // framework (启动包)
+  return [
+    { category: 'AI 模型', tools: 'DeepSeek API', cost: '~$10/月', note: '低成本、批量内容生成' },
+    { category: '自动化', tools: 'n8n（自托管）', cost: '免费', note: '至少一个基础自动化流程' },
+    { category: '内容创作', tools: 'Kimi', cost: '免费', note: '中文长文本写作' },
+    { category: '建站', tools: 'Vercel + 开源', cost: '免费', note: 'MVP 落地页' },
+    { category: '任务', tools: 'Notion 免费版', cost: '免费', note: '记录与追踪' },
+    { category: '合计', tools: '', cost: '~$10/月', note: '极简栈（方向验证阶段，不投工具）' },
+  ];
+}
+
 // === 方向评分 ===
 
 function scoreDirectionText(direction: string): number {
@@ -266,6 +304,7 @@ export async function POST(request: NextRequest) {
         planPrice: '¥2,200/月',
         summary: '你的方向和条件经过验证，成熟度较高。推荐全托管——你只管产品，合规、财税、内容、获客、交付，系统自动跑完。',
       },
+      toolStack: getToolStack('deep'),
       weakPoints,
       feedback: '综合评分优秀。你的方向清晰，个人条件充分，赛道评估显示可行。建议直接进入全托管阶段。',
     });
@@ -297,6 +336,7 @@ export async function POST(request: NextRequest) {
         planPrice: '¥1,500/月',
         summary: '你有基础条件和明确方向，推荐从陪跑计划开始——每月盯数据、调方向，哪里在漏哪里在赚，数据说话。',
       },
+      toolStack: getToolStack('diagnosis'),
       weakPoints,
       feedback,
     });
@@ -334,6 +374,7 @@ export async function POST(request: NextRequest) {
       planPrice: '¥3,800（一次性）',
       summary: '方向需要先验证。推荐从启动包开始——30 天执行路径 + 工具包，系统搭好你照着跑。',
     },
+    toolStack: getToolStack('framework'),
     weakPoints,
     feedback,
     adjustments,

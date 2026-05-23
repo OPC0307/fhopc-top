@@ -19,6 +19,13 @@ type FormData = {
   fit: string;
 };
 
+type ToolItem = {
+  category: string;
+  tools: string;
+  cost: string;
+  note: string;
+};
+
 type ResultData = {
   score: number;
   maxScore: number;
@@ -29,6 +36,7 @@ type ResultData = {
     planPrice: string;
     summary: string;
   } | null;
+  toolStack?: ToolItem[];
   weakPoints: string[];
   feedback: string;
   adjustments?: string[];
@@ -623,6 +631,24 @@ export default function AdmissionPage() {
                   <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
                     {result.recommendation.summary}
                   </p>
+                </div>
+              )}
+
+              {/* Tool Stack */}
+              {result.toolStack && (
+                <div className="border border-[var(--border-default)] rounded-lg p-6 mb-6">
+                  <p className="text-xs font-semibold text-[var(--text-heading)] mb-3">推荐工具配置</p>
+                  <p className="text-xs text-[var(--text-tertiary)] mb-4">根据你的阶段推荐的工具栈，不用一步到位，按需添置。</p>
+                  <div className="divide-y divide-[var(--border-default)]">
+                    {result.toolStack.map((item) => (
+                      <div key={item.category} className={`flex items-start gap-4 py-2.5 ${item.category === '合计' ? 'font-medium' : ''}`}>
+                        <span className="text-xs text-[var(--text-secondary)] w-20 shrink-0">{item.category}</span>
+                        {item.tools && <span className="text-xs text-[var(--text-heading)] w-28 shrink-0">{item.tools}</span>}
+                        <span className="text-xs text-[var(--color-accent)] w-20 shrink-0">{item.cost}</span>
+                        {item.note && <span className="text-xs text-[var(--text-tertiary)]">{item.note}</span>}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               )}
 
