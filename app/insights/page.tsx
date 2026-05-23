@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 import { FILE_SLUG_MAP } from '@/data/blog-slugs';
+import { CASES, type CaseData } from '@/data/cases';
 
 const BLOG_DIR = path.join(process.cwd(), 'content', 'blog');
 
@@ -74,10 +75,11 @@ export default function InsightsPage() {
       <div className="max-w-[1080px] mx-auto md:border-x md:border-[var(--border-default)]">
         <section className="py-32 md:py-40">
           <div className="px-8">
-            <div className="section-label">痛点与案例</div>
-            <h1 className="text-[2rem] md:text-[2.5rem] font-heading font-bold tracking-tight text-[var(--text-heading)] mb-4">自己干遇到的那些坑</h1>
-            <p className="text-base md:text-lg text-[var(--text-secondary)] max-w-xl mb-2">方向看不清、技术听不懂、结果不确定——每个痛点，一篇千字解读。</p>
-            <p className="text-sm text-[var(--text-tertiary)]">持续更新，不追热点。每篇一个真实卡点，让你少踩一个坑。</p>
+            <div className="section-label">诊断与行动</div>
+            <h1 className="text-[2rem] md:text-[2.5rem] font-heading font-bold tracking-tight text-[var(--text-heading)] mb-4">看完文章，然后做什么？</h1>
+            <p className="text-base md:text-lg text-[var(--text-secondary)] max-w-xl mb-2">每篇文章讲一个一人公司的真实卡点。读完之后，你需要的不是一个答案，是一个针对你个人情况的判断。</p>
+            <p className="text-sm text-[var(--text-tertiary)] mb-8">持续更新，不追热点。每篇一个诊断方向。</p>
+            <a href="/admission" className="inline-flex items-center gap-2 bg-[var(--color-foreground)] text-[var(--color-background)] px-6 py-3 rounded-md font-medium text-sm hover:bg-[var(--color-accent)] transition-colors">先评估你的方向 →</a>
           </div>
         </section>
 
@@ -92,7 +94,7 @@ export default function InsightsPage() {
                     <p className="text-sm text-[var(--text-body)] leading-relaxed mb-3">{post.summary}</p>
                     <div className="flex items-center gap-4 text-xs text-[var(--text-tertiary)]">
                       <span>{post.date}</span><span>·</span><span>约 {post.readTime}</span>
-                      <a href={`/content/blog/${post.slug}`} className="text-[var(--color-accent)] hover:underline">[阅读 →]</a>
+                      <a href={`/content/blog/${post.slug}`} className="text-[var(--color-accent)] hover:underline">[诊断 →]</a>
                     </div>
                   </div>
                 ))}
@@ -104,24 +106,9 @@ export default function InsightsPage() {
         <section className="border-t border-[var(--border-default)]">
           <div className="container-content py-20">
             <h2 className="text-[1.125rem] font-heading font-semibold text-[var(--text-heading)] mb-8">真实案例</h2>
-            <CaseStudy
-              title="案例一：独立数据分析师" subtitle="从月入三万到一万，再回来。"
-              paragraphs={['"我想自己干，但我不知道从哪开始。"','他做了九年数据分析，想独立。我们做了评估，建议暂缓。他说等不了。','第一个月，靠老客户吃三万。他觉得成了。第三个月，流尽，剩一万。他回头了，这次听了诊断。','花了三个月搭系统——自动化数据采集、标准化交付模板、客户续费机制。第十一个月，回到三万。这次，三万是他的系统在转。']}
-              keyPoint="关键转折：从卖时间到卖系统。" dataSource="创始人自述 + 经营审计跟踪（2025.6-2026.4）"
-              deliverables={['赛道评估报告','自动化数据采集系统','标准化交付模板','客户续费机制']} referral="交付完成后推荐了 2 位同行客户"
-            />
-            <CaseStudy
-              title="案例二：内容创作者" subtitle="两万粉丝，月入两千。"
-              paragraphs={['她有内容能力，有稳定粉丝，但没有收入结构。问题不在内容质量，在变现路径太单一。','我们用经营审计拆了她的时间账：70% 时间在创作，15% 在运营，10% 在商务，5% 在复盘。收入全部来自单次广告，没有复购，没有订阅，没有产品。','调整方案用了三个月：每周分流 15% 时间做产品化内容；从广告收入切到 70% 订阅 + 20% 增值 + 10% 广告；自动化工具链覆盖内容分发和客户跟进。','第四个月，粉丝没涨，收入翻倍。']}
-              keyPoint="关键转折：流量不重要，收入结构才重要。" dataSource="创始人经营审计报告 + 收入结构拆解（2026.1-2026.4）"
-              deliverables={['收入结构诊断报告','产品化内容模板','订阅+增值+广告三层变现模型','自动化分发与跟单系统']} referral="第四个月续费率 35%，启动了付费社群内测"
-            />
-            <CaseStudy
-              title="案例三：电商独立卖家" subtitle="首发亏三万，第三个月止亏。"
-              paragraphs={['他说，这是他的第三次创业。前两次做了三年，难走，弃了。这次选品对了——宠物智能用品，他也算有供应链底子。问题是：成本没控住、流量靠买、复购率接近零。','入局姿势就有问题：首发砸了三万在货和投流上。第一周出了一百单，看着热闹，一算账：每单亏十五。','我们花了三天做经营审计。数据拆解：单品毛利 35%，但物流和退货吃掉了 12%；流量 80% 依赖平台竞价，自然流不到 20%；首单客户回访率为零——卖了就没有然后了。','三个月调整方案：产品线压到 3 个 SKU，集中供应链议价；自然流运营：客户好评引导+内容投流，竞价预算砍半；建立复购机制：随单插入返现卡 + 三个月续费提醒自动触发。','第五个月，月利润覆盖了首发的全部亏损。从亏到盈不是因为做对了哪一件事，是五个地方都调了半格。']}
-              keyPoint="转折链：选品→成本结构→流量渠道→复购机制。" dataSource="经营审计跟踪 + 财务数据（2026.1-2026.5）"
-              deliverables={['经营审计报告','SKU 精简与供应链议价方案','自然流运营 SOP','复购自动触发系统']} referral="第五个月转介绍率 12%，启动了分销机制"
-            />
+            {CASES.map((c) => (
+              <CaseStudy key={c.id} title={c.title} subtitle={c.subtitle} paragraphs={c.paragraphs} keyPoint={c.keyPoint} dataSource={c.dataSource} referral={c.referral} />
+            ))}
           </div>
         </section>
 

@@ -66,19 +66,35 @@ export default function Home() {
   const [heroVisible, setHeroVisible] = useState(false);
   useEffect(() => { setHeroVisible(true); }, []);
 
+  const offers = [
+    { label: '01', title: '全栈Agent员工入职方案', desc: '一人公司的Agent员工——从内容生产到获客跟进，全栈配置入职即用。' },
+    { label: '02', title: '超级个体自动化SOP搭建', desc: '把你的业务流程写成标准作业程序，交给系统自动跑。' },
+    { label: '03', title: 'OPC落地跑通首个MVP', desc: '从0到第一笔收入，孵化陪跑帮你走完最难的一段。' },
+  ];
+
   return (
     <div className="min-h-screen bg-[var(--color-background)]">
       <div className="max-w-[1080px] mx-auto md:border-x md:border-[var(--border-default)]">
         <section className="py-32 md:py-40">
           <div className="px-8">
             <div className="max-w-3xl">
-              <div className={`text-xs font-semibold text-[var(--color-accent)] mb-6 tracking-widest transition-all duration-800 ease-helio ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>一人公司 · 系统化交付</div>
-              <h1 className={`text-[2.5rem] md:text-[3rem] lg:text-[3.5rem] font-heading font-bold tracking-tight leading-[1.15] text-[var(--text-heading)] mb-3 transition-all duration-800 ease-helio ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>有行业经验，想自己干。</h1>
-              <p className={`text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-heading font-bold tracking-tight leading-[1.15] text-[var(--text-heading)] mb-6 transition-all duration-800 ease-helio delay-75ms ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>产品你来，<span className="text-[var(--color-accent)]">其他归我</span>。</p>
-              <p className={`text-base text-[var(--text-secondary)] max-w-xl mb-8 leading-relaxed transition-all duration-800 ease-helio delay-150ms ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>合规、财税、内容、获客、交付——一个人开公司需要的所有配套，一套系统自动跑完。你只需要做你最擅长的那件事。</p>
+              <p className={`text-xs font-semibold text-[var(--color-accent)] mb-6 tracking-widest transition-all duration-800 ease-helio ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>2026年 · OPC元年</p>
+              <h1 className={`text-[2rem] md:text-[2.5rem] lg:text-[3rem] font-heading font-bold tracking-tight leading-[1.2] text-[var(--text-heading)] mb-4 transition-all duration-800 ease-helio ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>有行业经验，想自己干。<br/>产品你来，<span className="text-[var(--color-accent)]">其他归系统</span>。</h1>
+              <p className={`text-sm text-[var(--text-secondary)] mb-12 max-w-lg transition-all duration-800 ease-helio delay-75ms ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>一人公司不是一个人干所有事——是一套系统替你跑完杂事，你只做你最擅长的。</p>
+              <div className={`space-y-4 mb-12 transition-all duration-800 ease-helio delay-150ms ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+                {offers.map((offer, i) => (
+                  <div key={offer.label} className="flex items-start gap-4 group cursor-default">
+                    <span className="text-xs font-semibold text-[var(--text-tertiary)] tabular-nums mt-0.5 shrink-0">{offer.label}</span>
+                    <div>
+                      <h3 className="text-sm font-semibold text-[var(--text-heading)] mb-0.5">{offer.title}</h3>
+                      <p className="text-xs text-[var(--text-body)] leading-relaxed">{offer.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
               <div className={`flex flex-wrap gap-3 transition-all duration-800 ease-helio delay-200ms ${heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-                <a href="/admission" className="inline-flex items-center gap-2 bg-[var(--color-foreground)] text-[var(--color-background)] px-6 py-3 rounded-md font-medium text-sm hover:bg-[var(--color-accent)] transition-colors">免费评估 →</a>
-                <a href="/collab" className="inline-flex items-center gap-2 border border-[var(--border-default)] text-[var(--text-secondary)] px-6 py-3 rounded-md font-medium text-sm hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors">看怎么合作</a>
+                <a href="/admission" className="inline-flex items-center gap-2 bg-[var(--color-foreground)] text-[var(--color-background)] px-6 py-3 rounded-md font-medium text-sm hover:bg-[var(--color-accent)] transition-colors">测一测你适合哪套方案 →</a>
+                <a href="/collab" className="inline-flex items-center gap-2 border border-[var(--border-default)] text-[var(--text-secondary)] px-6 py-3 rounded-md font-medium text-sm hover:border-[var(--color-accent)] hover:text-[var(--color-accent)] transition-colors">看方案详情</a>
               </div>
             </div>
           </div>
@@ -87,9 +103,9 @@ export default function Home() {
           <div className="px-8 pb-16"><div className="max-w-2xl"><SectionLabel>你现在的困惑</SectionLabel><SectionTitle>一个人做决定，最难的不是做什么，而是不知道对不对</SectionTitle></div></div>
           <div className="border-t border-[var(--border-default)]">
             <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[var(--border-default)]">
-              <div className="group p-8 hover:bg-[var(--btn-hover)] transition-colors animate-fade-in-up"><h3 className="text-[1.125rem] font-heading font-semibold text-[var(--text-heading)] mb-2">方向看不清</h3><p className="text-sm text-[var(--text-body)] leading-relaxed">市面上赛道分析很多，不知道哪个适合你。不是信息不够，是没人帮你判断该走哪条。</p></div>
-              <div className="group p-8 hover:bg-[var(--btn-hover)] transition-colors animate-fade-in-up" style={{animationDelay:'150ms'}}><h3 className="text-[1.125rem] font-heading font-semibold text-[var(--text-heading)] mb-2">技术听不懂</h3><p className="text-sm text-[var(--text-body)] leading-relaxed">AI、工具、自动化——听起来对，但不知道跟你有什么关系。不是技术难，是没人翻译成你的业务语言。</p></div>
-              <div className="group p-8 hover:bg-[var(--btn-hover)] transition-colors animate-fade-in-up" style={{animationDelay:'300ms'}}><h3 className="text-[1.125rem] font-heading font-semibold text-[var(--text-heading)] mb-2">结果不确定</h3><p className="text-sm text-[var(--text-body)] leading-relaxed">做了一段时间，有效果吗？不知道。哪里在亏哪里在赚？也不知道。不是你不努力，是没有审计系统。</p></div>
+              <div className="group p-8 hover:bg-[var(--btn-hover)] transition-colors animate-fade-in-up"><a href="/admission"><h3 className="text-[1.125rem] font-heading font-semibold text-[var(--text-heading)] mb-2">方向看不清</h3><p className="text-sm text-[var(--text-body)] leading-relaxed">市面上赛道分析很多，不知道哪个适合你。不是信息不够，是没人帮你判断该走哪条。</p></a></div>
+              <div className="group p-8 hover:bg-[var(--btn-hover)] transition-colors animate-fade-in-up" style={{animationDelay:'150ms'}}><a href="/admission"><h3 className="text-[1.125rem] font-heading font-semibold text-[var(--text-heading)] mb-2">技术听不懂</h3><p className="text-sm text-[var(--text-body)] leading-relaxed">AI、工具、自动化——听起来对，但不知道跟你有什么关系。不是技术难，是没人翻译成你的业务语言。</p></a></div>
+              <div className="group p-8 hover:bg-[var(--btn-hover)] transition-colors animate-fade-in-up" style={{animationDelay:'300ms'}}><a href="/admission"><h3 className="text-[1.125rem] font-heading font-semibold text-[var(--text-heading)] mb-2">结果不确定</h3><p className="text-sm text-[var(--text-body)] leading-relaxed">做了一段时间，有效果吗？不知道。哪里在亏哪里在赚？也不知道。不是你不努力，是没有审计系统。</p></a></div>
             </div>
           </div>
         </section>

@@ -170,7 +170,10 @@ export default async function BlogPostPage({
           <section className="py-20 border-t border-[var(--border-default)]">
             <div className="container-content text-center">
               <p className="text-sm text-[var(--text-heading)] font-medium mb-6">
-                评估你的方向 →
+                这篇文章讲的是别人的情况
+              </p>
+              <p className="text-sm text-[var(--text-secondary)] mb-6">
+                填 10 个问题，看看你是什么情况 →
               </p>
               <a
                 href="/admission"

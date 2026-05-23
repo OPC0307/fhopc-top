@@ -1,6 +1,6 @@
 ---
 title: "2026年，一人公司的第一个员工不是人"
-date: 2026-05-20
+date: 2026-05-21
 summary: "Google I/O 发布了 Gemini Spark（全天候AI代理），你不再需要招人了。启动一人公司的条件变了。"
 tags: [一人公司, AI, 启动, 成本]
 readTime: "6 分钟"
