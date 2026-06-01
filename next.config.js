@@ -14,9 +14,12 @@ const nextConfig = {
       { source: '/privacy.html', destination: '/privacy', permanent: true },
       { source: '/terms.html', destination: '/terms', permanent: true },
 
-      // 博客重定向（旧 .html → 新 /content/blog/[slug]）
+      // 博客重定向
       { source: '/blog/posts/2026-05-31-second-brain-opc-2026.html', destination: '/content/blog/di-er-da-nao', permanent: true },
       { source: '/blog/posts/:path*', destination: '/insights', permanent: false },
+      // /blog → 内容博客
+      { source: '/blog', destination: '/insights', permanent: true },
+      { source: '/blog/:path*', destination: '/insights', permanent: false },
     ];
   },
 

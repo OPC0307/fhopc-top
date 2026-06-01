@@ -21,7 +21,7 @@ export const metadata = {
     default: 'fhopc · 一人公司系统化交付',
     template: '%s | fhopc',
   },
-  description: '有行业经验，想自己干。产品你来，其他归我。',
+  description: '一人公司系统化交付伙伴。有行业经验想自己干？从方向验证、公司注册、补贴申领到获客交付，7个节点全程陪跑。不画饼，给方案。',
   authors: [{ name: '一人公司系统化交付', url: 'https://fhopc.top' }],
   creator: 'fhopc',
   publisher: 'fhopc',
@@ -34,7 +34,7 @@ export const metadata = {
     locale: 'zh_CN',
     siteName: 'fhopc · 一人公司系统化交付',
     title: 'fhopc · 一人公司系统化交付',
-    description: '有行业经验，想自己干。产品你来，其他归我。',
+    description: '一人公司系统化交付伙伴。有行业经验想自己干？从方向验证到获客交付全程陪跑。先免费评估你的方向可行性。',
     url: 'https://fhopc.top',
     images: [
       {

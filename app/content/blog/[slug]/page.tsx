@@ -9,6 +9,24 @@ import { SLUG_MAP } from '@/data/blog-slugs';
 import { BlogPostingJsonLd } from '@/components/JsonLd';
 
 const BLOG_DIR = path.join(process.cwd(), 'content', 'blog');
+import { FILE_SLUG_MAP } from '@/data/blog-slugs';
+
+function getRelatedPosts(currentSlug: string, count: number = 3) {
+  if (!fs.existsSync(BLOG_DIR)) return [];
+  const files = fs.readdirSync(BLOG_DIR).filter(f => f.endsWith('.md')).sort().reverse();
+  const currentFileSlug = SLUG_MAP[currentSlug];
+  const related = files.filter(f => f.replace('.md', '') !== currentFileSlug).slice(0, count);
+  return related.map(file => {
+    const fileSlug = file.replace('.md', '');
+    const raw = fs.readFileSync(path.join(BLOG_DIR, file), 'utf-8');
+    const { data } = matter(raw);
+    return {
+      slug: FILE_SLUG_MAP[fileSlug] || fileSlug,
+      title: data.title || '',
+      summary: data.summary || '',
+    };
+  });
+}
 
 function getBlogPost(slug: string) {
   const fileSlug = SLUG_MAP[slug];
@@ -79,6 +97,7 @@ export default async function BlogPostPage({
   const { slug } = await params;
   const post = getBlogPost(slug);
   if (!post) notFound();
+  const relatedPosts = getRelatedPosts(slug);
 
   return (
     <>
@@ -88,6 +107,23 @@ export default async function BlogPostPage({
           {/* Article */}
           <article className="py-32 md:py-40">
             <div className="px-8 max-w-2xl mx-auto">
+              {/* Breadcrumb */}
+              <nav className="text-xs text-[var(--text-tertiary)] mb-6 flex items-center gap-2" itemScope itemType="https://schema.org/BreadcrumbList">
+                <span itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
+                  <a href="/" itemProp="item" className="hover:text-[var(--text-heading)] transition-colors"><span itemProp="name">首页</span></a>
+                  <meta itemProp="position" content="1" />
+                </span>
+                <span>/</span>
+                <span itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
+                  <a href="/insights" itemProp="item" className="hover:text-[var(--text-heading)] transition-colors"><span itemProp="name">博客</span></a>
+                  <meta itemProp="position" content="2" />
+                </span>
+                <span>/</span>
+                <span itemProp="itemListElement" itemScope itemType="https://schema.org/ListItem">
+                  <span itemProp="name" className="text-[var(--text-secondary)]">{post.title}</span>
+                  <meta itemProp="position" content="3" />
+                </span>
+              </nav>
               <h1 className="text-[2rem] md:text-[2.5rem] font-heading font-bold tracking-tight text-[var(--text-heading)] mb-4">
                 {post.title}
               </h1>
@@ -165,6 +201,25 @@ export default async function BlogPostPage({
               </div>
             </div>
           </article>
+
+          {/* Related Articles */}
+          {relatedPosts.length > 0 && (
+            <section className="border-t border-[var(--border-default)] py-16">
+              <div className="px-8 max-w-2xl mx-auto">
+                <h2 className="text-[1rem] font-heading font-semibold text-[var(--text-heading)] mb-6">继续阅读</h2>
+                <div className="space-y-6">
+                  {relatedPosts.map((rp) => (
+                    <div key={rp.slug}>
+                      <a href={`/content/blog/${rp.slug}`} className="text-sm font-medium text-[var(--text-heading)] hover:text-[var(--color-accent)] transition-colors">
+                        {rp.title}
+                      </a>
+                      <p className="text-xs text-[var(--text-tertiary)] mt-1 line-clamp-2">{rp.summary}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+          )}
 
           {/* CTA */}
           <section className="py-20 border-t border-[var(--border-default)]">
