@@ -1,0 +1,31 @@
+name: SEO Check
+
+on:
+  deployment_status:
+  schedule:
+    - cron: '0 6 * * 1'  # 每周一早上6点
+
+jobs:
+  seo:
+    if: github.event_name == 'schedule' || github.event.deployment_status.state == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci
+      - name: SEO Health Check
+        run: node scripts/check-seo.mjs
+      - name: Notify on failures
+        if: failure()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const issue = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '⚠️ SEO 检查失败',
+              body: '自动 SEO 检查发现了问题，请查看 Actions 日志。',
+            });
+            console.log(`Created issue #${issue.data.number}`);
