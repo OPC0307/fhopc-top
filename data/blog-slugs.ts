@@ -19,6 +19,8 @@ export const FILE_SLUG_MAP: Record<string, string> = {
   '2026-05-30-customer-acquisition': 'ke-hu-cong-na-lai',
   '2026-05-30-failure-cases': 'shi-bai-an-li-fu-pan',
   '2026-05-31-second-brain-opc-2026': 'di-er-da-nao',
+  '2026-06-02-midyear-checklist': 'nian-zhong-zi-cha',
+  '2026-06-02-three-truths-midyear': 'san-ge-zhen-xiang',
 };
 
 // Reverse: URL slug → file slug
