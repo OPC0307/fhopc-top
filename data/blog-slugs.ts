@@ -21,6 +21,7 @@ export const FILE_SLUG_MAP: Record<string, string> = {
   '2026-05-31-second-brain-opc-2026': 'di-er-da-nao',
   '2026-06-02-midyear-checklist': 'nian-zhong-zi-cha',
   '2026-06-02-three-truths-midyear': 'san-ge-zhen-xiang',
+  '2026-06-03-ai-tools-change-opc': 'ai-tools-change-opc',
 };
 
 // Reverse: URL slug → file slug
