@@ -22,6 +22,8 @@ export const FILE_SLUG_MAP: Record<string, string> = {
   '2026-06-02-midyear-checklist': 'nian-zhong-zi-cha',
   '2026-06-02-three-truths-midyear': 'san-ge-zhen-xiang',
   '2026-06-03-ai-tools-change-opc': 'ai-tools-change-opc',
+  '2026-06-03-factory-legacy-opc': 'gong-si-jie-ban',
+  '2026-06-03-ai-tools-change-opc': 'ai-tools-change-opc',
   '2026-06-04-customer-acquisition-channels': 'huo-ke-qu-dao',
   '2026-06-05-mvp-verification': 'mvp-yan-zheng',
   '2026-06-06-ai-agent-one-company': 'ai-agent-yi-ren-gong-si',
