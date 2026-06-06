@@ -24,6 +24,9 @@ export const FILE_SLUG_MAP: Record<string, string> = {
   '2026-06-03-ai-tools-change-opc': 'ai-tools-change-opc',
   '2026-06-04-customer-acquisition-channels': 'huo-ke-qu-dao',
   '2026-06-05-mvp-verification': 'mvp-yan-zheng',
+  '2026-06-06-ai-agent-one-company': 'ai-agent-yi-ren-gong-si',
+  '2026-06-06-ai-side-hustles-2026': '2026-nian-zhi-de-zuo-de-5-ge-ai-fu-ye',
+  '2026-06-06-one-person-AI-million': 'yi-ge-ren-ru-he-yong-AI-nian-ru-bai-wan',
 };
 
 // Reverse: URL slug → file slug
