@@ -1,4 +1,4 @@
-// FileSlug → URL slug mapping
+// FileSlug -> URL slug mapping
 export const FILE_SLUG_MAP: Record<string, string> = {
   '2026-05-17-swimming': 'zhen-shi-zha-ji',
   '2026-05-18-time-trap': 'shi-jian-hei-dong',
@@ -23,15 +23,17 @@ export const FILE_SLUG_MAP: Record<string, string> = {
   '2026-06-02-three-truths-midyear': 'san-ge-zhen-xiang',
   '2026-06-03-ai-tools-change-opc': 'ai-tools-change-opc',
   '2026-06-03-factory-legacy-opc': 'gong-si-jie-ban',
-  '2026-06-03-ai-tools-change-opc': 'ai-tools-change-opc',
   '2026-06-04-customer-acquisition-channels': 'huo-ke-qu-dao',
   '2026-06-05-mvp-verification': 'mvp-yan-zheng',
   '2026-06-06-ai-agent-one-company': 'ai-agent-yi-ren-gong-si',
   '2026-06-06-ai-side-hustles-2026': '2026-nian-zhi-de-zuo-de-5-ge-ai-fu-ye',
   '2026-06-06-one-person-AI-million': 'yi-ge-ren-ru-he-yong-AI-nian-ru-bai-wan',
+  '2026-06-10-first-product': 'yi-ren-gong-si-di-yi-ge-chan-pin',
+  '2026-06-10-ai-opc-2026-h2-trends': 'ai-yi-ren-gong-sia-2026-xia-ban-nian-qu-shi',
+  '2026-06-11-time-management': 'yi-ren-gong-si-de-shi-jian-guan-li',
 };
 
-// Reverse: URL slug → file slug
+// Reverse: URL slug -> file slug
 export const SLUG_MAP: Record<string, string> = Object.fromEntries(
   Object.entries(FILE_SLUG_MAP).map(([k, v]) => [v, k]),
 );
