@@ -23,6 +23,8 @@ export const FILE_SLUG_MAP: Record<string, string> = {
   '2026-06-02-three-truths-midyear': 'san-ge-zhen-xiang',
   '2026-06-03-ai-tools-change-opc': 'ai-tools-change-opc',
   '2026-06-03-factory-legacy-opc': 'gong-si-jie-ban',
+  '2026-06-10-first-product': 'yi-ren-gong-si-di-yi-ge-chan-pin',
+  '2026-06-10-ai-opc-2026-h2-trends': 'ai-yi-ren-gong-sia-2026-xia-ban-nian-qu-shi',
 };
 
 // Reverse: URL slug → file slug
